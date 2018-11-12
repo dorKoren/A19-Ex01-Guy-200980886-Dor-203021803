@@ -27,18 +27,18 @@ namespace DesktopFacebook
 
         internal void SaveToFile()
         {
-            using (Stream stream = new FileStream(@"D\appSetting.xml", FileMode.Truncate))
+            using (Stream stream = new FileStream(@"C:\Users\dorko\Desktop\appSettings.xml", FileMode.Truncate))
             {
                 XmlSerializer serializer = new XmlSerializer(this.GetType());
                 serializer.Serialize(stream, this);           
             }
         }
 
-        internal AppSettings LoadFromFile()
+        internal static AppSettings LoadFromFile()
         {
             AppSettings obj = null;
 
-            using (Stream stream = new FileStream(@"D:\appSettings.xml", FileMode.Open))
+            using (Stream stream = new FileStream(@"C:\Users\dorko\Desktop\appSettings.xml", FileMode.Open))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(AppSettings));
                 obj = serializer.Deserialize(stream) as AppSettings;

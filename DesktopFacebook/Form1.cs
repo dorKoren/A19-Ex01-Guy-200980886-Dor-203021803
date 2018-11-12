@@ -25,8 +25,7 @@ namespace DesktopFacebook
         {
             InitializeComponent();
 
-            m_AppSettings = new AppSettings();
-            m_AppSettings.LoadFromFile();
+            m_AppSettings = AppSettings.LoadFromFile();
 
             checkBoxRememberUser.Checked = m_AppSettings.RememberUser;
 
