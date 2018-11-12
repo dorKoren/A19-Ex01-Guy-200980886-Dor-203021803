@@ -9,18 +9,53 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Facebook;
 using FacebookWrapper;
+using FacebookWrapper.ObjectModel;
+using static DesktopFacebook.BirthdayWish;
+using static DesktopFacebook.AppSettings;
 
 namespace DesktopFacebook
 {
     public partial class mainForm : Form
     {
-        private LoginResult m_LoginResult { get; set; }
-        private FacebookWrapper.ObjectModel.User m_LoggetInUser;
-
-
+        public LoginResult m_LoginResult;
+        public User        m_LoggedInUser;
+        public AppSettings m_AppSettings;
+        
         public mainForm()
         {
             InitializeComponent();
+
+            m_AppSettings = new AppSettings();
+            m_AppSettings.LoadFromFile();
+
+            checkBoxRememberUser.Checked = m_AppSettings.RememberUser;
+
+            if (m_AppSettings.RememberUser &&
+                !string.IsNullOrEmpty(m_AppSettings.LastAccessToken))
+            {
+                FacebookService.Connect(m_AppSettings.LastAccessToken);
+                fetchUserInfo();
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            m_AppSettings.RememberUser    = checkBoxRememberUser.Checked;
+            m_AppSettings.LastAccessToken = m_LoginResult.AccessToken;
+            //AppSettings.LastUserBirthdayDictionary = checkedListBoxWishes.Items;  // DOR - ask balmas.
+
+            if (m_AppSettings.RememberUser)
+            {
+                m_AppSettings.LastAccessToken = m_LoginResult.AccessToken;
+            }
+            else
+            {
+                m_AppSettings.LastAccessToken = null;
+            }
+
+            m_AppSettings.SaveToFile();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -30,16 +65,54 @@ namespace DesktopFacebook
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            m_LoginResult = FacebookService.Login(
+            loginAndInit();      
+        }
+
+        private void loginAndInit()
+        {
+            m_LoginResult = FacebookService.Login(     // DOR maybe we should create session class for the login & connect... 
                 "2121776861417547",
                 "user_birthday",
                 "user_photos");
 
-            m_LoggetInUser = m_LoginResult.LoggedInUser;
-            this.Text = "Logged in as " + m_LoggetInUser.FirstName + " " + m_LoggetInUser.LastName;
-            labelAccountName.Text = m_LoggetInUser.FirstName + " " + m_LoggetInUser.LastName;
-            pictureBoxUser.ImageLocation = m_LoggetInUser.PictureNormalURL;
-            buttonLogin.Text = "Log out";
+            if (!string.IsNullOrEmpty(m_LoginResult.AccessToken))
+            {
+                m_LoggedInUser = m_LoginResult.LoggedInUser;
+                fetchUserInfo();
+            }
+            else
+            {
+                MessageBox.Show(m_LoginResult.ErrorMessage);
+            }
+        }
+
+        private void fetchUserInfo()
+        {
+            m_LoggedInUser = m_LoginResult.LoggedInUser;
+            Text = "Logged in as " + m_LoggedInUser.FirstName + " " + m_LoggedInUser.LastName;
+            labelAccountName.Text = m_LoggedInUser.FirstName + " " + m_LoggedInUser.LastName;
+            pictureBoxUser.ImageLocation = m_LoggedInUser.PictureNormalURL;
+            buttonLogin.Text = "Log out";          
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkedListBoxWishes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxRememberUser_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

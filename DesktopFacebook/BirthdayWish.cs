@@ -8,41 +8,38 @@ using Facebook;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 
+
 namespace DesktopFacebook
 {
     internal class BirthdayWish
     {
         private static readonly int sr_NumOfDays = 365;
-        private Birthday[] m_BirthdayFriends { get; set; }
+        private BirthdayNode[] BirthdayFriends { get; set; }
 
         internal BirthdayWish()
         {
-            m_BirthdayFriends = new Birthday[sr_NumOfDays];
-            initBirthdayFriends();
+            BirthdayFriends = new BirthdayNode[sr_NumOfDays];
+            initBirthdays();
         }
 
-        private void initBirthdayFriends()
+        private void initBirthdays()
         {
-            DateTime today = new DateTime(2018, 1, 1);
-
-            foreach(Birthday currentDay in m_BirthdayFriends)
+            DateTime today = new DateTime(2018, 1, 1);                  // DOR Need to check for a more ellegant way
+            
+            foreach(BirthdayNode currentDay in BirthdayFriends)
             {
-                currentDay.m_Date = today;
+                currentDay.Date = today;
                 today.AddDays(1);
             }
         }
 
-        internal class Birthday
+        private void FillBirthdays(User i_LoggedInUser)
         {
-            internal DateTime m_Date { get; set; }
-            internal List<User> m_BirthdayFriends { get; set; }
-
-
-            internal Birthday(DateTime i_Date)
+            foreach (User friend in i_LoggedInUser.Friends)
             {
-                m_Date = i_Date;
-                m_BirthdayFriends = new List<User>();
-            }        
-        }
+                DateTime birthday = DateTime.Parse(friend.Birthday);
+                BirthdayFriends[birthday.DayOfYear].BirthdayFriends.Add(friend);
+            }
+        }        
     }
 }
