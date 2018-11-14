@@ -27,9 +27,20 @@ namespace DesktopFacebook
         {
             InitializeComponent();
 
-            m_AppSettings = AppSettings.LoadFromFile();
+            // This is the first time this (or ANY?) User login to the app
+            if (m_IsFirstLogin)
+            {
+                m_AppSettings = new AppSettings();
+                m_AppSettings.RememberUser = false;
+                m_IsFirstLogin = false;
+            }
 
-            checkBoxRememberUser.Checked = m_AppSettings.RememberUser;
+            // This User is the last user to login
+            else
+            {
+                m_AppSettings = AppSettings.LoadFromFile();
+                checkBoxRememberUser.Checked = m_AppSettings.RememberUser;          
+            }
 
             if (m_AppSettings.RememberUser &&
                     !string.IsNullOrEmpty(m_AppSettings.LastAccessToken))
