@@ -33,10 +33,10 @@
             this.labelAccountName = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.buttonSendBirthdayWish = new System.Windows.Forms.Button();
-            this.textBoxWish = new System.Windows.Forms.TextBox();
             this.checkedListBoxWishes = new System.Windows.Forms.CheckedListBox();
+            this.textBoxWish = new System.Windows.Forms.TextBox();
+            this.buttonSendBirthdayWish = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.checkBoxRememberUser = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUser)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -101,15 +101,26 @@
             this.tabPage1.Text = "Birthday Wish";
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
-            // tabPage2
+            // checkedListBoxWishes
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.LightGray;
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(522, 364);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Import Shared Friend Photos";
+            this.checkedListBoxWishes.BackColor = System.Drawing.SystemColors.Control;
+            this.checkedListBoxWishes.CheckOnClick = true;
+            this.checkedListBoxWishes.FormattingEnabled = true;
+            this.checkedListBoxWishes.Location = new System.Drawing.Point(6, 7);
+            this.checkedListBoxWishes.Name = "checkedListBoxWishes";
+            this.checkedListBoxWishes.Size = new System.Drawing.Size(510, 293);
+            this.checkedListBoxWishes.TabIndex = 2;
+            this.checkedListBoxWishes.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxWishes_SelectedIndexChanged);
+            // 
+            // textBoxWish
+            // 
+            this.textBoxWish.Location = new System.Drawing.Point(6, 306);
+            this.textBoxWish.Multiline = true;
+            this.textBoxWish.Name = "textBoxWish";
+            this.textBoxWish.Size = new System.Drawing.Size(346, 52);
+            this.textBoxWish.TabIndex = 1;
+            this.textBoxWish.Text = "Wish Happy Birthday to Your Friends!";
+            this.textBoxWish.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // buttonSendBirthdayWish
             // 
@@ -123,25 +134,15 @@
             this.buttonSendBirthdayWish.Text = "SEND ";
             this.buttonSendBirthdayWish.UseVisualStyleBackColor = false;
             // 
-            // textBoxWish
+            // tabPage2
             // 
-            this.textBoxWish.Location = new System.Drawing.Point(6, 306);
-            this.textBoxWish.Multiline = true;
-            this.textBoxWish.Name = "textBoxWish";
-            this.textBoxWish.Size = new System.Drawing.Size(346, 52);
-            this.textBoxWish.TabIndex = 1;
-            this.textBoxWish.Text = "Wish Happy Birthday to Your Friends!";
-            this.textBoxWish.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // checkedListBoxWishes
-            // 
-            this.checkedListBoxWishes.CheckOnClick = true;
-            this.checkedListBoxWishes.FormattingEnabled = true;
-            this.checkedListBoxWishes.Location = new System.Drawing.Point(6, 7);
-            this.checkedListBoxWishes.Name = "checkedListBoxWishes";
-            this.checkedListBoxWishes.Size = new System.Drawing.Size(510, 293);
-            this.checkedListBoxWishes.TabIndex = 2;
-            this.checkedListBoxWishes.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxWishes_SelectedIndexChanged);
+            this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(522, 364);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Import Shared Friend Photos";
             // 
             // checkBoxRememberUser
             // 

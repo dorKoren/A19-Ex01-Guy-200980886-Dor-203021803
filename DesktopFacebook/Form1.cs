@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Facebook;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
+using static FacebookWrapper.FacebookService;
 using static DesktopFacebook.BirthdayWish;
 using static DesktopFacebook.AppSettings;
 
@@ -18,10 +19,12 @@ namespace DesktopFacebook
 
     public partial class mainForm : Form
     {
-        public LoginResult m_LoginResult;
-        public User        m_LoggedInUser;
-        public AppSettings m_AppSettings;
-        private bool       m_IsFirstLogin = true;
+        public LoginResult  m_LoginResult;
+        public User         m_LoggedInUser;
+        public AppSettings  m_AppSettings;
+        public BirthdayWish m_BirthdayWish;
+
+        public bool        m_IsFirstLogin = true;
         
         public mainForm()
         {
@@ -38,14 +41,14 @@ namespace DesktopFacebook
             // This User is the last user to login
             else
             {
-                m_AppSettings = AppSettings.LoadFromFile();
+                m_AppSettings = LoadFromFile();
                 checkBoxRememberUser.Checked = m_AppSettings.RememberUser;          
             }
 
             if (m_AppSettings.RememberUser &&
                     !string.IsNullOrEmpty(m_AppSettings.LastAccessToken))
             {
-                FacebookService.Connect(m_AppSettings.LastAccessToken);
+                Connect(m_AppSettings.LastAccessToken);
                 fetchUserInfo();
             }
         }
@@ -82,9 +85,10 @@ namespace DesktopFacebook
 
         private void loginAndInit()
         {
-            m_LoginResult = FacebookService.Login(     // DOR maybe we should create session class for the login & connect... 
+            m_LoginResult = Login(     // DOR maybe we should create session class for the login & connect... 
                 "2121776861417547",
-                "user_birthday",
+                //"friends_birthday",
+                "user_friends",
                 "user_photos");
 
             if (!string.IsNullOrEmpty(m_LoginResult.AccessToken))
@@ -101,10 +105,48 @@ namespace DesktopFacebook
         private void fetchUserInfo()
         {
             m_LoggedInUser = m_LoginResult.LoggedInUser;
-            Text = "Logged in as " + m_LoggedInUser.FirstName + " " + m_LoggedInUser.LastName;
-            labelAccountName.Text = m_LoggedInUser.FirstName + " " + m_LoggedInUser.LastName;
+
+            m_BirthdayWish = new BirthdayWish();
+            m_BirthdayWish.FillBirthdays(m_LoggedInUser);
+
+            upfatecheckedListBoxWishes(m_BirthdayWish);
+
             pictureBoxUser.ImageLocation = m_LoggedInUser.PictureNormalURL;
-            buttonLogin.Text = "Log out";          
+
+            Text = "Logged in as " + m_LoggedInUser.FirstName + " " + m_LoggedInUser.LastName;
+
+            labelAccountName.Text = m_LoggedInUser.FirstName + " " + m_LoggedInUser.LastName;        
+
+            buttonLogin.Text = "Log out"; 
+
+            
+
+            
+
+        }
+
+        private void upfatecheckedListBoxWishes(BirthdayWish i_BirthdayWish)
+        {
+            BirthdayNode curNode = i_BirthdayWish.BirthdayFriends[DateTime.Now.DayOfYear];
+
+            for (int i = 0; i < 10; i++)
+            {
+                CheckBox checkk = new CheckBox();
+                checkk.Text = "DOR KOREN";
+                checkk.Checked = true;
+                checkedListBoxWishes.Items.Add(checkk);
+            }
+
+            
+
+            foreach (User friend in curNode.BirthdayFriends)
+            {
+                CheckBox check = new CheckBox();
+                check.Text = friend.Name + friend.LastName;
+                check.Checked = true;
+                checkedListBoxWishes.Items.Add(check);
+
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
