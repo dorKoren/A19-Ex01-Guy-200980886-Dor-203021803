@@ -13,6 +13,8 @@ using FacebookWrapper.ObjectModel;
 using static FacebookWrapper.FacebookService;
 using static DesktopFacebook.BirthdayWish;
 using static DesktopFacebook.AppSettings;
+using Message = FacebookWrapper.ObjectModel.Message;
+using System.Net.Mail;
 
 namespace DesktopFacebook
 {
@@ -25,6 +27,9 @@ namespace DesktopFacebook
         public BirthdayWish m_BirthdayWish;
 
         public bool        m_IsFirstLogin = true;
+
+
+       
         
         public mainForm()
         {
@@ -87,7 +92,8 @@ namespace DesktopFacebook
         {
             m_LoginResult = Login(     // DOR maybe we should create session class for the login & connect... 
                 "2121776861417547",
-                //"friends_birthday",
+                //"1450160541956417",
+                "friends_birthday",
                 "user_friends",
                 "user_photos");
 
@@ -109,7 +115,7 @@ namespace DesktopFacebook
             m_BirthdayWish = new BirthdayWish();
             m_BirthdayWish.FillBirthdays(m_LoggedInUser);
 
-            upfatecheckedListBoxWishes(m_BirthdayWish);
+            updatecheckedListBoxWishes(m_BirthdayWish);
 
             pictureBoxUser.ImageLocation = m_LoggedInUser.PictureNormalURL;
 
@@ -125,28 +131,28 @@ namespace DesktopFacebook
 
         }
 
-        private void upfatecheckedListBoxWishes(BirthdayWish i_BirthdayWish)
+        private void updatecheckedListBoxWishes(BirthdayWish i_BirthdayWish)
         {
-            BirthdayNode curNode = i_BirthdayWish.BirthdayFriends[DateTime.Now.DayOfYear];
 
-            for (int i = 0; i < 10; i++)
+            //BirthdayNode curNode = i_BirthdayWish.BirthdayFriends[DateTime.Now.DayOfYear - 1];
+
+            BirthdayNode curNode = i_BirthdayWish.BirthdayFriends[98];
+
+            /*
+            for (int i = 0; i < 50; i++)
             {
                 CheckBox checkk = new CheckBox();
                 checkk.Text = "DOR KOREN";
                 checkk.Checked = true;
-                checkedListBoxWishes.Items.Add(checkk);
-            }
-
+                checkedListBoxWishes.Items.Add(checkk.Text, true);
+            } */
             
 
-            foreach (User friend in curNode.BirthdayFriends)
+            foreach (User friend in curNode.m_BirthdayFriends)
             {
-                CheckBox check = new CheckBox();
-                check.Text = friend.Name + friend.LastName;
-                check.Checked = true;
-                checkedListBoxWishes.Items.Add(check);
-
-            }
+                CheckBoxFriend check = new CheckBoxFriend(friend);
+                checkedListBoxWishes.Items.Add(check.Name, true);
+            }            
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -167,6 +173,45 @@ namespace DesktopFacebook
         private void checkBoxRememberUser_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonSendBirthdayWish_Click(object sender, EventArgs e)
+        {
+            sendWishToFriends();
+        }
+
+        private void sendWishToFriends()
+        {
+            foreach (CheckBoxFriend check in checkedListBoxWishes.CheckedItems)
+            {
+                User currentFriend = check.Friend;
+                try
+                {
+                    MailMessage mail = new MailMessage();
+                    SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+                    mail.From = new MailAddress("dorkoren10@gmail.com"); // need to fix
+                    mail.To.Add(currentFriend.Email);
+                    mail.Subject = "Happy Birthday!";
+                    mail.Body = "MAZAL TOV YA BEN SHARMUTA!";
+
+                    SmtpServer.Port = 587;
+                    SmtpServer.Credentials = new System.Net.NetworkCredential("Dor Koren", "Q2e4T6u8O0"); // ask balmas!
+                    SmtpServer.EnableSsl = true;
+
+                    SmtpServer.Send(mail);
+                    MessageBox.Show("mail Send!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+
+
+
+
+
+            }
         }
     }
 }

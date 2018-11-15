@@ -55,6 +55,7 @@
     <Compile Include="AppSettings.cs" />
     <Compile Include="BirthdayNode.cs" />
     <Compile Include="BirthdayWish.cs" />
+    <Compile Include="CheckBoxFriend.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

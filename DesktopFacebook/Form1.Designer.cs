@@ -103,12 +103,16 @@
             // 
             // checkedListBoxWishes
             // 
-            this.checkedListBoxWishes.BackColor = System.Drawing.SystemColors.Control;
+            this.checkedListBoxWishes.AccessibleRole = System.Windows.Forms.AccessibleRole.ScrollBar;
+            this.checkedListBoxWishes.BackColor = System.Drawing.SystemColors.Info;
+            this.checkedListBoxWishes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.checkedListBoxWishes.CheckOnClick = true;
+            this.checkedListBoxWishes.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkedListBoxWishes.FormattingEnabled = true;
-            this.checkedListBoxWishes.Location = new System.Drawing.Point(6, 7);
+            this.checkedListBoxWishes.Location = new System.Drawing.Point(6, 3);
             this.checkedListBoxWishes.Name = "checkedListBoxWishes";
-            this.checkedListBoxWishes.Size = new System.Drawing.Size(510, 293);
+            this.checkedListBoxWishes.ScrollAlwaysVisible = true;
+            this.checkedListBoxWishes.Size = new System.Drawing.Size(510, 289);
             this.checkedListBoxWishes.TabIndex = 2;
             this.checkedListBoxWishes.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxWishes_SelectedIndexChanged);
             // 
@@ -133,6 +137,7 @@
             this.buttonSendBirthdayWish.TabIndex = 0;
             this.buttonSendBirthdayWish.Text = "SEND ";
             this.buttonSendBirthdayWish.UseVisualStyleBackColor = false;
+            this.buttonSendBirthdayWish.Click += new System.EventHandler(this.buttonSendBirthdayWish_Click);
             // 
             // tabPage2
             // 

@@ -8,7 +8,7 @@ using Facebook;
 using System.Windows.Forms;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
-
+using System.Globalization;
 
 namespace DesktopFacebook
 {
@@ -25,27 +25,22 @@ namespace DesktopFacebook
 
         private void initBirthdays()
         {
-            DateTime today = new DateTime(2018, 1, 1); // DOR Need to check for a more ellegant way
+            DateTime today = new DateTime(2018, 1, 1); 
 
             for(int i = 0; i < sr_NumOfDays; i++)
             {
                 BirthdayFriends[i] = new BirthdayNode(today);
-                today.AddDays(1);
+                DateTime tommorow = today.AddDays(1);
+                today = tommorow;
             }
-
-            //foreach(BirthdayNode currentDay in BirthdayFriends)
-            //{
-            //    currentDay.Date = today;
-            //    today.AddDays(1);
-            //}
         }
 
         public void FillBirthdays(User i_LoggedInUser)
         {
             foreach (User friend in i_LoggedInUser.Friends)
             {
-                DateTime birthday = DateTime.Parse(friend.Birthday);
-                BirthdayFriends[birthday.DayOfYear].BirthdayFriends.Add(friend);
+                DateTime birthday = DateTime.ParseExact(friend.Birthday, "d", new CultureInfo("En-us"));
+                BirthdayFriends[birthday.DayOfYear - 1].m_BirthdayFriends.Add(friend);
             }
         }        
     }

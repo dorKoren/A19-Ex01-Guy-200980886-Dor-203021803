@@ -9,15 +9,21 @@ namespace DesktopFacebook
 {
     public class BirthdayNode
     {
-        internal DateTime Date { get; set; }
+        internal DateTime m_Date { get; set; }
 
-        internal List<User> BirthdayFriends { get; set; }
+        internal List<User> m_BirthdayFriends { get; set; }
 
 
         internal BirthdayNode(DateTime i_Date)
         {
-            Date = i_Date;
-            BirthdayFriends = new List<User>();
+            int year = i_Date.Year;
+            int month =  i_Date.Month;
+            int day = i_Date.Day;
+
+            
+
+            m_Date = new DateTime(year, month, day);
+            m_BirthdayFriends = new List<User>();
         }
     }
 }
