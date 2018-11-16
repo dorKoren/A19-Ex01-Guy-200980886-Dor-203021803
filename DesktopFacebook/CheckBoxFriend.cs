@@ -8,11 +8,11 @@ using FacebookWrapper.ObjectModel;
 
 namespace DesktopFacebook
 {
-    internal class CheckBoxFriend
+    public class CheckBoxFriend : CheckBox  // DOR ask balmas!
     {
         internal string   Name     { get; set; }
         internal User     Friend   { get; }
-        private  CheckBox CheckBox { get; set; }
+        internal  CheckBox CheckBox { get; }
        
         
 

@@ -15,6 +15,7 @@ using static DesktopFacebook.BirthdayWish;
 using static DesktopFacebook.AppSettings;
 using Message = FacebookWrapper.ObjectModel.Message;
 using System.Net.Mail;
+using static DesktopFacebook.CheckBoxFriend;
 
 namespace DesktopFacebook
 {
@@ -26,11 +27,12 @@ namespace DesktopFacebook
         public AppSettings  m_AppSettings;
         public BirthdayWish m_BirthdayWish;
 
-        public bool        m_IsFirstLogin = true;
+        public bool         m_IsFirstLogin = true;
+
+        public readonly int r_CurrentDayOfYear = DateTime.Now.DayOfYear - 1;
 
 
-       
-        
+
         public mainForm()
         {
             InitializeComponent();
@@ -95,7 +97,9 @@ namespace DesktopFacebook
                 //"1450160541956417",
                 "friends_birthday",
                 "user_friends",
-                "user_photos");
+                "user_photos",
+                "public_profile",
+                "user_posts");
 
             if (!string.IsNullOrEmpty(m_LoginResult.AccessToken))
             {
@@ -134,7 +138,7 @@ namespace DesktopFacebook
         private void updatecheckedListBoxWishes(BirthdayWish i_BirthdayWish)
         {
 
-            //BirthdayNode curNode = i_BirthdayWish.BirthdayFriends[DateTime.Now.DayOfYear - 1];
+            //BirthdayNode curNode = i_BirthdayWish.BirthdayFriends[r_CurrentDayOfYear];
 
             BirthdayNode curNode = i_BirthdayWish.BirthdayFriends[98];
 
@@ -146,9 +150,8 @@ namespace DesktopFacebook
                 checkk.Checked = true;
                 checkedListBoxWishes.Items.Add(checkk.Text, true);
             } */
-            
 
-            foreach (User friend in curNode.m_BirthdayFriends)
+            foreach (User friend in curNode.BirthdayFriends)
             {
                 CheckBoxFriend check = new CheckBoxFriend(friend);
                 checkedListBoxWishes.Items.Add(check.Name, true);
@@ -182,36 +185,43 @@ namespace DesktopFacebook
 
         private void sendWishToFriends()
         {
-            foreach (CheckBoxFriend check in checkedListBoxWishes.CheckedItems)
+            foreach (string friendName in checkedListBoxWishes.CheckedItems)
             {
-                User currentFriend = check.Friend;
-                try
-                {
-                    MailMessage mail = new MailMessage();
-                    SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-
-                    mail.From = new MailAddress("dorkoren10@gmail.com"); // need to fix
-                    mail.To.Add(currentFriend.Email);
-                    mail.Subject = "Happy Birthday!";
-                    mail.Body = "MAZAL TOV YA BEN SHARMUTA!";
-
-                    SmtpServer.Port = 587;
-                    SmtpServer.Credentials = new System.Net.NetworkCredential("Dor Koren", "Q2e4T6u8O0"); // ask balmas!
-                    SmtpServer.EnableSsl = true;
-
-                    SmtpServer.Send(mail);
-                    MessageBox.Show("mail Send!");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
-
-
-
-
-
+                User user = m_BirthdayWish.FindUserInCurrentDay(friendName, r_CurrentDayOfYear);
+                sendWishToFriend(user);              
             }
+        }
+
+        private void sendWishToFriend(User i_Friend)
+        {
+
+            m_LoggedInUser.PostStatus("MAZALTOV@@@!!!");
+
+
+            /*
+               User currentFriend = check.Friend;
+               try
+               {
+                   MailMessage mail = new MailMessage();
+                   SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+                   mail.From = new MailAddress("dorkoren10@gmail.com"); // need to fix
+                   mail.To.Add(currentFriend.Email);
+                   mail.Subject = "Happy Birthday!";
+                   mail.Body = "MAZAL TOV YA BEN SHARMUTA!";
+
+                   SmtpServer.Port = 587;
+                   SmtpServer.Credentials = new System.Net.NetworkCredential("Dor Koren", "Q2e4T6u8O0"); // ask balmas!
+                   SmtpServer.EnableSsl = true;
+
+                   SmtpServer.Send(mail);
+                   MessageBox.Show("mail Send!");
+               }
+               catch (Exception ex)
+               {
+                   MessageBox.Show(ex.ToString());
+               }
+               */
         }
     }
 }

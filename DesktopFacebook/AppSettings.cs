@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using Facebook;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
+using static DesktopFacebook.BirthdayWish;
 
 namespace DesktopFacebook
 {

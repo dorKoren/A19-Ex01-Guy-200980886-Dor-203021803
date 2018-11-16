@@ -109,7 +109,7 @@
             this.checkedListBoxWishes.CheckOnClick = true;
             this.checkedListBoxWishes.ForeColor = System.Drawing.SystemColors.WindowText;
             this.checkedListBoxWishes.FormattingEnabled = true;
-            this.checkedListBoxWishes.Location = new System.Drawing.Point(6, 3);
+            this.checkedListBoxWishes.Location = new System.Drawing.Point(6, 6);
             this.checkedListBoxWishes.Name = "checkedListBoxWishes";
             this.checkedListBoxWishes.ScrollAlwaysVisible = true;
             this.checkedListBoxWishes.Size = new System.Drawing.Size(510, 289);
