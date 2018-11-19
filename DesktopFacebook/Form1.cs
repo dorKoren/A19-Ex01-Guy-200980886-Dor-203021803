@@ -22,17 +22,13 @@ using static DesktopFacebook.Properties.Resources;
 
 namespace DesktopFacebook
 {
-
     public partial class mainForm : Form
     {
         internal Session              m_Session;        
         internal AppSettings          m_AppSettings;
-
         internal SharedPhotosSettings m_SharedPhotos;
         internal BirthdayWishSettings m_BirthdayWish;
-        private  bool                 r_RememberUser = true;
-
-
+        private  bool                 m_RememberUser = true;
 
         public mainForm()
         {
@@ -47,13 +43,12 @@ namespace DesktopFacebook
                 Connect(m_AppSettings.LastAccessToken);
                 FetchUserInfo();
             }
-
             else
             {
-                m_AppSettings = new AppSettings();
-                m_SharedPhotos = new SharedPhotosSettings();
-                m_BirthdayWish = new BirthdayWishSettings();
-                m_AppSettings.RememberUser = !r_RememberUser;
+                m_AppSettings                = new AppSettings();
+                m_SharedPhotos               = new SharedPhotosSettings();
+                m_BirthdayWish               = new BirthdayWishSettings();
+                m_AppSettings.RememberUser   = !m_RememberUser;
                 m_Session.Login();
 
                 checkBoxRememberUser.Checked = m_AppSettings.RememberUser;
@@ -68,18 +63,18 @@ namespace DesktopFacebook
             m_AppSettings.LastAccessToken = m_Session.LoginResult.AccessToken;
             m_AppSettings.LastUserBirthdayDictionary = m_BirthdayWish.BirthdayDictionary; 
 
-
             m_AppSettings.LastAccessToken = m_AppSettings.RememberUser ?
-                                            m_Session.LoginResult.AccessToken : null; 
+                                            m_Session.LoginResult.AccessToken : null;
 
-            m_AppSettings.SaveToFile();
+            //m_AppSettings.SaveToFile();   // DOR  steel need to handle with this!!!!!
         }
-        
+
         public void FetchUserInfo()
         {
             bool v_IsVisible = true;
 
             User loggedInUser = m_Session.LoggedInUser;
+
             m_BirthdayWish.BirthdayDictionary.FillBirthdays(loggedInUser);
 
             updateCheckedListBoxWishes();
@@ -92,7 +87,7 @@ namespace DesktopFacebook
 
             labelAccountName.Text = loggedInUser.FirstName + " " + loggedInUser.LastName;
 
-            buttonLogin.Text = "Log out";
+            buttonLogin.Visible = !v_IsVisible;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -102,7 +97,7 @@ namespace DesktopFacebook
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            m_Session.Login();      
+            m_Session.Login();   
         }
 
         private void updateCheckedListBoxWishes()
@@ -116,6 +111,7 @@ namespace DesktopFacebook
             foreach (User friend in curNode.BirthdayFriends)
             {
                 CheckBoxFriend check = new CheckBoxFriend(friend);
+
                 checkedListBoxWishes.Items.Add(check.Name, true);
             }
         }
@@ -136,7 +132,7 @@ namespace DesktopFacebook
 
         private void checkedListBoxWishes_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void checkBoxRememberUser_CheckedChanged(object sender, EventArgs e)
@@ -151,20 +147,19 @@ namespace DesktopFacebook
 
         private void postWishToFriends()   // we don't have authorization to post statuses
         {
-            string congrats = m_BirthdayWish.GenerateCongratulations(checkedListBoxWishes.CheckedItems, textBoxWish.Text);
+            string congrats = m_BirthdayWish.GenerateCongratulations(
+                                  checkedListBoxWishes.CheckedItems,
+                                  textBoxWish.Text);
+
             m_Session.LoggedInUser.PostStatus(congrats);
         }
 
-        
-        
-
+              
         private void textBox_TextChanged(object sender, EventArgs e)
         {
         
         }
-
-       
-
+     
         private void pictureBoxFriend_Click(object sender, EventArgs e)
         {
 
@@ -172,10 +167,30 @@ namespace DesktopFacebook
 
         private void buttonImport_Click(object sender, EventArgs e)
         {
-            //User friend = findFriend()
-            //importSharedPhotos()
-        }
+            User loggedInUser = m_Session.LoggedInUser;
+            User friend       = m_SharedPhotos.Friend;
 
+            bool imported = m_SharedPhotos.ImportSharedPhotos(loggedInUser, friend);
+            string message;
+
+            if (!imported)
+            {
+                message = string.Format(@"No photos of You and {0} were found",
+                                          m_SharedPhotos.Friend.Name);
+
+                MessageBox.Show(message, "Photos Not Found!", 
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                message = string.Format(@"photos of You and {0} were imported!",
+                                          m_SharedPhotos.Friend.Name);
+
+                MessageBox.Show(message, "Imported Successfuly!",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+   
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             bool isImportEnabled = true;

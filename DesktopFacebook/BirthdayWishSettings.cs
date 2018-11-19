@@ -30,6 +30,8 @@ namespace DesktopFacebook
         {
             StringBuilder congrats = new StringBuilder("Congratulations ");
 
+
+
             // Concat all Friends NAMES
             foreach (string friendName in checkedItems)
             {

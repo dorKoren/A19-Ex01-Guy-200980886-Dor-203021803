@@ -14,8 +14,6 @@ namespace DesktopFacebook
 {
     public class BirthdayDictionary
     {
-
-
         public class BirthdayNode
         {
             internal DateTime   Date            { get; set; }
@@ -64,9 +62,6 @@ namespace DesktopFacebook
 
                 BirthdayFriends[birthday.DayOfYear - 1].BirthdayFriends.Add(friend);
             }
-        }
-
-        
-
+        }    
     }
 }
