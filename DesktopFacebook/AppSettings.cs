@@ -8,16 +8,16 @@ using System.Xml.Serialization;
 using Facebook;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
-using static DesktopFacebook.BirthdayWish;
+using static DesktopFacebook.BirthdayDictionary;
 
 namespace DesktopFacebook
 {
     public class AppSettings
     {
-        public User           LastUser                   { get; set; }
-        public BirthdayNode[] LastUserBirthdayDictionary { get; set; }
-        public bool           RememberUser               { get; set; }
-        public string         LastAccessToken            { get; set; }
+        public User               LastUser                   { get; set; }
+        public BirthdayDictionary LastUserBirthdayDictionary { get; set; }
+        public bool               RememberUser               { get; set; }
+        public string             LastAccessToken            { get; set; }
 
         public AppSettings()
         {

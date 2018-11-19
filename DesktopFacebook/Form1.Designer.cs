@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.buttonLogin = new System.Windows.Forms.Button();
-            this.pictureBoxUser = new System.Windows.Forms.PictureBox();
             this.labelAccountName = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -37,10 +36,18 @@
             this.textBoxWish = new System.Windows.Forms.TextBox();
             this.buttonSendBirthdayWish = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.textBoxLastName = new System.Windows.Forms.TextBox();
+            this.buttonImport = new System.Windows.Forms.Button();
+            this.pictureBoxFriend = new System.Windows.Forms.PictureBox();
+            this.textBoxFirstName = new System.Windows.Forms.TextBox();
             this.checkBoxRememberUser = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUser)).BeginInit();
+            this.pictureBoxUser = new System.Windows.Forms.PictureBox();
+            this.buttonSearch = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFriend)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUser)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -54,17 +61,6 @@
             this.buttonLogin.Text = "Login";
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
-            // 
-            // pictureBoxUser
-            // 
-            this.pictureBoxUser.BackColor = System.Drawing.SystemColors.Control;
-            this.pictureBoxUser.Image = global::DesktopFacebook.Properties.Resources.initial_image_picture;
-            this.pictureBoxUser.Location = new System.Drawing.Point(25, 45);
-            this.pictureBoxUser.Name = "pictureBoxUser";
-            this.pictureBoxUser.Size = new System.Drawing.Size(205, 207);
-            this.pictureBoxUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxUser.TabIndex = 1;
-            this.pictureBoxUser.TabStop = false;
             // 
             // labelAccountName
             // 
@@ -137,17 +133,65 @@
             this.buttonSendBirthdayWish.TabIndex = 0;
             this.buttonSendBirthdayWish.Text = "SEND ";
             this.buttonSendBirthdayWish.UseVisualStyleBackColor = false;
+            this.buttonSendBirthdayWish.Visible = false;
             this.buttonSendBirthdayWish.Click += new System.EventHandler(this.buttonSendBirthdayWish_Click);
             // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.Controls.Add(this.buttonSearch);
+            this.tabPage2.Controls.Add(this.textBoxLastName);
+            this.tabPage2.Controls.Add(this.buttonImport);
+            this.tabPage2.Controls.Add(this.pictureBoxFriend);
+            this.tabPage2.Controls.Add(this.textBoxFirstName);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(522, 364);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Import Shared Friend Photos";
+            // 
+            // textBoxLastName
+            // 
+            this.textBoxLastName.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.textBoxLastName.Location = new System.Drawing.Point(184, 6);
+            this.textBoxLastName.Name = "textBoxLastName";
+            this.textBoxLastName.Size = new System.Drawing.Size(151, 22);
+            this.textBoxLastName.TabIndex = 4;
+            this.textBoxLastName.Text = "Last Name:";
+            // 
+            // buttonImport
+            // 
+            this.buttonImport.Enabled = false;
+            this.buttonImport.Location = new System.Drawing.Point(113, 299);
+            this.buttonImport.Name = "buttonImport";
+            this.buttonImport.Size = new System.Drawing.Size(270, 49);
+            this.buttonImport.TabIndex = 2;
+            this.buttonImport.UseVisualStyleBackColor = true;
+            this.buttonImport.Click += new System.EventHandler(this.buttonImport_Click);
+            // 
+            // pictureBoxFriend
+            // 
+            this.pictureBoxFriend.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBoxFriend.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxFriend.Image = global::DesktopFacebook.Properties.Resources.initial_friend_image_picture;
+            this.pictureBoxFriend.Location = new System.Drawing.Point(113, 48);
+            this.pictureBoxFriend.Name = "pictureBoxFriend";
+            this.pictureBoxFriend.Size = new System.Drawing.Size(270, 217);
+            this.pictureBoxFriend.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxFriend.TabIndex = 1;
+            this.pictureBoxFriend.TabStop = false;
+            this.pictureBoxFriend.Click += new System.EventHandler(this.pictureBoxFriend_Click);
+            // 
+            // textBoxFirstName
+            // 
+            this.textBoxFirstName.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.textBoxFirstName.Location = new System.Drawing.Point(6, 6);
+            this.textBoxFirstName.Name = "textBoxFirstName";
+            this.textBoxFirstName.Size = new System.Drawing.Size(148, 22);
+            this.textBoxFirstName.TabIndex = 0;
+            this.textBoxFirstName.Text = "First Name:";
+            this.textBoxFirstName.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // checkBoxRememberUser
             // 
@@ -161,6 +205,27 @@
             this.checkBoxRememberUser.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxRememberUser.UseVisualStyleBackColor = true;
             this.checkBoxRememberUser.CheckedChanged += new System.EventHandler(this.checkBoxRememberUser_CheckedChanged);
+            // 
+            // pictureBoxUser
+            // 
+            this.pictureBoxUser.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBoxUser.Image = global::DesktopFacebook.Properties.Resources.initial_image_picture;
+            this.pictureBoxUser.Location = new System.Drawing.Point(25, 45);
+            this.pictureBoxUser.Name = "pictureBoxUser";
+            this.pictureBoxUser.Size = new System.Drawing.Size(205, 207);
+            this.pictureBoxUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxUser.TabIndex = 1;
+            this.pictureBoxUser.TabStop = false;
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Location = new System.Drawing.Point(360, 7);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(146, 23);
+            this.buttonSearch.TabIndex = 5;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // mainForm
             // 
@@ -176,10 +241,13 @@
             this.Name = "mainForm";
             this.Text = "Desktop Facebook";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUser)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFriend)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUser)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,6 +265,11 @@
         private System.Windows.Forms.Button buttonSendBirthdayWish;
         private System.Windows.Forms.CheckedListBox checkedListBoxWishes;
         private System.Windows.Forms.CheckBox checkBoxRememberUser;
+        private System.Windows.Forms.TextBox textBoxFirstName;
+        private System.Windows.Forms.Button buttonImport;
+        private System.Windows.Forms.PictureBox pictureBoxFriend;
+        private System.Windows.Forms.TextBox textBoxLastName;
+        private System.Windows.Forms.Button buttonSearch;
     }
 }
 

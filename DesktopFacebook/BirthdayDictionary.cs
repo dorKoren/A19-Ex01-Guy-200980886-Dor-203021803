@@ -12,7 +12,7 @@ using System.Globalization;
 
 namespace DesktopFacebook
 {
-    public class BirthdayWish
+    public class BirthdayDictionary
     {
 
 
@@ -37,7 +37,7 @@ namespace DesktopFacebook
         private static readonly int sr_NumOfDays = 365;
         internal BirthdayNode[] BirthdayFriends { get; set; }
 
-        internal BirthdayWish()
+        internal BirthdayDictionary()
         {
             BirthdayFriends = new BirthdayNode[sr_NumOfDays];
             initBirthdays();
@@ -66,20 +66,7 @@ namespace DesktopFacebook
             }
         }
 
-        public User FindUserInCurrentDay(string i_UserName, int i_DayOfYear)
-        {
-            User user = null;
+        
 
-
-            foreach (User friend in BirthdayFriends[i_DayOfYear].BirthdayFriends)
-            {
-                if (i_UserName.Equals(user.Name + user.LastName))
-                {
-                    user = friend;
-                    break;
-                }            
-            }
-            return user;
-        }
     }
 }

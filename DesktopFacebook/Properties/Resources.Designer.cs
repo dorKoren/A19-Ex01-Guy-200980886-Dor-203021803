@@ -63,6 +63,16 @@ namespace DesktopFacebook.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap initial_friend_image_picture {
+            get {
+                object obj = ResourceManager.GetObject("initial friend image picture", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap initial_image_picture {
             get {
                 object obj = ResourceManager.GetObject("initial image picture", resourceCulture);

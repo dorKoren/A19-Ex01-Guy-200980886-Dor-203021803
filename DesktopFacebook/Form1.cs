@@ -11,25 +11,26 @@ using Facebook;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using static FacebookWrapper.FacebookService;
-using static DesktopFacebook.BirthdayWish;
+using static DesktopFacebook.BirthdayDictionary;
 using static DesktopFacebook.AppSettings;
 using Message = FacebookWrapper.ObjectModel.Message;
 using System.Net.Mail;
 using static DesktopFacebook.CheckBoxFriend;
+using static DesktopFacebook.Session;
+using static DesktopFacebook.BirthdayWishSettings;
+using static DesktopFacebook.Properties.Resources;
 
 namespace DesktopFacebook
 {
 
     public partial class mainForm : Form
     {
-        public LoginResult  m_LoginResult;
-        public User         m_LoggedInUser;
-        public AppSettings  m_AppSettings;
-        public BirthdayWish m_BirthdayWish;
+        internal Session              m_Session;        
+        internal AppSettings          m_AppSettings;
 
-        public bool         m_IsFirstLogin = true;
-
-        public readonly int r_CurrentDayOfYear = DateTime.Now.DayOfYear - 1;
+        internal SharedPhotosSettings m_SharedPhotos;
+        internal BirthdayWishSettings m_BirthdayWish;
+        private  bool                 r_RememberUser = true;
 
 
 
@@ -37,26 +38,25 @@ namespace DesktopFacebook
         {
             InitializeComponent();
 
-            // This is the first time this (or ANY?) User login to the app
-            if (m_IsFirstLogin)
-            {
-                m_AppSettings = new AppSettings();
-                m_AppSettings.RememberUser = false;
-                m_IsFirstLogin = false;
-            }
+            m_Session = new Session(this);
+            //m_AppSettings = LoadFromFile();   // DOR  steel need to handle with this!!!!!
 
-            // This User is the last user to login
-            else
-            {
-                m_AppSettings = LoadFromFile();
-                checkBoxRememberUser.Checked = m_AppSettings.RememberUser;          
-            }
-
-            if (m_AppSettings.RememberUser &&
+            if (m_AppSettings != null && m_AppSettings.RememberUser &&
                     !string.IsNullOrEmpty(m_AppSettings.LastAccessToken))
             {
                 Connect(m_AppSettings.LastAccessToken);
-                fetchUserInfo();
+                FetchUserInfo();
+            }
+
+            else
+            {
+                m_AppSettings = new AppSettings();
+                m_SharedPhotos = new SharedPhotosSettings();
+                m_BirthdayWish = new BirthdayWishSettings();
+                m_AppSettings.RememberUser = !r_RememberUser;
+                m_Session.Login();
+
+                checkBoxRememberUser.Checked = m_AppSettings.RememberUser;
             }
         }
 
@@ -64,20 +64,35 @@ namespace DesktopFacebook
         {
             base.OnFormClosing(e);
 
-            m_AppSettings.RememberUser    = checkBoxRememberUser.Checked;
-            m_AppSettings.LastAccessToken = m_LoginResult.AccessToken;
-            //AppSettings.LastUserBirthdayDictionary = checkedListBoxWishes.Items;  // DOR - ask balmas.
+            m_AppSettings.RememberUser = checkBoxRememberUser.Checked;
+            m_AppSettings.LastAccessToken = m_Session.LoginResult.AccessToken;
+            m_AppSettings.LastUserBirthdayDictionary = m_BirthdayWish.BirthdayDictionary; 
 
-            if (m_AppSettings.RememberUser)
-            {
-                m_AppSettings.LastAccessToken = m_LoginResult.AccessToken;
-            }
-            else
-            {
-                m_AppSettings.LastAccessToken = null;
-            }
+
+            m_AppSettings.LastAccessToken = m_AppSettings.RememberUser ?
+                                            m_Session.LoginResult.AccessToken : null; 
 
             m_AppSettings.SaveToFile();
+        }
+        
+        public void FetchUserInfo()
+        {
+            bool v_IsVisible = true;
+
+            User loggedInUser = m_Session.LoggedInUser;
+            m_BirthdayWish.BirthdayDictionary.FillBirthdays(loggedInUser);
+
+            updateCheckedListBoxWishes();
+
+            buttonSendBirthdayWish.Visible = v_IsVisible;
+
+            pictureBoxUser.ImageLocation = loggedInUser.PictureNormalURL;
+
+            Text = "Logged in as " + loggedInUser.FirstName + " " + loggedInUser.LastName;
+
+            labelAccountName.Text = loggedInUser.FirstName + " " + loggedInUser.LastName;
+
+            buttonLogin.Text = "Log out";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -87,76 +102,27 @@ namespace DesktopFacebook
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            loginAndInit();      
+            m_Session.Login();      
         }
 
-        private void loginAndInit()
+        private void updateCheckedListBoxWishes()
         {
-            m_LoginResult = Login(     // DOR maybe we should create session class for the login & connect... 
-                "2121776861417547",
-                //"1450160541956417",
-                "friends_birthday",
-                "user_friends",
-                "user_photos",
-                "public_profile",
-                "user_posts");
-
-            if (!string.IsNullOrEmpty(m_LoginResult.AccessToken))
-            {
-                m_LoggedInUser = m_LoginResult.LoggedInUser;
-                fetchUserInfo();
-            }
-            else
-            {
-                MessageBox.Show(m_LoginResult.ErrorMessage);
-            }
-        }
-
-        private void fetchUserInfo()
-        {
-            m_LoggedInUser = m_LoginResult.LoggedInUser;
-
-            m_BirthdayWish = new BirthdayWish();
-            m_BirthdayWish.FillBirthdays(m_LoggedInUser);
-
-            updatecheckedListBoxWishes(m_BirthdayWish);
-
-            pictureBoxUser.ImageLocation = m_LoggedInUser.PictureNormalURL;
-
-            Text = "Logged in as " + m_LoggedInUser.FirstName + " " + m_LoggedInUser.LastName;
-
-            labelAccountName.Text = m_LoggedInUser.FirstName + " " + m_LoggedInUser.LastName;        
-
-            buttonLogin.Text = "Log out"; 
-
+            int currentDay = m_BirthdayWish.CurrentDayOfYear;
             
+            //BirthdayNode curNode = m_BirthdayWish.BirthdayDictionary.BirthdayFriends[currentDay];
 
-            
-
-        }
-
-        private void updatecheckedListBoxWishes(BirthdayWish i_BirthdayWish)
-        {
-
-            //BirthdayNode curNode = i_BirthdayWish.BirthdayFriends[r_CurrentDayOfYear];
-
-            BirthdayNode curNode = i_BirthdayWish.BirthdayFriends[98];
-
-            /*
-            for (int i = 0; i < 50; i++)
-            {
-                CheckBox checkk = new CheckBox();
-                checkk.Text = "DOR KOREN";
-                checkk.Checked = true;
-                checkedListBoxWishes.Items.Add(checkk.Text, true);
-            } */
+            BirthdayNode curNode = m_BirthdayWish.BirthdayDictionary.BirthdayFriends[98];
 
             foreach (User friend in curNode.BirthdayFriends)
             {
                 CheckBoxFriend check = new CheckBoxFriend(friend);
                 checkedListBoxWishes.Items.Add(check.Name, true);
-            }            
+            }
         }
+
+
+
+
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -180,48 +146,62 @@ namespace DesktopFacebook
 
         private void buttonSendBirthdayWish_Click(object sender, EventArgs e)
         {
-            sendWishToFriends();
+            postWishToFriends();
         }
 
-        private void sendWishToFriends()
+        private void postWishToFriends()   // we don't have authorization to post statuses
         {
-            foreach (string friendName in checkedListBoxWishes.CheckedItems)
+            string congrats = m_BirthdayWish.GenerateCongratulations(checkedListBoxWishes.CheckedItems, textBoxWish.Text);
+            m_Session.LoggedInUser.PostStatus(congrats);
+        }
+
+        
+        
+
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+        
+        }
+
+       
+
+        private void pictureBoxFriend_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonImport_Click(object sender, EventArgs e)
+        {
+            //User friend = findFriend()
+            //importSharedPhotos()
+        }
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            bool isImportEnabled = true;
+
+            m_SharedPhotos.FindFriend(textBoxFirstName.Text, textBoxLastName.Text, m_Session.LoggedInUser);
+
+            if (m_SharedPhotos.FriendWasFound)
             {
-                User user = m_BirthdayWish.FindUserInCurrentDay(friendName, r_CurrentDayOfYear);
-                sendWishToFriend(user);              
+                User friend = m_SharedPhotos.Friend;
+                buttonImport.Text = string.Format(@"import shared photos with {0}", friend.Name);
+                pictureBoxFriend.Image = friend.ImageNormal;
+                buttonImport.Enabled = isImportEnabled;
             }
-        }
 
-        private void sendWishToFriend(User i_Friend)
-        {
+            else
+            {
+                MessageBox.Show("Friend Not Found!", "Friend Search Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            m_LoggedInUser.PostStatus("MAZALTOV@@@!!!");
+                textBoxFirstName.Text = "";
+                textBoxLastName.Text = "";
+                buttonImport.Enabled = !isImportEnabled;
+                pictureBoxFriend.Image = initial_friend_image_picture;
 
 
-            /*
-               User currentFriend = check.Friend;
-               try
-               {
-                   MailMessage mail = new MailMessage();
-                   SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-
-                   mail.From = new MailAddress("dorkoren10@gmail.com"); // need to fix
-                   mail.To.Add(currentFriend.Email);
-                   mail.Subject = "Happy Birthday!";
-                   mail.Body = "MAZAL TOV YA BEN SHARMUTA!";
-
-                   SmtpServer.Port = 587;
-                   SmtpServer.Credentials = new System.Net.NetworkCredential("Dor Koren", "Q2e4T6u8O0"); // ask balmas!
-                   SmtpServer.EnableSsl = true;
-
-                   SmtpServer.Send(mail);
-                   MessageBox.Show("mail Send!");
-               }
-               catch (Exception ex)
-               {
-                   MessageBox.Show(ex.ToString());
-               }
-               */
+            }
         }
     }
 }
