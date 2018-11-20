@@ -69,35 +69,41 @@ namespace DesktopFacebook
 
         private void exportPhotos(List<Photo> i_SharedPhotos, SaveFileDialog i_File)
         {
-            if (i_File.ShowDialog() == DialogResult.OK)
+            foreach (Photo photo in i_SharedPhotos)
             {
-                foreach (Photo photo in i_SharedPhotos)
-                {
-                    exportPhoto(photo, i_File);
-                }
+                exportPhoto(photo, i_File);
             }
+            
+            
         }
 
         private void exportPhoto(Photo i_Photo, SaveFileDialog i_File)
         {
-            switch (Path.GetExtension(i_File.FileName).ToUpper())
+            i_File.FileName = i_Photo.Id;
+            FileStream stream = (FileStream)i_File.OpenFile();
+
+            if (i_File.ShowDialog() == DialogResult.OK)
             {
-                case ".BMP":
-                    i_Photo.ImageNormal.Save(i_Photo.Name, System.Drawing.Imaging.ImageFormat.Bmp);
-                    break;
+                switch (Path.GetExtension(i_File.FileName).ToUpper())
+                {
+                    case ".BMP":
+                        i_Photo.ImageNormal.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+                        break;
 
-                case ".JPG":
-                    i_Photo.ImageNormal.Save(i_Photo.Name, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    break;
+                    case ".JPG":
+                        i_Photo.ImageNormal.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        break;
 
-                case ".PNG":
-                    i_Photo.ImageNormal.Save(i_Photo.Name, System.Drawing.Imaging.ImageFormat.Png);
-                    break;
+                    case ".PNG":
+                        i_Photo.ImageNormal.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
-            
+          
+            stream.Close();
         }
 
         private List<Photo> getSharedPhotos(User i_LoggedInUser, User i_Friend, Album i_Album)

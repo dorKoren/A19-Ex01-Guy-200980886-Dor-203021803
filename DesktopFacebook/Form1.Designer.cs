@@ -36,13 +36,14 @@
             this.textBoxWish = new System.Windows.Forms.TextBox();
             this.buttonSendBirthdayWish = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonSearch = new System.Windows.Forms.Button();
             this.textBoxLastName = new System.Windows.Forms.TextBox();
             this.buttonImport = new System.Windows.Forms.Button();
             this.pictureBoxFriend = new System.Windows.Forms.PictureBox();
             this.textBoxFirstName = new System.Windows.Forms.TextBox();
             this.checkBoxRememberUser = new System.Windows.Forms.CheckBox();
             this.pictureBoxUser = new System.Windows.Forms.PictureBox();
-            this.buttonSearch = new System.Windows.Forms.Button();
+            this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -53,8 +54,8 @@
             // buttonLogin
             // 
             this.buttonLogin.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonLogin.Font = new System.Drawing.Font("BN Loco", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.buttonLogin.Location = new System.Drawing.Point(25, 270);
+            this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.buttonLogin.Location = new System.Drawing.Point(26, 341);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(205, 42);
             this.buttonLogin.TabIndex = 0;
@@ -66,10 +67,10 @@
             // 
             this.labelAccountName.AutoSize = true;
             this.labelAccountName.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.labelAccountName.Font = new System.Drawing.Font("BN Loco", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.labelAccountName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.labelAccountName.Location = new System.Drawing.Point(21, 9);
             this.labelAccountName.Name = "labelAccountName";
-            this.labelAccountName.Size = new System.Drawing.Size(171, 24);
+            this.labelAccountName.Size = new System.Drawing.Size(141, 25);
             this.labelAccountName.TabIndex = 2;
             this.labelAccountName.Text = "Account Name";
             // 
@@ -125,7 +126,7 @@
             // buttonSendBirthdayWish
             // 
             this.buttonSendBirthdayWish.BackColor = System.Drawing.Color.MidnightBlue;
-            this.buttonSendBirthdayWish.Font = new System.Drawing.Font("BN Loco", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.buttonSendBirthdayWish.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.buttonSendBirthdayWish.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.buttonSendBirthdayWish.Location = new System.Drawing.Point(355, 306);
             this.buttonSendBirthdayWish.Name = "buttonSendBirthdayWish";
@@ -150,6 +151,16 @@
             this.tabPage2.Size = new System.Drawing.Size(522, 364);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Import Shared Friend Photos";
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Location = new System.Drawing.Point(360, 7);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(146, 23);
+            this.buttonSearch.TabIndex = 5;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // textBoxLastName
             // 
@@ -196,10 +207,10 @@
             // checkBoxRememberUser
             // 
             this.checkBoxRememberUser.AutoSize = true;
-            this.checkBoxRememberUser.Font = new System.Drawing.Font("BN Loco", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.checkBoxRememberUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.checkBoxRememberUser.Location = new System.Drawing.Point(25, 318);
             this.checkBoxRememberUser.Name = "checkBoxRememberUser";
-            this.checkBoxRememberUser.Size = new System.Drawing.Size(126, 17);
+            this.checkBoxRememberUser.Size = new System.Drawing.Size(97, 17);
             this.checkBoxRememberUser.TabIndex = 3;
             this.checkBoxRememberUser.Text = "Remember Me";
             this.checkBoxRememberUser.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -217,15 +228,17 @@
             this.pictureBoxUser.TabIndex = 1;
             this.pictureBoxUser.TabStop = false;
             // 
-            // buttonSearch
+            // buttonLogout
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(360, 7);
-            this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(146, 23);
-            this.buttonSearch.TabIndex = 5;
-            this.buttonSearch.Text = "Search";
-            this.buttonSearch.UseVisualStyleBackColor = true;
-            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            this.buttonLogout.Location = new System.Drawing.Point(26, 396);
+            this.buttonLogout.Name = "buttonLogout";
+            this.buttonLogout.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.buttonLogout.Size = new System.Drawing.Size(204, 42);
+            this.buttonLogout.TabIndex = 4;
+            this.buttonLogout.Text = "Logout";
+            this.buttonLogout.UseVisualStyleBackColor = true;
+            this.buttonLogout.Visible = false;
+            this.buttonLogout.Click += new System.EventHandler(this.button1_Click);
             // 
             // mainForm
             // 
@@ -233,6 +246,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonLogout);
             this.Controls.Add(this.checkBoxRememberUser);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.labelAccountName);
@@ -270,6 +284,7 @@
         private System.Windows.Forms.PictureBox pictureBoxFriend;
         private System.Windows.Forms.TextBox textBoxLastName;
         private System.Windows.Forms.Button buttonSearch;
+        private System.Windows.Forms.Button buttonLogout;
     }
 }
 

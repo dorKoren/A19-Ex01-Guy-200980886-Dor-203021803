@@ -32,6 +32,7 @@ namespace DesktopFacebook
 
         public mainForm()
         {
+
             InitializeComponent();
 
             m_Session = new Session(this);
@@ -53,6 +54,7 @@ namespace DesktopFacebook
 
                 checkBoxRememberUser.Checked = m_AppSettings.RememberUser;
             }
+            
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -88,6 +90,8 @@ namespace DesktopFacebook
             labelAccountName.Text = loggedInUser.FirstName + " " + loggedInUser.LastName;
 
             buttonLogin.Visible = !v_IsVisible;
+            checkBoxRememberUser.Visible = !v_IsVisible;
+            buttonLogout.Visible = v_IsVisible;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -213,6 +217,12 @@ namespace DesktopFacebook
 
 
             }
+        }
+
+        // ButtonLogout
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ;
         }
     }
 }
