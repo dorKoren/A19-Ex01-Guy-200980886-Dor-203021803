@@ -26,14 +26,12 @@ namespace DesktopFacebook
             get { return sr_CurrentDayOfYear; }
         }
 
-        public string GenerateCongratulations(CheckedItemCollection checkedItems, string i_BirthdayWish)
+        public string GenerateCongratulations(CheckedItemCollection i_CheckedItems, string i_BirthdayWish)
         {
             StringBuilder congrats = new StringBuilder("Congratulations ");
 
-
-
             // Concat all Friends NAMES
-            foreach (string friendName in checkedItems)
+            foreach (string friendName in i_CheckedItems)
             {
                 congrats.Append(friendName + ", ");
             }

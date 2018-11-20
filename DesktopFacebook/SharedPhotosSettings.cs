@@ -69,35 +69,35 @@ namespace DesktopFacebook
 
         private void exportPhotos(List<Photo> i_SharedPhotos, SaveFileDialog i_File)
         {
-            foreach (Photo photo in i_SharedPhotos)
+            if (i_File.ShowDialog() == DialogResult.OK)
             {
-                exportPhoto(photo, i_File);
+                foreach (Photo photo in i_SharedPhotos)
+                {
+                    exportPhoto(photo, i_File);
+                }
             }
         }
 
         private void exportPhoto(Photo i_Photo, SaveFileDialog i_File)
         {
+            switch (Path.GetExtension(i_File.FileName).ToUpper())
+            {
+                case ".BMP":
+                    i_Photo.ImageNormal.Save(i_Photo.Name, System.Drawing.Imaging.ImageFormat.Bmp);
+                    break;
 
-            if (i_File.ShowDialog() == DialogResult.OK)
-            {             
-                switch (Path.GetExtension(i_File.FileName).ToUpper())
-                {
-                    case ".BMP":
-                        i_Photo.ImageNormal.Save(i_File.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
-                        break;
+                case ".JPG":
+                    i_Photo.ImageNormal.Save(i_Photo.Name, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    break;
 
-                    case ".JPG":
-                        i_Photo.ImageNormal.Save(i_File.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-                        break;
+                case ".PNG":
+                    i_Photo.ImageNormal.Save(i_Photo.Name, System.Drawing.Imaging.ImageFormat.Png);
+                    break;
 
-                    case ".PNG":
-                        i_Photo.ImageNormal.Save(i_File.FileName, System.Drawing.Imaging.ImageFormat.Png);
-                        break;
-
-                    default:
-                        break;
-                }
+                default:
+                    break;
             }
+            
         }
 
         private List<Photo> getSharedPhotos(User i_LoggedInUser, User i_Friend, Album i_Album)
