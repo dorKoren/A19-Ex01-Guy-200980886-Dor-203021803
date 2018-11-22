@@ -115,6 +115,7 @@
             // 
             // textBoxWish
             // 
+            this.textBoxWish.Enabled = false;
             this.textBoxWish.Location = new System.Drawing.Point(6, 306);
             this.textBoxWish.Multiline = true;
             this.textBoxWish.Name = "textBoxWish";
@@ -127,6 +128,7 @@
             // buttonSendBirthdayWish
             // 
             this.buttonSendBirthdayWish.BackColor = System.Drawing.Color.MidnightBlue;
+            this.buttonSendBirthdayWish.Enabled = false;
             this.buttonSendBirthdayWish.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.buttonSendBirthdayWish.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.buttonSendBirthdayWish.Location = new System.Drawing.Point(355, 306);

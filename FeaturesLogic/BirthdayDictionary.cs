@@ -3,27 +3,27 @@ using System.Collections.Generic;
 using FacebookWrapper.ObjectModel;
 using System.Globalization;
 
-namespace DesktopFacebook
+namespace FeaturesLogic
 {
     public class BirthdayDictionary
     {
-        internal class BirthdayNode
+        public class BirthdayNode
         {
             internal DateTime   Date            { get; set; }
-            internal List<User> BirthdayFriends { get; set; }
+            public   List<User> BirthdayFriends { get; set; }
 
-            internal BirthdayNode(DateTime i_Date)
+            public BirthdayNode(DateTime i_Date)
             {
-                int year  = i_Date.Year;
+                int year = i_Date.Year;
                 int month = i_Date.Month;
-                int day   = i_Date.Day;
+                int day = i_Date.Day;
 
                 Date = new DateTime(year, month, day);
                 BirthdayFriends = new List<User>();
             }
         }
 
-        internal void FillBirthdays(User i_LoggedInUser)
+        public void FillBirthdays(User i_LoggedInUser)
         {
             foreach (User friend in i_LoggedInUser.Friends)
             {
@@ -35,7 +35,7 @@ namespace DesktopFacebook
         }
 
         private static readonly int sr_NumOfDays = 365;
-        internal BirthdayNode[] BirthdayFriends { get; set; }
+        public BirthdayNode[] BirthdayFriends { get; set; }
 
         public BirthdayDictionary()
         {
@@ -45,7 +45,7 @@ namespace DesktopFacebook
 
         private void initBirthdays()
         {
-            DateTime today = new DateTime(2018, 1, 1); 
+            DateTime today = new DateTime(2018, 1, 1);
 
             for (int i = 0; i < sr_NumOfDays; i++)
             {
@@ -54,6 +54,6 @@ namespace DesktopFacebook
                 DateTime tomorrow = today.AddDays(1);
                 today = tomorrow;
             }
-        }    
+        }
     }
 }

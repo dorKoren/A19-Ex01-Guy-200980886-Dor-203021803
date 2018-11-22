@@ -1,23 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
-using static System.Windows.Forms.CheckedListBox;
 
-namespace DesktopFacebook
+namespace FeaturesLogic
 {
-    internal class BirthdayWishLogic
+    public class BirthdayWish
     {
+        public   BirthdayDictionary   BirthdayDictionary { get; set; }
+        public   int                  CurrentDayOfYear   { get;      }
 
-        internal int CurrentDayOfYear { get; }
-
-        internal BirthdayDictionary BirthdayDictionary { get; set; }
-
-        internal BirthdayWishLogic()
+        public BirthdayWish()
         {
             BirthdayDictionary = new BirthdayDictionary();
-            CurrentDayOfYear = DateTime.Now.DayOfYear - 1;
+            CurrentDayOfYear   = DateTime.Now.DayOfYear - 1;
         }
 
-        internal string GenerateCongratulations(CheckedItemCollection i_CheckedItems, string i_BirthdayWish)
+        public string GenerateCongratulations(List<string> i_CheckedItems, string i_BirthdayWish)
         {
             StringBuilder congrats = new StringBuilder("Congratulations ");
 

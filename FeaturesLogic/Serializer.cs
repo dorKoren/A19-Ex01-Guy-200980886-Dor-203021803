@@ -2,32 +2,33 @@
 using System.Xml.Serialization;
 using FacebookWrapper.ObjectModel;
 
-namespace DesktopFacebook
+namespace FeaturesLogic
 {
-    public class AppSettings
+    public class Serializer
     {
         private const string k_Path = "C:\\Users\\dorko\\Desktop\\appSettings.xml";
 
-        public User               LastUser                   { get; set; }
-        public BirthdayDictionary LastUserBirthdayDictionary { get; set; }
-        public bool               RememberUser               { get; set; }
-        public string             LastAccessToken            { get; set; }
 
-        public AppSettings()
+        public User LastUser                                 { get; set; }
+        public BirthdayDictionary LastUserBirthdayDictionary { get; set; }
+        public bool RememberUser                             { get; set; }
+        public string LastAccessToken                        { get; set; }
+
+        public Serializer()
         {
-            this.RememberUser               = false;
-            this.LastAccessToken            = null;
+            this.RememberUser = false;
+            this.LastAccessToken = null;
             this.LastUserBirthdayDictionary = null;
         }
 
-        public static AppSettings LoadFromFile()
+        public static Serializer LoadFromFile()
         {
-            AppSettings obj = null;
+            Serializer obj = null;
 
             using (Stream stream = new FileStream(k_Path, FileMode.Open))
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(AppSettings));
-                obj = serializer.Deserialize(stream) as AppSettings;
+                XmlSerializer serializer = new XmlSerializer(typeof(Serializer));
+                obj = serializer.Deserialize(stream) as Serializer;
             }
 
             return obj;
@@ -38,7 +39,7 @@ namespace DesktopFacebook
             using (Stream stream = new FileStream(k_Path, FileMode.Truncate))
             {
                 XmlSerializer serializer = new XmlSerializer(this.GetType());
-                serializer.Serialize(stream, this);           
+                serializer.Serialize(stream, this);
             }
         }
     }

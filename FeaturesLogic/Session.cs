@@ -1,23 +1,21 @@
-﻿using System.Windows.Forms;
-using FacebookWrapper;
+﻿using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 
-
-namespace DesktopFacebook
+namespace FeaturesLogic
 {
-
-    internal class Session
+    public class Session
     {
-        internal User        LoggedInUser { get; set; }
-        internal LoginResult LoginResult  { get; set; }
+        public User        LoggedInUser { get; set; }
+        public LoginResult LoginResult  { get; set; }
+        public bool        m_IsSessionSuccess;
 
-       
-        internal Session()
+        public Session()
         {
-            StartSession();
+            m_IsSessionSuccess = false;
+            startSession();
         }
 
-        internal void StartSession()
+        private void startSession()
         {
             LoginResult = FacebookService.Login(
                 "2121776861417547",
@@ -36,17 +34,14 @@ namespace DesktopFacebook
             if (!string.IsNullOrEmpty(LoginResult.AccessToken))
             {
                 LoggedInUser = LoginResult.LoggedInUser;
+                m_IsSessionSuccess = !m_IsSessionSuccess;
             }
-            else
-            {
-                MessageBox.Show(LoginResult.ErrorMessage);
-            }           
         }
 
-        internal void EndSession()
+        public void EndSession()
         {
             LoggedInUser = null;
-            LoginResult  = null;
+            LoginResult = null;
         }
     }
 }
