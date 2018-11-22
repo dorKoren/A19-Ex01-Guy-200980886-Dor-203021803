@@ -10,14 +10,14 @@ namespace DesktopFacebook
     {
         internal User        LoggedInUser { get; set; }
         internal LoginResult LoginResult  { get; set; }
-        internal mainForm    Form         { get;      }
 
-        internal Session(mainForm i_Form)
+       
+        internal Session()
         {
-            Form = i_Form;
+            StartSession();
         }
 
-        public void Login()
+        internal void StartSession()
         {
             LoginResult = FacebookService.Login(
                 "2121776861417547",
@@ -36,12 +36,16 @@ namespace DesktopFacebook
             if (!string.IsNullOrEmpty(LoginResult.AccessToken))
             {
                 LoggedInUser = LoginResult.LoggedInUser;
-                Form.FetchUserInfo();
             }
             else
             {
                 MessageBox.Show(LoginResult.ErrorMessage);
             }           
+        }
+
+        internal void EndSession()
+        {
+            LoggedInUser = null;
         }
     }
 }

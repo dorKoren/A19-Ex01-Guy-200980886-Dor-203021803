@@ -1,40 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 
 namespace DesktopFacebook
 {
-    public class SharedPhotosSettings
+    internal class SharedPhotosSettings
     {
         private readonly bool r_WasFound = true;
 
-        public User Friend { get; set; }
+        public User Friend         { get; set; }
         public bool FriendWasFound { get; set; }
 
         internal SharedPhotosSettings()
         {
-            Friend = null;
+            Friend         = null;
             FriendWasFound = !r_WasFound;
         }
 
-        public void FindFriend(string i_FirstName, string i_LastName, User i_LoggedInUser)
+        internal void FindFriend(string i_FirstName, string i_LastName, User i_LoggedInUser)
         {            
             foreach (User user in i_LoggedInUser.Friends)
             {
-                if ((i_FirstName.Equals(user.FirstName, StringComparison.OrdinalIgnoreCase) &&
-                     (i_LastName.Equals(user.LastName, StringComparison.OrdinalIgnoreCase))))
+                if (i_FirstName.Equals(user.FirstName, StringComparison.OrdinalIgnoreCase) &&
+                    i_LastName.Equals(user.LastName, StringComparison.OrdinalIgnoreCase))
                 {
                     Friend = user;
                     FriendWasFound = r_WasFound;
                     break;
-                }
-                else
-                {
-                    FriendWasFound = false;
-                    Friend = null;
                 }
             }
         }
@@ -130,10 +124,7 @@ namespace DesktopFacebook
         private bool isTag(User i_User, Photo i_Photo)
         {
             bool isTag = false;
-
-            return true;
-
-           
+          
             foreach (PhotoTag tag in i_Photo.Tags)
             {
                 // We assume that we have the right Permissions

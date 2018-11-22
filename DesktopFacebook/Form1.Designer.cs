@@ -121,6 +121,7 @@
             this.textBoxWish.Size = new System.Drawing.Size(346, 52);
             this.textBoxWish.TabIndex = 1;
             this.textBoxWish.Text = "Wish Happy Birthday to Your Friends!";
+            this.textBoxWish.Visible = false;
             this.textBoxWish.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // buttonSendBirthdayWish
@@ -160,6 +161,7 @@
             this.buttonSearch.TabIndex = 5;
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Visible = false;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // textBoxLastName
@@ -170,6 +172,8 @@
             this.textBoxLastName.Size = new System.Drawing.Size(151, 22);
             this.textBoxLastName.TabIndex = 4;
             this.textBoxLastName.Text = "Last Name:";
+            this.textBoxLastName.Visible = false;
+            this.textBoxLastName.Click += new System.EventHandler(this.textBoxLastName_Click);
             // 
             // buttonImport
             // 
@@ -179,6 +183,7 @@
             this.buttonImport.Size = new System.Drawing.Size(270, 49);
             this.buttonImport.TabIndex = 2;
             this.buttonImport.UseVisualStyleBackColor = true;
+            this.buttonImport.Visible = false;
             this.buttonImport.Click += new System.EventHandler(this.buttonImport_Click);
             // 
             // pictureBoxFriend
@@ -192,6 +197,7 @@
             this.pictureBoxFriend.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxFriend.TabIndex = 1;
             this.pictureBoxFriend.TabStop = false;
+            this.pictureBoxFriend.Visible = false;
             this.pictureBoxFriend.Click += new System.EventHandler(this.pictureBoxFriend_Click);
             // 
             // textBoxFirstName
@@ -202,6 +208,8 @@
             this.textBoxFirstName.Size = new System.Drawing.Size(148, 22);
             this.textBoxFirstName.TabIndex = 0;
             this.textBoxFirstName.Text = "First Name:";
+            this.textBoxFirstName.Visible = false;
+            this.textBoxFirstName.Click += new System.EventHandler(this.textBoxFirstName_Click);
             this.textBoxFirstName.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // checkBoxRememberUser
@@ -215,6 +223,7 @@
             this.checkBoxRememberUser.Text = "Remember Me";
             this.checkBoxRememberUser.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxRememberUser.UseVisualStyleBackColor = true;
+            this.checkBoxRememberUser.Visible = false;
             this.checkBoxRememberUser.CheckedChanged += new System.EventHandler(this.checkBoxRememberUser_CheckedChanged);
             // 
             // pictureBoxUser
@@ -238,7 +247,7 @@
             this.buttonLogout.Text = "Logout";
             this.buttonLogout.UseVisualStyleBackColor = true;
             this.buttonLogout.Visible = false;
-            this.buttonLogout.Click += new System.EventHandler(this.button1_Click);
+            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
             // mainForm
             // 

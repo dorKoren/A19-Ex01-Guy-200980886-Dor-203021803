@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Xml.Serialization;
-using Facebook;
-using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
-using static DesktopFacebook.BirthdayDictionary;
 
 namespace DesktopFacebook
 {
@@ -26,7 +18,7 @@ namespace DesktopFacebook
             LastUserBirthdayDictionary = null;
         }
 
-        internal void SaveToFile()
+        public void SaveToFile()
         {
             using (Stream stream = new FileStream(@"C:\Users\dorko\Desktop\appSettings.xml", FileMode.Truncate))
             {
@@ -35,7 +27,7 @@ namespace DesktopFacebook
             }
         }
 
-        internal static AppSettings LoadFromFile()
+        public static AppSettings LoadFromFile()
         {
             AppSettings obj = null;
 
