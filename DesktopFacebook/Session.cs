@@ -46,6 +46,7 @@ namespace DesktopFacebook
         internal void EndSession()
         {
             LoggedInUser = null;
+            LoginResult  = null;
         }
     }
 }

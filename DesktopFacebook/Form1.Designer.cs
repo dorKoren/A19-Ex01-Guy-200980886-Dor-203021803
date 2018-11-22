@@ -30,7 +30,7 @@
         {
             this.buttonLogin = new System.Windows.Forms.Button();
             this.labelAccountName = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.checkedListBoxWishes = new System.Windows.Forms.CheckedListBox();
             this.textBoxWish = new System.Windows.Forms.TextBox();
@@ -44,7 +44,7 @@
             this.checkBoxRememberUser = new System.Windows.Forms.CheckBox();
             this.pictureBoxUser = new System.Windows.Forms.PictureBox();
             this.buttonLogout = new System.Windows.Forms.Button();
-            this.tabControl1.SuspendLayout();
+            this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFriend)).BeginInit();
@@ -74,15 +74,15 @@
             this.labelAccountName.TabIndex = 2;
             this.labelAccountName.Text = "Account Name";
             // 
-            // tabControl1
+            // tabControl
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(258, 45);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(530, 393);
-            this.tabControl1.TabIndex = 3;
+            this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Location = new System.Drawing.Point(258, 45);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(530, 393);
+            this.tabControl.TabIndex = 3;
             // 
             // tabPage1
             // 
@@ -236,6 +236,7 @@
             this.pictureBoxUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxUser.TabIndex = 1;
             this.pictureBoxUser.TabStop = false;
+            this.pictureBoxUser.Click += new System.EventHandler(this.pictureBoxUser_Click);
             // 
             // buttonLogout
             // 
@@ -257,14 +258,14 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.buttonLogout);
             this.Controls.Add(this.checkBoxRememberUser);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.labelAccountName);
             this.Controls.Add(this.pictureBoxUser);
             this.Controls.Add(this.buttonLogin);
             this.Name = "mainForm";
             this.Text = "Desktop Facebook";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.tabControl1.ResumeLayout(false);
+            this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
@@ -281,7 +282,7 @@
         private System.Windows.Forms.Button buttonLogin;
         private System.Windows.Forms.PictureBox pictureBoxUser;
         private System.Windows.Forms.Label labelAccountName;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox textBoxWish;

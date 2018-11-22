@@ -19,25 +19,25 @@ namespace DesktopFacebook
         private readonly string       r_PhotosNotFound      = "Photos Not Found!";
         private readonly string       r_MsgFriendNotFound   = "Friend Not Found!";
         private readonly string       r_CaptionFriendSearch = "Friend Search Error";
-        private readonly string       r_FirstName           = "FirstName:";
-        private readonly string       r_LastName            = "LastName:";
+        private readonly string       r_FirstName           = "First Name:";
+        private readonly string       r_LastName            = "Last Name:";
         internal Session              m_Session;        
         internal AppSettings          m_AppSettings;
-        internal SharedPhotosSettings m_SharedPhotos;
-        internal BirthdayWishSettings m_BirthdayWish;
+        internal SharedPhotosLogic    m_SharedPhotos;
+        internal BirthdayWishLogic    m_BirthdayWish;
 
         public mainForm()
         {
             InitializeComponent();
 
-            m_AppSettings = LoadFromFile();   // DOR  steel need to handle with this!!!!!
+            m_AppSettings = LoadFromFile();  
 
             if (m_AppSettings != null &&
                 m_AppSettings.RememberUser &&
                 !string.IsNullOrEmpty(m_AppSettings.LastAccessToken))
             {
                 Connect(m_AppSettings.LastAccessToken);
-                m_Session.LoggedInUser = m_AppSettings.LastUser;    // DOR ask Balmas about this settings. maybe we should update in 'fetchInfo()
+                m_Session.LoggedInUser = m_AppSettings.LastUser;   
                 m_BirthdayWish.BirthdayDictionary = m_AppSettings.LastUserBirthdayDictionary;
                 fetchUserInfo();
             }
@@ -56,7 +56,7 @@ namespace DesktopFacebook
                 m_AppSettings.LastAccessToken = m_AppSettings.RememberUser ?
                     m_Session.LoginResult.AccessToken : null;
 
-                m_AppSettings.SaveToFile();   // DOR  steel need to handle with this!!!!!
+                m_AppSettings.SaveToFile();  
             }
         }
 
@@ -68,7 +68,7 @@ namespace DesktopFacebook
             string lastName     = loggedInUser.LastName;
 
 
-            pictureBoxUser.ImageLocation = loggedInUser.PictureNormalURL;
+            pictureBoxUser.ImageLocation =  loggedInUser.PictureNormalURL;
             this.Text                    =  string.Format("Logged in as {0} {1}", firstName, lastName);
             labelAccountName.Text        =  string.Format("{0} {1}", firstName, lastName);
             checkBoxRememberUser.Visible =  isVisible;
@@ -84,7 +84,7 @@ namespace DesktopFacebook
             User loggedInUser = m_Session.LoggedInUser;
             bool isVisible    = true;
 
-            m_BirthdayWish = new BirthdayWishSettings();
+            m_BirthdayWish = new BirthdayWishLogic();
             m_BirthdayWish.BirthdayDictionary.FillBirthdays(loggedInUser);
 
             updateCheckedListBoxWishes();
@@ -97,7 +97,7 @@ namespace DesktopFacebook
         {
             bool isVisible = true;
 
-            m_SharedPhotos = new SharedPhotosSettings();
+            m_SharedPhotos = new SharedPhotosLogic();
 
             textBoxFirstName.Visible = isVisible;
             textBoxLastName.Visible  = isVisible;
@@ -121,8 +121,6 @@ namespace DesktopFacebook
             int currentDay = m_BirthdayWish.CurrentDayOfYear;
             
             BirthdayNode curNode = m_BirthdayWish.BirthdayDictionary.BirthdayFriends[currentDay];
-
-            //BirthdayNode curNode = m_BirthdayWish.BirthdayDictionary.BirthdayFriends[98];
 
             foreach (User friend in curNode.BirthdayFriends)
             {       
@@ -232,7 +230,6 @@ namespace DesktopFacebook
             buttonSearch.Visible     = !isVisible;
             pictureBoxFriend.Visible = !isVisible;
             buttonImport.Visible     = !isVisible;
-
             pictureBoxUser.Image     =  initial_image_picture;
         }
 
@@ -240,7 +237,7 @@ namespace DesktopFacebook
         {
             bool isVisible = true;
 
-            m_BirthdayWish = null;  // DOR ask balmas!
+            m_BirthdayWish = null; 
 
             m_BirthdayWish                 = null;
             buttonSendBirthdayWish.Visible = !isVisible;
@@ -290,6 +287,11 @@ namespace DesktopFacebook
         }
 
         private void pictureBoxFriend_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBoxUser_Click(object sender, EventArgs e)
         {
 
         }

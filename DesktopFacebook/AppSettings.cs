@@ -6,6 +6,8 @@ namespace DesktopFacebook
 {
     public class AppSettings
     {
+        private const string k_Path = "C:\\Users\\dorko\\Desktop\\appSettings.xml";
+
         public User               LastUser                   { get; set; }
         public BirthdayDictionary LastUserBirthdayDictionary { get; set; }
         public bool               RememberUser               { get; set; }
@@ -13,31 +15,31 @@ namespace DesktopFacebook
 
         public AppSettings()
         {
-            RememberUser               = false;
-            LastAccessToken            = null;
-            LastUserBirthdayDictionary = null;
-        }
-
-        public void SaveToFile()
-        {
-            using (Stream stream = new FileStream(@"C:\Users\dorko\Desktop\appSettings.xml", FileMode.Truncate))
-            {
-                XmlSerializer serializer = new XmlSerializer(this.GetType());
-                serializer.Serialize(stream, this);           
-            }
+            this.RememberUser               = false;
+            this.LastAccessToken            = null;
+            this.LastUserBirthdayDictionary = null;
         }
 
         public static AppSettings LoadFromFile()
         {
             AppSettings obj = null;
 
-            using (Stream stream = new FileStream(@"C:\Users\dorko\Desktop\appSettings.xml", FileMode.Open))
+            using (Stream stream = new FileStream(k_Path, FileMode.Open))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(AppSettings));
                 obj = serializer.Deserialize(stream) as AppSettings;
             }
 
             return obj;
+        }
+
+        public void SaveToFile()
+        {
+            using (Stream stream = new FileStream(k_Path, FileMode.Truncate))
+            {
+                XmlSerializer serializer = new XmlSerializer(this.GetType());
+                serializer.Serialize(stream, this);           
+            }
         }
     }
 }

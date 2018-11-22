@@ -4,14 +4,14 @@ using static System.Windows.Forms.CheckedListBox;
 
 namespace DesktopFacebook
 {
-    internal class BirthdayWishSettings
+    internal class BirthdayWishLogic
     {
 
         internal int CurrentDayOfYear { get; }
 
         internal BirthdayDictionary BirthdayDictionary { get; set; }
 
-        internal BirthdayWishSettings()
+        internal BirthdayWishLogic()
         {
             BirthdayDictionary = new BirthdayDictionary();
             CurrentDayOfYear = DateTime.Now.DayOfYear - 1;
