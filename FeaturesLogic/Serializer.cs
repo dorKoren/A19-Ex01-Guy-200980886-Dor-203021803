@@ -24,11 +24,13 @@ namespace FeaturesLogic
         public static Serializer LoadFromFile()
         {
             Serializer obj = null;
-
-            using (Stream stream = new FileStream(k_Path, FileMode.Open))
+            if(File.Exists(k_Path))
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(Serializer));
-                obj = serializer.Deserialize(stream) as Serializer;
+                using (Stream stream = new FileStream(k_Path, FileMode.Open))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(Serializer));
+                    obj = serializer.Deserialize(stream) as Serializer;
+                }
             }
 
             return obj;

@@ -50,7 +50,7 @@
       <HintPath>..\..\..\..\Dor\לימודים\'שנה ג\'סמסטר א\Design Patterns\FBApi\Facebook.dll</HintPath>
     </Reference>
     <Reference Include="FbGraphApiWrapper">
-      <HintPath>..\..\..\..\Dor\לימודים\'שנה ג\'סמסטר א\Design Patterns\FBApi\FbGraphApiWrapper.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\בינתחומי\סמסטר ה\Design Patterns\01_FB01_BasicFacebookFeatures.V6.8.0.17\FBApi\FbGraphApiWrapper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
