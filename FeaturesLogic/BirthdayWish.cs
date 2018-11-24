@@ -6,19 +6,23 @@ namespace FeaturesLogic
 {
     public class BirthdayWish
     {
-        public   BirthdayDictionary   BirthdayDictionary { get; set; }
-        public   int                  CurrentDayOfYear   { get;      }
+        #region Class Members
+        public BirthdayDictionary BirthdayDictionary { get; set; }
+        public int                CurrentDayOfYear   { get;      }
+        #endregion Class Members
 
+        #region Constructor
         public BirthdayWish()
         {
             BirthdayDictionary = new BirthdayDictionary();
-            CurrentDayOfYear   = DateTime.Now.DayOfYear - 1;
+            CurrentDayOfYear = DateTime.Now.DayOfYear - 1;
         }
+        #endregion Constructor
 
+        #region Public Methods
         public string GenerateCongratulations(List<string> i_CheckedItems, string i_BirthdayWish)
         {
             StringBuilder congrats = new StringBuilder("Congratulations ");
-
 
             // Concat all Friends NAMES
             foreach (string friendName in i_CheckedItems)
@@ -34,5 +38,6 @@ namespace FeaturesLogic
             congrats.AppendLine(i_BirthdayWish);
             return congrats.ToString();
         }
+        #endregion Public Methods
     }
 }

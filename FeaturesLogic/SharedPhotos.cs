@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
 using FacebookWrapper.ObjectModel;
 
 namespace FeaturesLogic
 {
     public class SharedPhotos
     {
+        #region Class Members
         private readonly bool r_WasFound = true;
 
-        public User Friend         { get; set; }
+        public User Friend { get; set; }
         public bool FriendWasFound { get; set; }
+        #endregion Class Members
 
+        #region constructor
         public SharedPhotos()
         {
             this.Friend = null;
             this.FriendWasFound = !r_WasFound;
         }
+        #endregion constructor
 
-
+        #region Public Methods
         public List<Photo> ImportSharedPhotos(User i_LoggedInUser, User i_Friend)
         {
             List<Photo> sharedPhotos = new List<Photo>();
@@ -44,7 +47,9 @@ namespace FeaturesLogic
                 }
             }
         }
+        #endregion Public Methods
 
+        #region Private Methods
         private List<Photo> getSharedPhotos(User i_LoggedInUser, User i_Friend, Album i_Album)
         {
             List<Photo> photos = new List<Photo>();
@@ -81,5 +86,6 @@ namespace FeaturesLogic
 
             return isTag;
         }
+        #endregion Private Methods
     }
 }

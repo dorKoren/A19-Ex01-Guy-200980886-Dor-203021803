@@ -5,16 +5,32 @@ namespace FeaturesLogic
 {
     public class Session
     {
-        public User        LoggedInUser { get; set; }
-        public LoginResult LoginResult  { get; set; }
-        public bool        m_IsSessionSuccess;
 
+        // DOR : we should think if this class should be static.
+
+        #region Class Members
+        public User LoggedInUser { get; set; }
+        public LoginResult LoginResult { get; set; }
+        public bool m_IsSessionSuccess;
+        #endregion Class Members
+
+        #region Constructor
         public Session()
         {
             m_IsSessionSuccess = false;
             startSession();
         }
+        #endregion Constructor
 
+        #region Public Methods
+        public void EndSession()
+        {
+            LoggedInUser = null;
+            LoginResult = null;
+        }
+        #endregion Public Methods
+
+        #region Private Methods
         private void startSession()
         {
             LoginResult = FacebookService.Login(
@@ -23,13 +39,9 @@ namespace FeaturesLogic
                 "user_friends",
                 "user_photos",
                 "public_profile",
-                "publish_to_groups",
                 "groups_access_member_info",
                 "user_age_range",
-                "user_gender",
-                "user_link",
-                "user_friends",
-                "user_posts");
+                "user_gender");
 
             if (!string.IsNullOrEmpty(LoginResult.AccessToken))
             {
@@ -37,11 +49,6 @@ namespace FeaturesLogic
                 m_IsSessionSuccess = !m_IsSessionSuccess;
             }
         }
-
-        public void EndSession()
-        {
-            LoggedInUser = null;
-            LoginResult = null;
-        }
+        #endregion Private Methods
     }
 }
