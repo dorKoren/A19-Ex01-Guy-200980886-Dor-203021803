@@ -7,11 +7,15 @@ namespace FeaturesLogic
 {
     public class BirthdayDictionary
     {
+        #region Nested Class
         public class BirthdayNode
         {
-            internal DateTime   Date            { get; set; }
-            public   List<User> BirthdayFriends { get; set; }
+            #region Nested Class Members
+            internal DateTime Date { get; set; }
+            public List<User> BirthdayFriends { get; set; }
+            #endregion Nested Class Members
 
+            #region Nestes Class Constructor
             public BirthdayNode(DateTime i_Date)
             {
                 int year = i_Date.Year;
@@ -21,8 +25,24 @@ namespace FeaturesLogic
                 Date = new DateTime(year, month, day);
                 BirthdayFriends = new List<User>();
             }
+            #endregion Nestes Class Constructor
         }
+        #endregion Nested Class
 
+        #region Class Members
+        private static readonly int sr_NumOfDays = 365;
+        public BirthdayNode[] BirthdayFriends { get; set; }
+        #endregion Class Members
+
+        #region Constructor
+        public BirthdayDictionary()
+        {
+            BirthdayFriends = new BirthdayNode[sr_NumOfDays];
+            initBirthdays();
+        }
+        #endregion Constructor
+
+        #region Public Methods
         public void FillBirthdays(User i_LoggedInUser)
         {
             foreach (User friend in i_LoggedInUser.Friends)
@@ -33,16 +53,9 @@ namespace FeaturesLogic
                 BirthdayFriends[birthday.DayOfYear - 1].BirthdayFriends.Add(friend);
             }
         }
+        #endregion Public Methods
 
-        private static readonly int sr_NumOfDays = 365;
-        public BirthdayNode[] BirthdayFriends { get; set; }
-
-        public BirthdayDictionary()
-        {
-            BirthdayFriends = new BirthdayNode[sr_NumOfDays];
-            initBirthdays();
-        }
-
+        #region  Private Methods
         private void initBirthdays()
         {
             DateTime today = new DateTime(2018, 1, 1);
@@ -55,5 +68,6 @@ namespace FeaturesLogic
                 today = tomorrow;
             }
         }
+        #endregion Private Methods
     }
 }

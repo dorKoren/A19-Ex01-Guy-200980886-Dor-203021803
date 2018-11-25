@@ -3,19 +3,20 @@ using System.Windows.Forms;
 
 namespace DesktopFacebook
 {
-    public static class BIrthdayWishUI
+    public static class BirthdayWishUI
     {
+        #region Internal Static Methods
         internal static List<string> GetFriendsListNamesFromCheckListBox(CheckedListBox i_CheckedListBox)
         {
             List<string> list = new List<string>();
 
-            foreach (CheckBox chechBox in i_CheckedListBox.CheckedItems)
+            foreach (CheckBox checkBox in i_CheckedListBox.CheckedItems)
             {
-                list.Add(chechBox.Text);
-                
+                list.Add(checkBox.Text);           
             }
 
             return list;
         }
+        #endregion Internal Static Methods
     }
 }
