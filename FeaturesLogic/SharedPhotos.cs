@@ -9,29 +9,29 @@ namespace FeaturesLogic
         #region Class Members
         private readonly bool r_WasFound = true;
 
-        public User Friend { get; set; }
+        public User Friend         { get; set; }
         public bool FriendWasFound { get; set; }
+        public List<Photo> SharedPhotosList { get; set; } // DOR!!!
+
         #endregion Class Members
 
         #region constructor
         public SharedPhotos()
         {
-            this.Friend = null;
-            this.FriendWasFound = !r_WasFound;
+            Friend = null;
+            FriendWasFound = !r_WasFound;
         }
         #endregion constructor
 
         #region Public Methods
-        public List<Photo> ImportSharedPhotos(User i_LoggedInUser, User i_Friend)
+        public void ImportSharedPhotos(User i_LoggedInUser, User i_Friend)   // DOR !!!
         {
-            List<Photo> sharedPhotos = new List<Photo>();
+            SharedPhotosList = new List<Photo>();
 
             foreach (Album album in i_Friend.Albums)
             {
-                sharedPhotos.AddRange(getSharedPhotos(i_LoggedInUser, i_Friend, album));
+                SharedPhotosList.AddRange(getSharedPhotos(i_LoggedInUser, i_Friend, album));
             }
-
-            return sharedPhotos;
         }
 
         public void FindFriend(string i_FirstName, string i_LastName, User i_LoggedInUser)

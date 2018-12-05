@@ -7,7 +7,7 @@ namespace FeaturesLogic
     public class Serializer
     {
         #region Class Members
-        private const string k_Path = "C:\\Users\\Public";
+        private const string k_Path = "C:\\Users\\dorko\\Desktop";
 
         public User               LastUser                   { get; set; }
         public BirthdayDictionary LastUserBirthdayDictionary { get; set; }

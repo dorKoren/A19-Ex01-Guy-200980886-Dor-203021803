@@ -75,6 +75,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Properties\DataSources\FeaturesLogic.BirthdayDictionary+BirthdayNode.datasource" />
+    <None Include="Properties\DataSources\FeaturesLogic.BirthdayDictionary.datasource" />
+    <None Include="Properties\DataSources\FeaturesLogic.BirthdayWish.datasource" />
+    <None Include="Properties\DataSources\FeaturesLogic.Serializer.datasource" />
+    <None Include="Properties\DataSources\FeaturesLogic.Session.datasource" />
+    <None Include="Properties\DataSources\FeaturesLogic.SharedPhotos.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -100,5 +106,6 @@
       <Name>FeaturesLogic</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

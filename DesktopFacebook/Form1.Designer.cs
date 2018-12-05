@@ -44,6 +44,7 @@
             this.checkBoxRememberUser = new System.Windows.Forms.CheckBox();
             this.pictureBoxUser = new System.Windows.Forms.PictureBox();
             this.buttonLogout = new System.Windows.Forms.Button();
+            this.panelUserDetails = new System.Windows.Forms.Panel();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -143,6 +144,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.Controls.Add(this.panelUserDetails);
             this.tabPage2.Controls.Add(this.buttonSearch);
             this.tabPage2.Controls.Add(this.textBoxLastName);
             this.tabPage2.Controls.Add(this.buttonImport);
@@ -193,7 +195,7 @@
             this.pictureBoxFriend.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBoxFriend.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxFriend.Image = global::DesktopFacebook.Properties.Resources.initial_friend_image_picture;
-            this.pictureBoxFriend.Location = new System.Drawing.Point(113, 48);
+            this.pictureBoxFriend.Location = new System.Drawing.Point(6, 48);
             this.pictureBoxFriend.Name = "pictureBoxFriend";
             this.pictureBoxFriend.Size = new System.Drawing.Size(270, 217);
             this.pictureBoxFriend.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -252,6 +254,15 @@
             this.buttonLogout.Visible = false;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
+            // panelUserDetails
+            // 
+            this.panelUserDetails.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.panelUserDetails.Location = new System.Drawing.Point(282, 48);
+            this.panelUserDetails.Name = "panelUserDetails";
+            this.panelUserDetails.Size = new System.Drawing.Size(234, 217);
+            this.panelUserDetails.TabIndex = 6;
+            this.panelUserDetails.Paint += new System.Windows.Forms.PaintEventHandler(this.panelUserDetails_Paint);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -297,6 +308,7 @@
         private System.Windows.Forms.TextBox textBoxLastName;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.Button buttonLogout;
+        private System.Windows.Forms.Panel panelUserDetails;
     }
 }
 

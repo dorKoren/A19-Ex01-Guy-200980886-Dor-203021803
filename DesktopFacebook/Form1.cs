@@ -120,7 +120,7 @@ namespace DesktopFacebook
         #endregion Fetch Methods
 
         #region Event Handler Click Methods
-        private void buttonLogin_Click(object sender, EventArgs e)   //MessageBox.Show(LoginResult.ErrorMessage);
+        private void buttonLogin_Click(object sender, EventArgs e)  
 
         {
             m_Session = new Session();
@@ -146,21 +146,19 @@ namespace DesktopFacebook
         {
             User loggedInUser = m_Session.LoggedInUser;
             User friend = m_SharedPhotos.Friend;
-            List<Photo> sharedPhotos = m_SharedPhotos.ImportSharedPhotos(loggedInUser, friend);
+            m_SharedPhotos.ImportSharedPhotos(loggedInUser, friend);
 
-            if (!sharedPhotos.Any())
+            if (!m_SharedPhotos.SharedPhotosList.Any())  // DOR !!!
             {
-                string message;
-
-                message = string.Format(@"No photos of You and {0} were found",
-                                          m_SharedPhotos.Friend.Name);
+                string message = string.Format(@"No photos of You and {0} were found",
+                                               m_SharedPhotos.Friend.Name);
 
                 MessageBox.Show(message, r_PhotosNotFound,
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                SharedPhotosUI.ExportPhotos(sharedPhotos);
+                SharedPhotosUI.ExportPhotos(m_SharedPhotos.SharedPhotosList);
             }
         }
 
@@ -326,5 +324,10 @@ namespace DesktopFacebook
 
         }
         #endregion Private Methods
+
+        private void panelUserDetails_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
