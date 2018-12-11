@@ -9,9 +9,10 @@ namespace FeaturesLogic
         #region Class Members
         private readonly bool r_WasFound = true;
 
-        public User Friend         { get; set; }
-        public bool FriendWasFound { get; set; }
-        public List<Photo> SharedPhotosList { get; set; } // DOR!!!
+        public User        Friend                      { get; set; }
+        public bool        FriendWasFound              { get; set; }
+        public List<Photo> SharedPhotosList            { get; set; } 
+        public int         TotalSelectedSharedPictures { get; set; }
 
         #endregion Class Members
 
@@ -20,6 +21,7 @@ namespace FeaturesLogic
         {
             Friend = null;
             FriendWasFound = !r_WasFound;
+            TotalSelectedSharedPictures = 0;
         }
         #endregion constructor
 
@@ -36,6 +38,8 @@ namespace FeaturesLogic
 
         public void FindFriend(string i_FirstName, string i_LastName, User i_LoggedInUser)
         {
+            TotalSelectedSharedPictures = 0;
+
             foreach (User user in i_LoggedInUser.Friends)
             {
                 if (i_FirstName.Equals(user.FirstName, StringComparison.OrdinalIgnoreCase) &&
@@ -61,6 +65,8 @@ namespace FeaturesLogic
                     photos.Add(photo);
                 }
             }
+
+            TotalSelectedSharedPictures = photos.Count;
 
             return photos;
         }

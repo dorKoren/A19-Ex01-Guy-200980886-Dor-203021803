@@ -6,7 +6,9 @@ using static FeaturesLogic.BirthdayDictionary;
 using static FacebookWrapper.FacebookService;
 using static DesktopFacebook.Properties.Resources;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using static  DesktopFacebook.BirthdayWishUI;
 
 namespace DesktopFacebook
@@ -115,7 +117,10 @@ namespace DesktopFacebook
             textBoxLastName.Visible  = isVisible;
             buttonSearch.Visible     = isVisible;
             buttonImport.Visible     = isVisible;
-            pictureBoxFriend.Visible = isVisible;
+            //pictureBoxFriend.Visible = isVisible;
+            friendPictureBox.Visible = isVisible;  // DOR !!!
+            
+
         }
         #endregion Fetch Methods
 
@@ -170,10 +175,23 @@ namespace DesktopFacebook
 
             if (m_SharedPhotos.FriendWasFound)
             {
-                User friend = m_SharedPhotos.Friend;
+
+                int         totalNumberOfPhotos = m_SharedPhotos.TotalSelectedSharedPictures;                             // DOR !!
+                User        friend              = m_SharedPhotos.Friend;
+                List<Photo> sharedPhotos        = m_SharedPhotos.SharedPhotosList;
+
                 buttonImport.Text = string.Format(@"import shared photos with {0}", friend.Name);
-                pictureBoxFriend.Image = friend.ImageNormal;
+                //pictureBoxFriend.Image = friend.ImageNormal;
                 buttonImport.Enabled = isImportEnabled;
+
+                //buttonImport.Text = string.Format("import {0} shared photos with {1}", totalNumberOfPhotos, friend.Name); // buttonImport.Invoke// DOR !!
+                ImportButtonDisplayNumberOfImages();
+
+
+                sharedPhotosBindingSource.DataSource = friend.ImageNormal;                                                // DOR !!!             
+
+                sharedPhotosListBindingSource.DataSource = sharedPhotos;                                                  // DOR !!!
+
             }
 
             else
@@ -184,7 +202,9 @@ namespace DesktopFacebook
                 textBoxFirstName.Text = r_FirstName;
                 textBoxLastName.Text = r_LastName;
                 buttonImport.Enabled = !isImportEnabled;
-                pictureBoxFriend.Image = initial_friend_image_picture;
+                //pictureBoxFriend.Image = initial_friend_image_picture;
+
+                sharedPhotosBindingSource.DataSource = friendPictureBox.Image;  // DOR !!!
             }
         }
 
@@ -233,11 +253,11 @@ namespace DesktopFacebook
             bool isVisible = true;
 
             textBoxFirstName.Visible = !isVisible;
-            textBoxLastName.Visible = !isVisible;
-            buttonSearch.Visible = !isVisible;
-            pictureBoxFriend.Visible = !isVisible;
-            buttonImport.Visible = !isVisible;
-            pictureBoxUser.Image = initial_image_picture;
+            textBoxLastName.Visible  = !isVisible;
+            buttonSearch.Visible     = !isVisible;
+            friendPictureBox.Visible = !isVisible;
+            buttonImport.Visible     = !isVisible;
+            pictureBoxUser.Image     = initial_image_picture;
         }
 
         private void resetBirthdayWishInfo()
@@ -246,7 +266,6 @@ namespace DesktopFacebook
 
             m_BirthdayWish = null;
 
-            m_BirthdayWish = null;
             buttonSendBirthdayWish.Visible = !isVisible;
             textBoxWish.Visible = !isVisible;
 
@@ -325,9 +344,56 @@ namespace DesktopFacebook
         }
         #endregion Private Methods
 
+
+        private void sharedPhotosListListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PictureBox picture = sender as PictureBox;
+
+            if (picture.Text.Equals(""))
+            {
+                picture.Text = "removed";
+                picture.Visible = false;
+                m_SharedPhotos.TotalSelectedSharedPictures--;
+            }
+            else
+            {
+                picture.Text = "";
+                picture.Visible = true;
+                m_SharedPhotos.TotalSelectedSharedPictures++;
+            }
+
+            ImportButtonDisplayNumberOfImages();
+        }
+
+        private void ImportButtonDisplayNumberOfImages()                                // GUY!!!
+        {
+            buttonImport.Text = string.Format("import {0} shared photos with {1}",
+                m_SharedPhotos.TotalSelectedSharedPictures, m_SharedPhotos.Friend.Name);
+        }
+
+
+
+
+
         private void panelUserDetails_Paint(object sender, PaintEventArgs e)
         {
 
         }
+
+        private void firstNameLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void imageNormalLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void imageNormalPictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
