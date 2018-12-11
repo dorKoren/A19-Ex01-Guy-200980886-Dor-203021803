@@ -12,17 +12,17 @@ namespace DesktopFacebook
         #endregion Class Members
 
         #region Internal Static Methods
-        internal static void ExportPhotos(List<Photo> i_SharedPhotos)
+        internal static void DownLoadPhotos(List<Photo> i_SharedPhotos)
         {
             foreach (Photo photo in i_SharedPhotos)
             {
-                exportPhoto(photo);
+                downLoadPhoto(photo);
             }
         }
         #endregion Internal Static Methods
 
         #region  Private Static Methods   
-        private static void exportPhoto(Photo i_Photo)
+        private static void downLoadPhoto(Photo i_Photo)
         {
 
             SaveFileDialog file = new SaveFileDialog

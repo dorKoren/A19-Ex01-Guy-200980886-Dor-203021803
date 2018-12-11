@@ -34,6 +34,8 @@ namespace FeaturesLogic
             {
                 SharedPhotosList.AddRange(getSharedPhotos(i_LoggedInUser, i_Friend, album));
             }
+
+            TotalSelectedSharedPictures = SharedPhotosList.Count;
         }
 
         public void FindFriend(string i_FirstName, string i_LastName, User i_LoggedInUser)
@@ -61,7 +63,7 @@ namespace FeaturesLogic
             foreach (Photo photo in i_Album.Photos)
             {
                 if (this.isSharedPhoto(i_LoggedInUser, i_Friend, photo))
-                {
+                {                   
                     photos.Add(photo);
                 }
             }
@@ -78,6 +80,9 @@ namespace FeaturesLogic
 
         private bool isTag(User i_User, Photo i_Photo)
         {
+
+            return true;  // DOR !!!
+
             bool isTag = false;
 
             foreach (PhotoTag tag in i_Photo.Tags)

@@ -37,33 +37,29 @@
             this.textBoxWish = new System.Windows.Forms.TextBox();
             this.buttonSendBirthdayWish = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.sharedPhotosListListBox = new System.Windows.Forms.ListBox();
-            this.sharedPhotosListBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.sharedPhotosBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.friendPictureBox = new System.Windows.Forms.PictureBox();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.textBoxLastName = new System.Windows.Forms.TextBox();
-            this.buttonImport = new System.Windows.Forms.Button();
+            this.buttonDownload = new System.Windows.Forms.Button();
             this.textBoxFirstName = new System.Windows.Forms.TextBox();
             this.checkBoxRememberUser = new System.Windows.Forms.CheckBox();
             this.pictureBoxUser = new System.Windows.Forms.PictureBox();
             this.buttonLogout = new System.Windows.Forms.Button();
-            this.imagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.friendPictureBox = new System.Windows.Forms.PictureBox();
+            this.sharedPhotosListBox = new System.Windows.Forms.ListBox();
+            this.sharedPhotosListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sharedPhotosListBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sharedPhotosBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.friendPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUser)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imagesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.friendPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sharedPhotosListBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLogin
             // 
             this.buttonLogin.BackColor = System.Drawing.SystemColors.Control;
             this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.buttonLogin.Location = new System.Drawing.Point(26, 341);
+            this.buttonLogin.Location = new System.Drawing.Point(26, 299);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(205, 42);
             this.buttonLogin.TabIndex = 0;
@@ -89,7 +85,7 @@
             this.tabControl.Location = new System.Drawing.Point(258, 45);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(650, 393);
+            this.tabControl.Size = new System.Drawing.Size(669, 389);
             this.tabControl.TabIndex = 3;
             // 
             // tabPage1
@@ -101,7 +97,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(642, 364);
+            this.tabPage1.Size = new System.Drawing.Size(661, 360);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Birthday Wish";
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
@@ -117,7 +113,7 @@
             this.checkedListBoxWishes.Location = new System.Drawing.Point(6, 6);
             this.checkedListBoxWishes.Name = "checkedListBoxWishes";
             this.checkedListBoxWishes.ScrollAlwaysVisible = true;
-            this.checkedListBoxWishes.Size = new System.Drawing.Size(510, 289);
+            this.checkedListBoxWishes.Size = new System.Drawing.Size(649, 289);
             this.checkedListBoxWishes.TabIndex = 2;
             this.checkedListBoxWishes.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxWishes_SelectedIndexChanged);
             // 
@@ -141,7 +137,7 @@
             this.buttonSendBirthdayWish.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.buttonSendBirthdayWish.Location = new System.Drawing.Point(355, 306);
             this.buttonSendBirthdayWish.Name = "buttonSendBirthdayWish";
-            this.buttonSendBirthdayWish.Size = new System.Drawing.Size(161, 52);
+            this.buttonSendBirthdayWish.Size = new System.Drawing.Size(300, 52);
             this.buttonSendBirthdayWish.TabIndex = 0;
             this.buttonSendBirthdayWish.Text = "SEND ";
             this.buttonSendBirthdayWish.UseVisualStyleBackColor = false;
@@ -152,53 +148,19 @@
             // 
             this.tabPage2.AutoScroll = true;
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
-            this.tabPage2.Controls.Add(this.sharedPhotosListListBox);
+            this.tabPage2.Controls.Add(this.sharedPhotosListBox);
             this.tabPage2.Controls.Add(this.friendPictureBox);
             this.tabPage2.Controls.Add(this.buttonSearch);
             this.tabPage2.Controls.Add(this.textBoxLastName);
-            this.tabPage2.Controls.Add(this.buttonImport);
+            this.tabPage2.Controls.Add(this.buttonDownload);
             this.tabPage2.Controls.Add(this.textBoxFirstName);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(642, 364);
+            this.tabPage2.Size = new System.Drawing.Size(661, 360);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Import Shared Friend Photos";
-            // 
-            // sharedPhotosListListBox
-            // 
-            this.sharedPhotosListListBox.DataSource = this.sharedPhotosListBindingSource;
-            this.sharedPhotosListListBox.DisplayMember = "Album";
-            this.sharedPhotosListListBox.FormattingEnabled = true;
-            this.sharedPhotosListListBox.ItemHeight = 16;
-            this.sharedPhotosListListBox.Location = new System.Drawing.Point(298, 51);
-            this.sharedPhotosListListBox.Name = "sharedPhotosListListBox";
-            this.sharedPhotosListListBox.Size = new System.Drawing.Size(338, 228);
-            this.sharedPhotosListListBox.TabIndex = 6;
-            this.sharedPhotosListListBox.ValueMember = "Album";
-            this.sharedPhotosListListBox.SelectedIndexChanged += new System.EventHandler(this.sharedPhotosListListBox_SelectedIndexChanged);
-            // 
-            // sharedPhotosListBindingSource
-            // 
-            this.sharedPhotosListBindingSource.DataMember = "SharedPhotosList";
-            this.sharedPhotosListBindingSource.DataSource = this.sharedPhotosBindingSource;
-            // 
-            // sharedPhotosBindingSource
-            // 
-            this.sharedPhotosBindingSource.DataSource = typeof(FeaturesLogic.SharedPhotos);
-            // 
-            // friendPictureBox
-            // 
-            this.friendPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.friendPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.sharedPhotosBindingSource, "Friend", true));
-            this.friendPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Tag", this.sharedPhotosBindingSource, "Friend", true));
-            this.friendPictureBox.Image = global::DesktopFacebook.Properties.Resources.initial_friend_image_picture;
-            this.friendPictureBox.Location = new System.Drawing.Point(3, 51);
-            this.friendPictureBox.Name = "friendPictureBox";
-            this.friendPictureBox.Size = new System.Drawing.Size(290, 174);
-            this.friendPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.friendPictureBox.TabIndex = 6;
-            this.friendPictureBox.TabStop = false;
+            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
             // buttonSearch
             // 
@@ -222,16 +184,17 @@
             this.textBoxLastName.Visible = false;
             this.textBoxLastName.Click += new System.EventHandler(this.textBoxLastName_Click);
             // 
-            // buttonImport
+            // buttonDownload
             // 
-            this.buttonImport.Enabled = false;
-            this.buttonImport.Location = new System.Drawing.Point(3, 230);
-            this.buttonImport.Name = "buttonImport";
-            this.buttonImport.Size = new System.Drawing.Size(289, 49);
-            this.buttonImport.TabIndex = 2;
-            this.buttonImport.UseVisualStyleBackColor = true;
-            this.buttonImport.Visible = false;
-            this.buttonImport.Click += new System.EventHandler(this.buttonImport_Click);
+            this.buttonDownload.Enabled = false;
+            this.buttonDownload.Location = new System.Drawing.Point(10, 286);
+            this.buttonDownload.Name = "buttonDownload";
+            this.buttonDownload.Size = new System.Drawing.Size(289, 43);
+            this.buttonDownload.TabIndex = 2;
+            this.buttonDownload.Text = "Download";
+            this.buttonDownload.UseVisualStyleBackColor = true;
+            this.buttonDownload.Visible = false;
+            this.buttonDownload.Click += new System.EventHandler(this.DownLoad_Click);
             // 
             // textBoxFirstName
             // 
@@ -249,7 +212,7 @@
             // 
             this.checkBoxRememberUser.AutoSize = true;
             this.checkBoxRememberUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.checkBoxRememberUser.Location = new System.Drawing.Point(25, 318);
+            this.checkBoxRememberUser.Location = new System.Drawing.Point(25, 267);
             this.checkBoxRememberUser.Name = "checkBoxRememberUser";
             this.checkBoxRememberUser.Size = new System.Drawing.Size(97, 17);
             this.checkBoxRememberUser.TabIndex = 3;
@@ -274,7 +237,7 @@
             // 
             // buttonLogout
             // 
-            this.buttonLogout.Location = new System.Drawing.Point(26, 396);
+            this.buttonLogout.Location = new System.Drawing.Point(26, 356);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.buttonLogout.Size = new System.Drawing.Size(204, 42);
@@ -284,17 +247,34 @@
             this.buttonLogout.Visible = false;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
-            // imagesBindingSource
+            // friendPictureBox
             // 
-            this.imagesBindingSource.DataMember = "Images";
-            this.imagesBindingSource.DataSource = this.sharedPhotosListBindingSource;
+            this.friendPictureBox.Image = global::DesktopFacebook.Properties.Resources.initial_friend_image_picture;
+            this.friendPictureBox.Location = new System.Drawing.Point(10, 41);
+            this.friendPictureBox.Name = "friendPictureBox";
+            this.friendPictureBox.Size = new System.Drawing.Size(290, 230);
+            this.friendPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.friendPictureBox.TabIndex = 6;
+            this.friendPictureBox.TabStop = false;
+            // 
+            // sharedPhotosListBox
+            // 
+            this.sharedPhotosListBox.DataSource = this.sharedPhotosListBindingSource;
+            this.sharedPhotosListBox.FormattingEnabled = true;
+            this.sharedPhotosListBox.ItemHeight = 16;
+            this.sharedPhotosListBox.Location = new System.Drawing.Point(343, 41);
+            this.sharedPhotosListBox.Name = "sharedPhotosListBox";
+            this.sharedPhotosListBox.Size = new System.Drawing.Size(293, 308);
+            this.sharedPhotosListBox.TabIndex = 7;
+            this.sharedPhotosListBox.ValueMember = "Friend";
+            this.sharedPhotosListBox.SelectedIndexChanged += new System.EventHandler(this.sharedPhotosListBox_SelectedIndexChanged);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(920, 450);
+            this.ClientSize = new System.Drawing.Size(950, 460);
             this.Controls.Add(this.buttonLogout);
             this.Controls.Add(this.checkBoxRememberUser);
             this.Controls.Add(this.tabControl);
@@ -309,11 +289,9 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sharedPhotosListBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sharedPhotosBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.friendPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUser)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imagesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.friendPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sharedPhotosListBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -332,14 +310,12 @@
         private System.Windows.Forms.CheckedListBox checkedListBoxWishes;
         private System.Windows.Forms.CheckBox checkBoxRememberUser;
         private System.Windows.Forms.TextBox textBoxFirstName;
-        private System.Windows.Forms.Button buttonImport;
+        private System.Windows.Forms.Button buttonDownload;
         private System.Windows.Forms.TextBox textBoxLastName;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.Button buttonLogout;
-        private System.Windows.Forms.BindingSource sharedPhotosBindingSource;
+        private System.Windows.Forms.ListBox sharedPhotosListBox;
         private System.Windows.Forms.BindingSource sharedPhotosListBindingSource;
-        private System.Windows.Forms.BindingSource imagesBindingSource;
-        private System.Windows.Forms.ListBox sharedPhotosListListBox;
         private System.Windows.Forms.PictureBox friendPictureBox;
     }
 }

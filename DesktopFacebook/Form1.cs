@@ -116,7 +116,7 @@ namespace DesktopFacebook
             textBoxFirstName.Visible = isVisible;
             textBoxLastName.Visible  = isVisible;
             buttonSearch.Visible     = isVisible;
-            buttonImport.Visible     = isVisible;
+            buttonDownload.Visible     = isVisible;
             //pictureBoxFriend.Visible = isVisible;
             friendPictureBox.Visible = isVisible;  // DOR !!!
             
@@ -147,67 +147,82 @@ namespace DesktopFacebook
             postWishToFriends();
         }
 
-        private void buttonImport_Click(object sender, EventArgs e)
+
+
+
+
+
+        private void DownLoad_Click(object sender, EventArgs e)
         {
-            User loggedInUser = m_Session.LoggedInUser;
-            User friend = m_SharedPhotos.Friend;
-            m_SharedPhotos.ImportSharedPhotos(loggedInUser, friend);
 
-            if (!m_SharedPhotos.SharedPhotosList.Any())  // DOR !!!
-            {
-                string message = string.Format(@"No photos of You and {0} were found",
-                                               m_SharedPhotos.Friend.Name);
-
-                MessageBox.Show(message, r_PhotosNotFound,
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                SharedPhotosUI.ExportPhotos(m_SharedPhotos.SharedPhotosList);
-            }
+            SharedPhotosUI.DownLoadPhotos(m_SharedPhotos.SharedPhotosList);
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            bool isImportEnabled = true;
+            bool isDownloadEnabled = true;
 
             m_SharedPhotos.FindFriend(textBoxFirstName.Text, textBoxLastName.Text, m_Session.LoggedInUser);
 
             if (m_SharedPhotos.FriendWasFound)
             {
+                User loggedInUser = m_Session.LoggedInUser;
+                User friend       = m_SharedPhotos.Friend;
 
-                int         totalNumberOfPhotos = m_SharedPhotos.TotalSelectedSharedPictures;                             // DOR !!
-                User        friend              = m_SharedPhotos.Friend;
-                List<Photo> sharedPhotos        = m_SharedPhotos.SharedPhotosList;
-
-                buttonImport.Text = string.Format(@"import shared photos with {0}", friend.Name);
-                //pictureBoxFriend.Image = friend.ImageNormal;
-                buttonImport.Enabled = isImportEnabled;
-
-                //buttonImport.Text = string.Format("import {0} shared photos with {1}", totalNumberOfPhotos, friend.Name); // buttonImport.Invoke// DOR !!
-                importButtonDisplayNumberOfImages();
-
-
-                sharedPhotosBindingSource.DataSource = friend.ImageNormal;                                                // DOR !!!             
-
-                sharedPhotosListBindingSource.DataSource = sharedPhotos;                                                  // DOR !!!
-
+                m_SharedPhotos.ImportSharedPhotos(loggedInUser, friend);
+                loadSharedPhotosToListBox();
             }
-
             else
             {
                 MessageBox.Show(r_MsgFriendNotFound, r_CaptionFriendSearch,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                textBoxFirstName.Text = r_FirstName;
-                textBoxLastName.Text = r_LastName;
-                buttonImport.Enabled = !isImportEnabled;
+                textBoxFirstName.Text  = r_FirstName;
+                textBoxLastName.Text   = r_LastName;
+                buttonDownload.Enabled = !isDownloadEnabled;
 
                 friendPictureBox.Image = initial_friend_image_picture;
 
                 //sharedPhotosBindingSource.DataSource = friendPictureBox.Image;  // DOR !!!
             }
         }
+
+
+
+
+        private void loadSharedPhotosToListBox()
+        {
+            bool isDownloadEnabled = true;
+
+            if (m_SharedPhotos.TotalSelectedSharedPictures == 0)
+            {
+                string message = string.Format(@"No photos of You and {0} were found",
+                                                 m_SharedPhotos.Friend.Name);
+
+                MessageBox.Show(message, r_PhotosNotFound,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                User friend = m_SharedPhotos.Friend;
+
+                List<Photo> sharedPhotos = m_SharedPhotos.SharedPhotosList;
+
+                //pictureBoxFriend.Image = friend.ImageNormal;
+                buttonDownload.Enabled = isDownloadEnabled;
+
+                importButtonDisplayNumberOfImages();
+
+                friendPictureBox.ImageLocation = friend.PictureLargeURL;
+
+                sharedPhotosListBindingSource.DataSource = sharedPhotos;
+            }
+        }
+
+
+
+
+
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
@@ -257,7 +272,7 @@ namespace DesktopFacebook
             textBoxLastName.Visible  = !isVisible;
             buttonSearch.Visible     = !isVisible;
             friendPictureBox.Visible = !isVisible;
-            buttonImport.Visible     = !isVisible;
+            buttonDownload.Visible   = !isVisible;
             pictureBoxUser.Image     = initial_image_picture;
         }
 
@@ -307,29 +322,37 @@ namespace DesktopFacebook
 
         private void sharedPhotosListListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PictureBox picture = sender as PictureBox;
 
-            if (picture.Text.Equals(""))
+            /*
+        
+            Photo photo = sender as Photo;
+
+
+            if (photo.Text.Equals(""))
             {
-                picture.Text = "removed";
-                picture.Visible = false;
+                photo.Text = "removed";
+                photo.Visible = false;
                 m_SharedPhotos.TotalSelectedSharedPictures--;
             }
             else
             {
-                picture.Text = "";
-                picture.Visible = true;
+                photo.Text = "";
+                photo.Visible = true;
                 m_SharedPhotos.TotalSelectedSharedPictures++;
             }
 
             importButtonDisplayNumberOfImages();
+    */
+
         }
+
+        
 
 
         
         private void importButtonDisplayNumberOfImages()  // GUY!!!  we should use event or invoke...
         {
-            buttonImport.Text = string.Format("import {0} shared photos with {1}",
+            buttonDownload.Text = string.Format("import {0} shared photos with {1}",
                 m_SharedPhotos.TotalSelectedSharedPictures, m_SharedPhotos.Friend.Name);
         }
 
@@ -400,5 +423,20 @@ namespace DesktopFacebook
         }
 
         #endregion Private Methods
+
+        private void friendPictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sharedPhotosListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
