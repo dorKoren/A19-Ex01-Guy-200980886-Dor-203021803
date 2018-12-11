@@ -185,7 +185,7 @@ namespace DesktopFacebook
                 buttonImport.Enabled = isImportEnabled;
 
                 //buttonImport.Text = string.Format("import {0} shared photos with {1}", totalNumberOfPhotos, friend.Name); // buttonImport.Invoke// DOR !!
-                ImportButtonDisplayNumberOfImages();
+                importButtonDisplayNumberOfImages();
 
 
                 sharedPhotosBindingSource.DataSource = friend.ImageNormal;                                                // DOR !!!             
@@ -202,9 +202,10 @@ namespace DesktopFacebook
                 textBoxFirstName.Text = r_FirstName;
                 textBoxLastName.Text = r_LastName;
                 buttonImport.Enabled = !isImportEnabled;
-                //pictureBoxFriend.Image = initial_friend_image_picture;
 
-                sharedPhotosBindingSource.DataSource = friendPictureBox.Image;  // DOR !!!
+                friendPictureBox.Image = initial_friend_image_picture;
+
+                //sharedPhotosBindingSource.DataSource = friendPictureBox.Image;  // DOR !!!
             }
         }
 
@@ -302,7 +303,42 @@ namespace DesktopFacebook
                 textBoxWish.Enabled  = enabled;
             }
         }
-   
+
+
+        private void sharedPhotosListListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PictureBox picture = sender as PictureBox;
+
+            if (picture.Text.Equals(""))
+            {
+                picture.Text = "removed";
+                picture.Visible = false;
+                m_SharedPhotos.TotalSelectedSharedPictures--;
+            }
+            else
+            {
+                picture.Text = "";
+                picture.Visible = true;
+                m_SharedPhotos.TotalSelectedSharedPictures++;
+            }
+
+            importButtonDisplayNumberOfImages();
+        }
+
+
+        
+        private void importButtonDisplayNumberOfImages()  // GUY!!!  we should use event or invoke...
+        {
+            buttonImport.Text = string.Format("import {0} shared photos with {1}",
+                m_SharedPhotos.TotalSelectedSharedPictures, m_SharedPhotos.Friend.Name);
+        }
+
+       
+
+
+
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -342,38 +378,6 @@ namespace DesktopFacebook
         {
 
         }
-        #endregion Private Methods
-
-
-        private void sharedPhotosListListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            PictureBox picture = sender as PictureBox;
-
-            if (picture.Text.Equals(""))
-            {
-                picture.Text = "removed";
-                picture.Visible = false;
-                m_SharedPhotos.TotalSelectedSharedPictures--;
-            }
-            else
-            {
-                picture.Text = "";
-                picture.Visible = true;
-                m_SharedPhotos.TotalSelectedSharedPictures++;
-            }
-
-            ImportButtonDisplayNumberOfImages();
-        }
-
-        private void ImportButtonDisplayNumberOfImages()                                // GUY!!!
-        {
-            buttonImport.Text = string.Format("import {0} shared photos with {1}",
-                m_SharedPhotos.TotalSelectedSharedPictures, m_SharedPhotos.Friend.Name);
-        }
-
-
-
-
 
         private void panelUserDetails_Paint(object sender, PaintEventArgs e)
         {
@@ -395,5 +399,6 @@ namespace DesktopFacebook
 
         }
 
+        #endregion Private Methods
     }
 }

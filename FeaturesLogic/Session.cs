@@ -35,7 +35,7 @@ namespace FeaturesLogic
         {
             LoginResult = FacebookService.Login(
                 "1450160541956417",
-               // "2121776861417547",
+                //"2121776861417547",
                 "friends_birthday",
                 "user_friends",
                 "user_photos",
