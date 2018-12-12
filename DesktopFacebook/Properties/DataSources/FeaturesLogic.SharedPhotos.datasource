@@ -28,7 +28,7 @@
                <PropertyUISetting Name="SharedPhotos.Friend">
                   <ControlSettings>
                      <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
-                        <BindableControlInfo Name="PictureBox" Type="System.Windows.Forms.PictureBox" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+                        <BindableControlInfo Name="Details" Type="Microsoft.VSDesigner.Data.DataForm.Windows.DetailView" />
                      </ControlSetting>
                   </ControlSettings>
                </PropertyUISetting>
@@ -56,7 +56,7 @@
                <PropertyUISetting Name="ImageLarge">
                   <ControlSettings>
                      <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
-                        <BindableControlInfo Name="[None]" Type="Microsoft.VSDesigner.Data.BindManager.NoneControlPlaceHolder" />
+                        <BindableControlInfo Name="PictureBox" Type="System.Windows.Forms.PictureBox" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
                      </ControlSetting>
                   </ControlSettings>
                </PropertyUISetting>
@@ -112,7 +112,7 @@
                <PropertyUISetting Name="PictureNormalURL">
                   <ControlSettings>
                      <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
-                        <BindableControlInfo Name="ListBox" Type="System.Windows.Forms.ListBox" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+                        <BindableControlInfo Name="[None]" Type="Microsoft.VSDesigner.Data.BindManager.NoneControlPlaceHolder" />
                      </ControlSetting>
                   </ControlSettings>
                </PropertyUISetting>
@@ -245,7 +245,7 @@
                <PropertyUISetting Name="ImageNormal">
                   <ControlSettings>
                      <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
-                        <BindableControlInfo Name="[None]" Type="Microsoft.VSDesigner.Data.BindManager.NoneControlPlaceHolder" />
+                        <BindableControlInfo Name="PictureBox" Type="System.Windows.Forms.PictureBox" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
                      </ControlSetting>
                   </ControlSettings>
                </PropertyUISetting>
@@ -320,6 +320,13 @@
                   </ControlSettings>
                </PropertyUISetting>
                <PropertyUISetting Name="Width">
+                  <ControlSettings>
+                     <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
+                        <BindableControlInfo Name="[None]" Type="Microsoft.VSDesigner.Data.BindManager.NoneControlPlaceHolder" />
+                     </ControlSetting>
+                  </ControlSettings>
+               </PropertyUISetting>
+               <PropertyUISetting Name="ImageThumb">
                   <ControlSettings>
                      <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
                         <BindableControlInfo Name="[None]" Type="Microsoft.VSDesigner.Data.BindManager.NoneControlPlaceHolder" />
@@ -454,6 +461,15 @@
                </PropertyUISetting>
             </PropertyUISettings>
          </TypeUISetting>
+      </GenericObjectDataSource>
+      <GenericObjectDataSource DisplayName="Tags" Version="1.0">
+         <TypeInfo>FacebookWrapper.ObjectModel.PhotoTag, FbGraphApiWrapper, Version=6.8.0.17, Culture=neutral, PublicKeyToken=null</TypeInfo>
+      </GenericObjectDataSource>
+      <GenericObjectDataSource DisplayName="Images" Version="1.0">
+         <TypeInfo>FacebookWrapper.ObjectModel.FBImage, FbGraphApiWrapper, Version=6.8.0.17, Culture=neutral, PublicKeyToken=null</TypeInfo>
+      </GenericObjectDataSource>
+      <GenericObjectDataSource DisplayName="Comments" Version="1.0">
+         <TypeInfo>FacebookWrapper.ObjectModel.Comment, FbGraphApiWrapper, Version=6.8.0.17, Culture=neutral, PublicKeyToken=null</TypeInfo>
       </GenericObjectDataSource>
    </Children>
    <TypeInfo>FeaturesLogic.SharedPhotos, FeaturesLogic, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>

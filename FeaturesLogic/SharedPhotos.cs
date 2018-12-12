@@ -26,7 +26,7 @@ namespace FeaturesLogic
         #endregion constructor
 
         #region Public Methods
-        public void ImportSharedPhotos(User i_LoggedInUser, User i_Friend)   // DOR !!!
+        public void ImportSharedPhotos(User i_LoggedInUser, User i_Friend)  
         {
             SharedPhotosList = new List<Photo>();
 
@@ -47,8 +47,8 @@ namespace FeaturesLogic
                 if (i_FirstName.Equals(user.FirstName, StringComparison.OrdinalIgnoreCase) &&
                     i_LastName.Equals(user.LastName, StringComparison.OrdinalIgnoreCase))
                 {
-                    this.Friend = user;
-                    this.FriendWasFound = this.r_WasFound;
+                    Friend = user;
+                    FriendWasFound = this.r_WasFound;
                     break;
                 }
             }

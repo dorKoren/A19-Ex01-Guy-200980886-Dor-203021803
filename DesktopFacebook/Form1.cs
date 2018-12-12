@@ -16,6 +16,7 @@ namespace DesktopFacebook
     public partial class mainForm : Form
     {
         #region Class Members
+
         private readonly string       r_LogOutMsg           = "Are you sure that you want logout?";
         private readonly string       r_LabelAccountName    = "Account Name";
         private readonly string       r_MainFormName        = "Desktop Facebook";
@@ -25,13 +26,16 @@ namespace DesktopFacebook
         private readonly string       r_CaptionFriendSearch = "Friend Search Error";
         private readonly string       r_FirstName           = "First Name:";
         private readonly string       r_LastName            = "Last Name:";
+
         internal Session              m_Session;        
         internal Serializer           m_Serializer;
         internal SharedPhotos         m_SharedPhotos;
         internal BirthdayWish         m_BirthdayWish;
+
         #endregion Class Members
 
         #region Constructor
+
         public mainForm()
         {
             InitializeComponent();
@@ -49,6 +53,7 @@ namespace DesktopFacebook
                 fetchUserInfo();
             }
         }
+
         #endregion Constructor
 
         #region Protected Override Methods
@@ -83,7 +88,7 @@ namespace DesktopFacebook
 
 
             pictureBoxUser.ImageLocation =  loggedInUser.PictureNormalURL;
-            this.Text                    =  string.Format("Logged in as {0} {1}", firstName, lastName);
+            Text                         =  string.Format("Logged in as {0} {1}", firstName, lastName);
             labelAccountName.Text        =  string.Format("{0} {1}", firstName, lastName);
             checkBoxRememberUser.Visible =  isVisible;
             buttonLogout.Visible         =  isVisible;
@@ -113,12 +118,12 @@ namespace DesktopFacebook
 
             m_SharedPhotos = new SharedPhotos();
 
-            textBoxFirstName.Visible = isVisible;
-            textBoxLastName.Visible  = isVisible;
-            buttonSearch.Visible     = isVisible;
+            textBoxFirstName.Visible   = isVisible;
+            textBoxLastName.Visible    = isVisible;
+            buttonSearch.Visible       = isVisible;
             buttonDownload.Visible     = isVisible;
             //pictureBoxFriend.Visible = isVisible;
-            friendPictureBox.Visible = isVisible;  // DOR !!!
+            friendPictureBox.Visible   = isVisible;  // DOR !!!
             
 
         }
@@ -154,7 +159,6 @@ namespace DesktopFacebook
 
         private void DownLoad_Click(object sender, EventArgs e)
         {
-
             SharedPhotosUI.DownLoadPhotos(m_SharedPhotos.SharedPhotosList);
         }
 
@@ -182,8 +186,6 @@ namespace DesktopFacebook
                 buttonDownload.Enabled = !isDownloadEnabled;
 
                 friendPictureBox.Image = initial_friend_image_picture;
-
-                //sharedPhotosBindingSource.DataSource = friendPictureBox.Image;  // DOR !!!
             }
         }
 
@@ -208,19 +210,63 @@ namespace DesktopFacebook
 
                 List<Photo> sharedPhotos = m_SharedPhotos.SharedPhotosList;
 
-                //pictureBoxFriend.Image = friend.ImageNormal;
+                sharedPhotosBindingSource.DataSource = m_SharedPhotos;  // DOR addition
+
+                /*
+                int top = 3;
+
+                
+                foreach (Photo photo in sharedPhotos)
+                {
+                    LazyPictureBux sharedPicture = new LazyPictureBux();
+                    sharedPicture.Size = new Size(75, 75);
+                    sharedPicture.SizeMode = PictureBoxSizeMode.StretchImage;
+                    sharedPicture.Load(photo.PictureThumbURL); 
+                    sharedPhotosListListBox.Controls.Add(sharedPicture);
+                    sharedPicture.Top = top;
+                    sharedPicture.Left = 3;
+                    top = sharedPicture.Bottom + 2;
+
+                    sharedPhotosListListBox.Controls.Add(sharedPicture);
+
+                }
+
+                */
+                
+
                 buttonDownload.Enabled = isDownloadEnabled;
 
                 importButtonDisplayNumberOfImages();
 
                 friendPictureBox.ImageLocation = friend.PictureLargeURL;
+                
 
-                sharedPhotosListBindingSource.DataSource = sharedPhotos;
+                sharedPhotosListBindingSource.DataSource = sharedPhotos;   // DOR : we should handle this!
             }
         }
 
 
+        /**************************************************************/
+        public class LazyPictureBux : PictureBox
+        {
+            public String URL { get; set; }
 
+            public new void Load(string i_UrlToLoad)
+            {
+                URL = i_UrlToLoad;
+            }
+
+            protected override void OnPaint(PaintEventArgs pe)
+            {
+                if (base.ImageLocation == null)
+                {
+                    base.ImageLocation = this.URL;
+                }
+
+                base.OnPaint(pe);
+            }
+        }
+        /**************************************************************/
 
 
 
@@ -300,7 +346,7 @@ namespace DesktopFacebook
             m_Session.LoggedInUser.PostStatus(congrats);
         }
 
-        private void updateCheckedListBoxWishes()
+        private void updateCheckedListBoxWishes()    // DOR: we should use d.p here! (maybe proxy)
         {
             int  currentDay = m_BirthdayWish.CurrentDayOfYear;
             bool enabled    = true;
@@ -320,31 +366,6 @@ namespace DesktopFacebook
         }
 
 
-        private void sharedPhotosListListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            /*
-        
-            Photo photo = sender as Photo;
-
-
-            if (photo.Text.Equals(""))
-            {
-                photo.Text = "removed";
-                photo.Visible = false;
-                m_SharedPhotos.TotalSelectedSharedPictures--;
-            }
-            else
-            {
-                photo.Text = "";
-                photo.Visible = true;
-                m_SharedPhotos.TotalSelectedSharedPictures++;
-            }
-
-            importButtonDisplayNumberOfImages();
-    */
-
-        }
 
         
 
@@ -435,6 +456,16 @@ namespace DesktopFacebook
         }
 
         private void sharedPhotosListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkedListBoxSharedPhotos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sharedPhotosListListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
