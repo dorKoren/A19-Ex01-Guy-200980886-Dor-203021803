@@ -8,6 +8,7 @@ namespace FeaturesLogic
     {
         #region Class Members
         private readonly bool r_WasFound = true;
+        private readonly int  r_MaxNumOfImages = 30;
 
         public User        Friend                      { get; set; }
         public bool        FriendWasFound              { get; set; }
@@ -30,9 +31,16 @@ namespace FeaturesLogic
         {
             SharedPhotosList = new List<Photo>();
 
+
             foreach (Album album in i_Friend.Albums)
             {
                 SharedPhotosList.AddRange(getSharedPhotos(i_LoggedInUser, i_Friend, album));
+
+                // Pre-Set max number of images to load
+                if (SharedPhotosList.Count > r_MaxNumOfImages)
+                {
+                    break;
+                }
             }
 
             TotalSelectedSharedPictures = SharedPhotosList.Count;

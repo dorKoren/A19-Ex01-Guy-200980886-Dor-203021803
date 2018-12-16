@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
@@ -12,13 +13,65 @@ namespace DesktopFacebook
         #endregion Class Members
 
         #region Internal Static Methods
-        internal static void DownLoadPhotos(List<Photo> i_SharedPhotos)
+
+
+        internal static void FetchSharedPhotosToListBox(FlowLayoutPanel i_SharedPhotosflowLayoutPanel, List<Photo> i_sharedPhotos)
+        {
+            int top = 3;
+
+            foreach (Photo sharedPhoto in i_sharedPhotos)
+            {
+                LazyPictureBox sharedPicture = new LazyPictureBox();
+                sharedPicture.Size = new Size(75, 75);
+                sharedPicture.SizeMode = PictureBoxSizeMode.StretchImage;
+                sharedPicture.Load(sharedPhoto.PictureThumbURL);
+                sharedPicture.Top = top;
+                sharedPicture.Left = 3;
+                top = sharedPicture.Bottom + 2;
+
+                i_SharedPhotosflowLayoutPanel.Controls.Add(sharedPicture);
+            }
+        }
+
+        /**************************************************************/
+        public class LazyPictureBox : PictureBox
+        {
+            public string URL { get; set; }
+
+            public new void Load(string i_UrlToLoad)
+            {
+                URL = i_UrlToLoad;
+            }
+
+            protected override void OnPaint(PaintEventArgs pe)
+            {
+                if (base.ImageLocation == null)
+                {
+                    base.ImageLocation = this.URL;
+                }
+
+                base.OnPaint(pe);
+            }
+        }
+        /**************************************************************/
+
+
+
+
+
+
+        internal static void DownLoadPhotos(List<Photo> i_SharedPhotos)   // DOR: need to handle with list of picture box
         {
             foreach (Photo photo in i_SharedPhotos)
             {
                 downLoadPhoto(photo);
             }
         }
+
+
+
+
+
         #endregion Internal Static Methods
 
         #region  Private Static Methods   

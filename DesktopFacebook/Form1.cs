@@ -156,7 +156,6 @@ namespace DesktopFacebook
 
 
 
-
         private void DownLoad_Click(object sender, EventArgs e)
         {
             SharedPhotosUI.DownLoadPhotos(m_SharedPhotos.SharedPhotosList);
@@ -210,65 +209,20 @@ namespace DesktopFacebook
 
                 List<Photo> sharedPhotos = m_SharedPhotos.SharedPhotosList;
 
-                sharedPhotosBindingSource.DataSource = m_SharedPhotos;  // DOR addition
 
-                /*
-                int top = 3;
+                SharedPhotosUI.FetchSharedPhotosToListBox(sharedPhotosflowLayoutPanel/*sharedPhotosListListBox*/, sharedPhotos);
 
-                
-                foreach (Photo photo in sharedPhotos)
-                {
-                    LazyPictureBux sharedPicture = new LazyPictureBux();
-                    sharedPicture.Size = new Size(75, 75);
-                    sharedPicture.SizeMode = PictureBoxSizeMode.StretchImage;
-                    sharedPicture.Load(photo.PictureThumbURL); 
-                    sharedPhotosListListBox.Controls.Add(sharedPicture);
-                    sharedPicture.Top = top;
-                    sharedPicture.Left = 3;
-                    top = sharedPicture.Bottom + 2;
 
-                    sharedPhotosListListBox.Controls.Add(sharedPicture);
-
-                }
-
-                */
-                
+                //sharedPhotosBindingSource.DataSource = m_SharedPhotos; 
+                        
 
                 buttonDownload.Enabled = isDownloadEnabled;
 
-                importButtonDisplayNumberOfImages();
-
                 friendPictureBox.ImageLocation = friend.PictureLargeURL;
                 
-
-                sharedPhotosListBindingSource.DataSource = sharedPhotos;   // DOR : we should handle this!
+                //sharedPhotosListBindingSource.DataSource = sharedPhotos;   // DOR : we should handle this!
             }
         }
-
-
-        /**************************************************************/
-        public class LazyPictureBux : PictureBox
-        {
-            public String URL { get; set; }
-
-            public new void Load(string i_UrlToLoad)
-            {
-                URL = i_UrlToLoad;
-            }
-
-            protected override void OnPaint(PaintEventArgs pe)
-            {
-                if (base.ImageLocation == null)
-                {
-                    base.ImageLocation = this.URL;
-                }
-
-                base.OnPaint(pe);
-            }
-        }
-        /**************************************************************/
-
-
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
@@ -377,7 +331,31 @@ namespace DesktopFacebook
                 m_SharedPhotos.TotalSelectedSharedPictures, m_SharedPhotos.Friend.Name);
         }
 
-       
+
+        private void sharedPhotosListListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            /*
+            PictureBox picture = sender as PictureBox;
+
+
+            if (picture.Text.Equals(""))
+            {
+                picture.Text = "removed";
+                picture.Visible = false;
+                m_SharedPhotos.TotalSelectedSharedPictures--;
+            }
+            else
+            {
+                picture.Text = "";
+                picture.Visible = true;
+                m_SharedPhotos.TotalSelectedSharedPictures++;
+            }
+
+            importButtonDisplayNumberOfImages();
+
+            */
+        }
 
 
 
@@ -461,11 +439,6 @@ namespace DesktopFacebook
         }
 
         private void checkedListBoxSharedPhotos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void sharedPhotosListListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
