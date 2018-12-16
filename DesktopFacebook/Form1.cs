@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Security.Policy;
 using static  DesktopFacebook.BirthdayWishUI;
+using static DesktopFacebook.SharedPhotosUI;
 
 namespace DesktopFacebook
 {
@@ -138,6 +139,7 @@ namespace DesktopFacebook
             if (m_Session.m_IsSessionSuccess)
             {
                 m_Serializer = new Serializer();
+
                 checkBoxRememberUser.Checked = m_Serializer.RememberUser;
                 fetchUserInfo();
             }
@@ -195,7 +197,7 @@ namespace DesktopFacebook
         {
             bool isDownloadEnabled = true;
 
-            if (m_SharedPhotos.TotalSelectedSharedPictures == 0)
+            if (m_SharedPhotos.SharedPhotosList.Count <= 0)
             {
                 string message = string.Format(@"No photos of You and {0} were found",
                                                  m_SharedPhotos.Friend.Name);
@@ -209,18 +211,17 @@ namespace DesktopFacebook
 
                 List<Photo> sharedPhotos = m_SharedPhotos.SharedPhotosList;
 
+                FetchSharedPhotosToListBox(sharedPhotosflowLayoutPanel, sharedPhotos);
 
-                SharedPhotosUI.FetchSharedPhotosToListBox(sharedPhotosflowLayoutPanel/*sharedPhotosListListBox*/, sharedPhotos);
 
-
-                //sharedPhotosBindingSource.DataSource = m_SharedPhotos; 
+                sharedPhotosBindingSource.DataSource = m_SharedPhotos; 
                         
 
                 buttonDownload.Enabled = isDownloadEnabled;
 
                 friendPictureBox.ImageLocation = friend.PictureLargeURL;
                 
-                //sharedPhotosListBindingSource.DataSource = sharedPhotos;   // DOR : we should handle this!
+               // sharedPhotosListBindingSource.DataSource = sharedPhotos;   // DOR : we should handle this!
             }
         }
 
@@ -300,16 +301,16 @@ namespace DesktopFacebook
             m_Session.LoggedInUser.PostStatus(congrats);
         }
 
-        private void updateCheckedListBoxWishes()    // DOR: we should use d.p here! (maybe proxy)
+        private void updateCheckedListBoxWishes()   
         {
-            int  currentDay = m_BirthdayWish.CurrentDayOfYear;
+            int currentDay = /*m_BirthdayWish.CurrentDayOfYear;*/ 191;      // DOR delete!
             bool enabled    = true;
             
             BirthdayNode curNode = m_BirthdayWish.BirthdayDictionary.BirthdayFriends[currentDay];
 
             foreach (User friend in curNode.BirthdayFriends)
             {       
-                checkedListBoxWishes.Items.Add(friend.Name, true);
+                checkedListBoxWishes.Items.Add(new UserBirthProxy{User = friend});
             }
 
             if (checkedListBoxWishes.Items.Count != 0)
@@ -319,47 +320,13 @@ namespace DesktopFacebook
             }
         }
 
-
-
-        
-
-
+  
         
         private void importButtonDisplayNumberOfImages()  // GUY!!!  we should use event or invoke...
         {
             buttonDownload.Text = string.Format("import {0} shared photos with {1}",
                 m_SharedPhotos.TotalSelectedSharedPictures, m_SharedPhotos.Friend.Name);
         }
-
-
-        private void sharedPhotosListListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            /*
-            PictureBox picture = sender as PictureBox;
-
-
-            if (picture.Text.Equals(""))
-            {
-                picture.Text = "removed";
-                picture.Visible = false;
-                m_SharedPhotos.TotalSelectedSharedPictures--;
-            }
-            else
-            {
-                picture.Text = "";
-                picture.Visible = true;
-                m_SharedPhotos.TotalSelectedSharedPictures++;
-            }
-
-            importButtonDisplayNumberOfImages();
-
-            */
-        }
-
-
-
-
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -433,12 +400,63 @@ namespace DesktopFacebook
 
         }
 
-        private void sharedPhotosListBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void checkedListBoxSharedPhotos_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void checkedListBoxSharedPhotos_SelectedIndexChanged(object sender, EventArgs e)
+        private void totalSelectedSharedPicturesLabel3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void imageNormalPictureBox_Click_1(object sender, EventArgs e)          // GUY addition
+        {
+
+        }
+
+
+        private void sharedPhotosListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PictureBox pic = sender as PictureBox;
+            // Select current image
+
+            if (pic.BackColor != Color.Beige)
+            {
+                selectPic(pic);
+            }
+            // Deselect current image
+            else
+            {
+                deSelectPic(pic);
+            }
+
+            // Update number of selected images presented to the User
+        }
+
+
+        // An image was selected
+
+        private void deSelectPic(PictureBox pic)                                    // GUY addition
+        {
+            pic.BackColor = Color.Transparent;
+            //pic.WasSelected = false;
+            m_SharedPhotos.TotalSelectedSharedPictures--;
+        }
+
+        private void selectPic(PictureBox pic)                                      // GUY addition
+        {
+            pic.BackColor = Color.Beige;
+            //pic.WasSelected = true;
+            m_SharedPhotos.TotalSelectedSharedPictures++;
+        }
+
+        private void friendPictureBox_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sharedPhotosflowLayoutPanel_Paint(object sender, PaintEventArgs e)
         {
 
         }

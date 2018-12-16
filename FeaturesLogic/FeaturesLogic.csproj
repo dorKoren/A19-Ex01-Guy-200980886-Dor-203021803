@@ -44,6 +44,7 @@
     <Compile Include="Serializer.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SharedPhotos.cs" />
+    <Compile Include="UserBirthProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Facebook">

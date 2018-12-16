@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace FeaturesLogic
 {
-    public class BirthdayDictionary
+    public sealed class BirthdayDictionary
     {
         #region Nested Class
         public class BirthdayNode
@@ -30,17 +30,42 @@ namespace FeaturesLogic
         #endregion Nested Class
 
         #region Class Members
+        private static BirthdayDictionary s_Instance = null;
+        private static object s_LockObj = new Object();
         private static readonly int sr_NumOfDays = 365;
         public BirthdayNode[] BirthdayFriends { get; set; }
+
         #endregion Class Members
 
         #region Constructor
-        public BirthdayDictionary()
+        private BirthdayDictionary()
         {
             BirthdayFriends = new BirthdayNode[sr_NumOfDays];
             initBirthdays();
         }
+
         #endregion Constructor
+
+        #region Properties
+        public static BirthdayDictionary Instance
+        {
+            get
+            {
+                if (s_Instance == null)
+                {
+                    lock (s_LockObj)
+                    {
+                        if (s_Instance == null)
+                        {
+                            s_Instance = new BirthdayDictionary();
+                        }
+                    }
+                }
+
+                return s_Instance;
+            }
+        }
+        #endregion Properties
 
         #region Public Methods
         public void FillBirthdays(User i_LoggedInUser)

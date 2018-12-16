@@ -18,7 +18,6 @@ namespace DesktopFacebook
         internal static void FetchSharedPhotosToListBox(FlowLayoutPanel i_SharedPhotosflowLayoutPanel, List<Photo> i_sharedPhotos)
         {
             int top = 3;
-
             foreach (Photo sharedPhoto in i_sharedPhotos)
             {
                 LazyPictureBox sharedPicture = new LazyPictureBox();
@@ -37,6 +36,12 @@ namespace DesktopFacebook
         public class LazyPictureBox : PictureBox
         {
             public string URL { get; set; }
+            public bool WasSelected { get; set; }
+
+            public LazyPictureBox() {
+
+                WasSelected = false;
+            }
 
             public new void Load(string i_UrlToLoad)
             {
