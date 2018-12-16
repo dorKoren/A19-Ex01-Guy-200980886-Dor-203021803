@@ -160,7 +160,7 @@ namespace DesktopFacebook
 
         private void DownLoad_Click(object sender, EventArgs e)
         {
-            SharedPhotosUI.DownLoadPhotos(m_SharedPhotos.SharedPhotosList);
+           DownLoadPhotos(m_SharedPhotos.SharedPhotosList);
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -175,7 +175,10 @@ namespace DesktopFacebook
                 User friend       = m_SharedPhotos.Friend;
 
                 m_SharedPhotos.ImportSharedPhotos(loggedInUser, friend);
-                loadSharedPhotosToListBox();
+
+                sharedPhotosBindingSource.DataSource = m_SharedPhotos;
+
+                loadSharedPhotosToFlowLayoutPanel();
             }
             else
             {
@@ -193,7 +196,7 @@ namespace DesktopFacebook
 
 
 
-        private void loadSharedPhotosToListBox()
+        private void loadSharedPhotosToFlowLayoutPanel()
         {
             bool isDownloadEnabled = true;
 
@@ -358,49 +361,19 @@ namespace DesktopFacebook
 
         }
 
-        private void pictureBoxFriend_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void pictureBoxUser_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void panelUserDetails_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
 
-        private void firstNameLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void imageNormalLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void imageNormalPictureBox_Click(object sender, EventArgs e)
-        {
-
-        }
+       
 
         #endregion Private Methods
 
-        private void friendPictureBox_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void tabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkedListBoxSharedPhotos_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
@@ -409,46 +382,10 @@ namespace DesktopFacebook
         {
 
         }
-
-        private void imageNormalPictureBox_Click_1(object sender, EventArgs e)          // GUY addition
-        {
-
-        }
-
-
+        
         private void sharedPhotosListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PictureBox pic = sender as PictureBox;
-            // Select current image
-
-            if (pic.BackColor != Color.Beige)
-            {
-                selectPic(pic);
-            }
-            // Deselect current image
-            else
-            {
-                deSelectPic(pic);
-            }
-
-            // Update number of selected images presented to the User
-        }
-
-
-        // An image was selected
-
-        private void deSelectPic(PictureBox pic)                                    // GUY addition
-        {
-            pic.BackColor = Color.Transparent;
-            //pic.WasSelected = false;
-            m_SharedPhotos.TotalSelectedSharedPictures--;
-        }
-
-        private void selectPic(PictureBox pic)                                      // GUY addition
-        {
-            pic.BackColor = Color.Beige;
-            //pic.WasSelected = true;
-            m_SharedPhotos.TotalSelectedSharedPictures++;
+                
         }
 
         private void friendPictureBox_Click_1(object sender, EventArgs e)

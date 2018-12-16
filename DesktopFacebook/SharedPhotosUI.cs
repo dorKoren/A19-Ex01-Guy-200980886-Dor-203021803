@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -15,22 +16,59 @@ namespace DesktopFacebook
         #region Internal Static Methods
 
 
-        internal static void FetchSharedPhotosToListBox(FlowLayoutPanel i_SharedPhotosflowLayoutPanel, List<Photo> i_sharedPhotos)
+        internal static void FetchSharedPhotosToListBox(FlowLayoutPanel i_SharedPhotosFlowLayoutPanel, List<Photo> i_sharedPhotos)
         {
             int top = 3;
             foreach (Photo sharedPhoto in i_sharedPhotos)
             {
                 LazyPictureBox sharedPicture = new LazyPictureBox();
-                sharedPicture.Size = new Size(75, 75);
+                sharedPicture.Size = new Size(60, 60);
                 sharedPicture.SizeMode = PictureBoxSizeMode.StretchImage;
                 sharedPicture.Load(sharedPhoto.PictureThumbURL);
                 sharedPicture.Top = top;
                 sharedPicture.Left = 3;
                 top = sharedPicture.Bottom + 2;
-
-                i_SharedPhotosflowLayoutPanel.Controls.Add(sharedPicture);
+                sharedPicture.Click += sharedPicture_Click; // DOR ???
+                i_SharedPhotosFlowLayoutPanel.Controls.Add(sharedPicture);   
             }
         }
+
+        private static void sharedPicture_Click(object sender, EventArgs e) // DOR ???
+        {
+            LazyPictureBox pic = sender as LazyPictureBox;
+            // Select current image
+
+            if (!pic.WasSelected)
+            {
+                selectPic(pic);
+            }
+            // Deselect current image
+            else
+            {
+                deSelectPic(pic);
+            }
+
+        }
+
+        private static void deSelectPic(LazyPictureBox pic)
+        {
+            //pic.BackColor = Color.Transparent;
+            pic.Show();
+            pic.WasSelected = false;
+            //m_SharedPhotos.TotalSelectedSharedPictures--;
+
+        }
+
+        private static void selectPic(LazyPictureBox pic)
+        {
+            //pic.BackColor = Color.Beige;
+            pic.Hide();;
+            pic.WasSelected = true;
+            //m_SharedPhotos.TotalSelectedSharedPictures++;
+        }
+
+
+
 
         /**************************************************************/
         public class LazyPictureBox : PictureBox
@@ -65,13 +103,14 @@ namespace DesktopFacebook
 
 
 
-        internal static void DownLoadPhotos(List<Photo> i_SharedPhotos)   // DOR: need to handle with list of picture box
+        internal static void DownLoadPhotos(List<Photo> i_SharedPhotos)   
         {
             foreach (Photo photo in i_SharedPhotos)
             {
                 downLoadPhoto(photo);
             }
         }
+
 
 
 

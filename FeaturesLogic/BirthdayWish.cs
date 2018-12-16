@@ -14,8 +14,8 @@ namespace FeaturesLogic
         #region Constructor
         public BirthdayWish()
         {
-            BirthdayDictionary = new BirthdayDictionary();
-            CurrentDayOfYear = DateTime.Now.DayOfYear - 1;
+            BirthdayDictionary = BirthdayDictionary.Instance;
+            CurrentDayOfYear   = DateTime.Now.DayOfYear - 1;
         }
         #endregion Constructor
 
