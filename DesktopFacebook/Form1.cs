@@ -32,6 +32,7 @@ namespace DesktopFacebook
         internal Serializer           m_Serializer;
         internal SharedPhotos         m_SharedPhotos;
         internal BirthdayWish         m_BirthdayWish;
+        internal SharedPhotosUI       m_SharedPhotosUI;
 
         #endregion Class Members
 
@@ -160,7 +161,7 @@ namespace DesktopFacebook
 
         private void DownLoad_Click(object sender, EventArgs e)
         {
-           DownLoadPhotos(m_SharedPhotos.SharedPhotosList);
+           DownLoadPhotos(m_SharedPhotosUI.SharedLazyPictureBox);
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -175,8 +176,6 @@ namespace DesktopFacebook
                 User friend       = m_SharedPhotos.Friend;
 
                 m_SharedPhotos.ImportSharedPhotos(loggedInUser, friend);
-
-                sharedPhotosBindingSource.DataSource = m_SharedPhotos;
 
                 loadSharedPhotosToFlowLayoutPanel();
             }
@@ -214,18 +213,20 @@ namespace DesktopFacebook
 
                 List<Photo> sharedPhotos = m_SharedPhotos.SharedPhotosList;
 
-                FetchSharedPhotosToListBox(sharedPhotosflowLayoutPanel, sharedPhotos);
+                m_SharedPhotosUI = new SharedPhotosUI(sharedPhotos);
 
-
-                sharedPhotosBindingSource.DataSource = m_SharedPhotos; 
-                        
-
+                sharedPhotosBindingSource.DataSource = m_SharedPhotos; // DOR !!!
+            
                 buttonDownload.Enabled = isDownloadEnabled;
 
-                friendPictureBox.ImageLocation = friend.PictureLargeURL;
-                
-               // sharedPhotosListBindingSource.DataSource = sharedPhotos;   // DOR : we should handle this!
+                //friendPictureBox.ImageLocation = friend.PictureLargeURL; 
+
+                foreach (LazyPictureBox pic in m_SharedPhotosUI.SharedLazyPictureBox)
+                {
+                    sharedPhotosFlowLayoutPanel.Controls.Add(pic);
+                }
             }
+
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
