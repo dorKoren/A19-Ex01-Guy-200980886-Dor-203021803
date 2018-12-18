@@ -9,16 +9,15 @@ namespace FeaturesLogic
         // DOR : we should think if this class should be static.
 
         #region Class Members
-        public User LoggedInUser { get; set; }
-        public LoginResult LoginResult { get; set; }
-        public bool m_IsSessionSuccess;
+        public User        LoggedInUser     { get; set; }
+        public LoginResult LoginResult      { get; set; }
+        public bool        IsSessionSuccess { get; set; }
         #endregion Class Members
 
         #region Constructor
         public Session()
         {
-            m_IsSessionSuccess = false;
-            startSession();
+            IsSessionSuccess = false;
         }
         #endregion Constructor
 
@@ -31,7 +30,7 @@ namespace FeaturesLogic
         #endregion Public Methods
 
         #region Private Methods
-        private void startSession()
+        public void StartSession()
         {
             LoginResult = FacebookService.Login(
                 //"1450160541956417",
@@ -47,7 +46,7 @@ namespace FeaturesLogic
             if (!string.IsNullOrEmpty(LoginResult.AccessToken))
             {
                 LoggedInUser = LoginResult.LoggedInUser;
-                m_IsSessionSuccess = !m_IsSessionSuccess;
+                IsSessionSuccess = !IsSessionSuccess;
             }
         }
         #endregion Private Methods

@@ -7,10 +7,10 @@ using FacebookWrapper.ObjectModel;
 
 namespace DesktopFacebook
 {
-    internal class SharedPhotosUI
+    internal class SharedPhotosUI : IFetch
     {
         #region Class Members
-        private const string         k_Filter = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg";
+        private  const string         k_Filter = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg";
         internal List<LazyPictureBox> SharedLazyPictureBox { get; }
         #endregion Class Members
 
@@ -18,30 +18,23 @@ namespace DesktopFacebook
 
 
         #region constructor
-        internal SharedPhotosUI(List<Photo> i_SharedPhotos)
+        internal SharedPhotosUI()
         {
             SharedLazyPictureBox = new List<LazyPictureBox>();
-
-            convertSharedPhotosToLazyPicBox(i_SharedPhotos);
         }
         #endregion constructor
 
 
-
-        private void convertSharedPhotosToLazyPicBox(List<Photo> i_SharedPhotos)
+        internal void ConvertPhotosToLazyPicBox(List<Photo> i_Photos)
         {
-
-            foreach (Photo sharedPhoto in i_SharedPhotos)
+            foreach (Photo photo in i_Photos)
             {
                 LazyPictureBox lazyPicBox = new LazyPictureBox();
 
-                lazyPicBox.Load(sharedPhoto.PictureNormalURL);
+                lazyPicBox.Load(photo.PictureNormalURL);
                 SharedLazyPictureBox.Add(lazyPicBox);
             }
         }
-
-
-
 
 
         internal static void DownLoadPhotos(List<LazyPictureBox> i_SharedPicBox)   
@@ -89,6 +82,15 @@ namespace DesktopFacebook
                     }
                 }
             }
+        }
+
+        public void Fetch(List<Control> i_Controls)
+        {
+            foreach (Control control in i_Controls)
+            {
+                control.Visible = true;
+            }
+
         }
         #endregion  Private Static Methods
     }

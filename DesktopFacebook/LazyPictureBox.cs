@@ -8,8 +8,8 @@ namespace DesktopFacebook
     {
         private static int s_Top = 3;
 
-        public string URL { get; set; }
-        public bool WasSelected { get; set; }
+        public string URL         { get; set; }
+        public bool   WasSelected { get; set; }
 
         public LazyPictureBox()
         {
@@ -38,7 +38,7 @@ namespace DesktopFacebook
             base.OnPaint(pe);
         }
 
-        private static void lazyPicBox_Click(object sender, EventArgs e) // DOR ???
+        private static void lazyPicBox_Click(object sender, EventArgs e)
         {
             LazyPictureBox pic = sender as LazyPictureBox;
            
@@ -60,7 +60,7 @@ namespace DesktopFacebook
             //pic.BackColor = Color.Transparent;
             i_Picture.Show();
             i_Picture.WasSelected = false;
-            //m_SharedPhotos.TotalSelectedSharedPictures--;
+            //m_SharedPhotos.TotalSelectedSharedPictures--;  This belongs to the form, to handle number of selected pictures.
 
         }
 

@@ -28,11 +28,13 @@ namespace DesktopFacebook
         private readonly string       r_FirstName           = "First Name:";
         private readonly string       r_LastName            = "Last Name:";
 
-        internal Session              m_Session;        
-        internal Serializer           m_Serializer;
-        internal SharedPhotos         m_SharedPhotos;
-        internal BirthdayWish         m_BirthdayWish;
-        internal SharedPhotosUI       m_SharedPhotosUI;
+        private Session               m_Session;
+        private Serializer            m_Serializer;
+        private SharedPhotos          m_SharedPhotos;
+        //internal BirthdayWish         m_BirthdayWish;
+        private SharedPhotosUI        m_SharedPhotosUI;
+        private BirthdayWishUI        m_BirthdayWishUI;
+        private FetchMaker            m_FetchMaker;
 
         #endregion Class Members
 
@@ -50,9 +52,13 @@ namespace DesktopFacebook
                 !string.IsNullOrEmpty(m_Serializer.LastAccessToken))
             {
                 Connect(m_Serializer.LastAccessToken);
-                m_Session.LoggedInUser = m_Serializer.LastUser;   
-                m_BirthdayWish.BirthdayDictionary = m_Serializer.LastUserBirthdayDictionary;
+
+                m_Session.LoggedInUser = m_Serializer.LastUser;
+                m_BirthdayWishUI.BirthdayWish.BirthdayDictionary = m_Serializer.LastUserBirthdayDictionary;
+                //m_BirthdayWish.BirthdayDictionary = m_Serializer.LastUserBirthdayDictionary;
+
                 fetchUserInfo();
+                fetchFeaturesInfo();
             }
         }
 
@@ -67,7 +73,8 @@ namespace DesktopFacebook
             {
                 m_Session.EndSession();
                 m_Serializer.RememberUser = checkBoxRememberUser.Checked;
-                m_Serializer.LastUserBirthdayDictionary = m_BirthdayWish.BirthdayDictionary;
+                m_Serializer.LastUserBirthdayDictionary = m_BirthdayWishUI.BirthdayWish.BirthdayDictionary;
+                //m_Serializer.LastUserBirthdayDictionary = m_BirthdayWish.BirthdayDictionary;
 
                 m_Serializer.LastAccessToken = m_Serializer.RememberUser ?
                     m_Session.LoginResult.AccessToken : null;
@@ -80,7 +87,9 @@ namespace DesktopFacebook
 
         #region Private Methods
 
+
         #region Fetch Methods
+
         private void fetchUserInfo()
         {
             bool   isVisible    = true;
@@ -95,40 +104,35 @@ namespace DesktopFacebook
             checkBoxRememberUser.Visible =  isVisible;
             buttonLogout.Visible         =  isVisible;
             buttonLogin.Visible          = !isVisible;
-
-            fetchSharedPhotosInfo();
-            fetchBirthdayWishInfo();
         }
 
-        private void fetchBirthdayWishInfo()
+        private void fetchFeaturesInfo()
         {
             User loggedInUser = m_Session.LoggedInUser;
-            bool isVisible    = true;
 
-            m_BirthdayWish = new BirthdayWish();
-            m_BirthdayWish.BirthdayDictionary.FillBirthdays(loggedInUser);
 
-            updateCheckedListBoxWishes();
+            List<Control> birthdayWishControls = new List<Control>();
+            birthdayWishControls.Add(buttonSendBirthdayWish);
+            birthdayWishControls.Add(textBoxWish);
+            birthdayWishControls.Add(checkedListBoxWishes);
+            ;
 
-            buttonSendBirthdayWish.Visible = isVisible;
-            textBoxWish.Visible            = isVisible;
-        }
+            List<Control> sharedPhotosControls = new List<Control>();
+            sharedPhotosControls.Add(textBoxFirstName);
+            sharedPhotosControls.Add(textBoxLastName);
+            sharedPhotosControls.Add(buttonSearch);
+            sharedPhotosControls.Add(buttonDownload);
+            sharedPhotosControls.Add(friendPictureBox);
 
-        private void fetchSharedPhotosInfo()
-        {
-            bool isVisible = true;
+            m_FetchMaker.FetchBirthdayWishUI(birthdayWishControls);
+            m_FetchMaker.FetchSharedPhotosUI(sharedPhotosControls);
+
+            m_BirthdayWishUI.BirthdayWish.BirthdayDictionary.FillBirthdays(loggedInUser);
+            m_BirthdayWishUI.UpdateCheckedListBoxWishes(checkedListBoxWishes, textBoxWish, buttonSendBirthdayWish);
 
             m_SharedPhotos = new SharedPhotos();
-
-            textBoxFirstName.Visible   = isVisible;
-            textBoxLastName.Visible    = isVisible;
-            buttonSearch.Visible       = isVisible;
-            buttonDownload.Visible     = isVisible;
-            //pictureBoxFriend.Visible = isVisible;
-            friendPictureBox.Visible   = isVisible;  // DOR !!!
-            
-
         }
+
         #endregion Fetch Methods
 
         #region Event Handler Click Methods
@@ -137,12 +141,18 @@ namespace DesktopFacebook
         {
             m_Session = new Session();
 
-            if (m_Session.m_IsSessionSuccess)
+            m_Session.StartSession();
+
+            if (m_Session.IsSessionSuccess)
             {
-                m_Serializer = new Serializer();
+                m_Serializer     = new Serializer();
+                m_BirthdayWishUI = new BirthdayWishUI();
+                m_SharedPhotosUI = new SharedPhotosUI();           
+                m_FetchMaker     = new FetchMaker(m_BirthdayWishUI, m_SharedPhotosUI);
 
                 checkBoxRememberUser.Checked = m_Serializer.RememberUser;
                 fetchUserInfo();
+                fetchFeaturesInfo();
             }
             else
             {
@@ -152,12 +162,8 @@ namespace DesktopFacebook
 
         private void buttonSendBirthdayWish_Click(object sender, EventArgs e)
         {
-            postWishToFriends();
+            m_BirthdayWishUI.PostWishToFriends(checkedListBoxWishes, textBoxWish, m_Session.LoggedInUser);
         }
-
-
-
-
 
         private void DownLoad_Click(object sender, EventArgs e)
         {
@@ -213,13 +219,14 @@ namespace DesktopFacebook
 
                 List<Photo> sharedPhotos = m_SharedPhotos.SharedPhotosList;
 
-                m_SharedPhotosUI = new SharedPhotosUI(sharedPhotos);
+                m_SharedPhotosUI = new SharedPhotosUI();
+
+                m_SharedPhotosUI.ConvertPhotosToLazyPicBox(sharedPhotos);
 
                 sharedPhotosBindingSource.DataSource = m_SharedPhotos; // DOR !!!
             
                 buttonDownload.Enabled = isDownloadEnabled;
 
-                //friendPictureBox.ImageLocation = friend.PictureLargeURL; 
 
                 foreach (LazyPictureBox pic in m_SharedPhotosUI.SharedLazyPictureBox)
                 {
@@ -285,52 +292,14 @@ namespace DesktopFacebook
         {
             bool isVisible = true;
 
-            m_BirthdayWish = null;
+            m_BirthdayWishUI.BirthdayWish = null;
 
             buttonSendBirthdayWish.Visible = !isVisible;
             textBoxWish.Visible = !isVisible;
 
             checkedListBoxWishes.Items.Clear();
         }
-        #endregion Reset Methods
-
-
-        private void postWishToFriends()   // we don't have authorization to post statuses
-        {
-
-            List<string> friends = GetFriendsListNamesFromCheckListBox(checkedListBoxWishes);
-
-            string congrats = m_BirthdayWish.GenerateCongratulations(friends, textBoxWish.Text);
-
-            m_Session.LoggedInUser.PostStatus(congrats);
-        }
-
-        private void updateCheckedListBoxWishes()   
-        {
-            int currentDay = /*m_BirthdayWish.CurrentDayOfYear;*/ 191;      // DOR delete!
-            bool enabled    = true;
-            
-            BirthdayNode curNode = m_BirthdayWish.BirthdayDictionary.BirthdayFriends[currentDay];
-
-            foreach (User friend in curNode.BirthdayFriends)
-            {       
-                checkedListBoxWishes.Items.Add(new UserBirthProxy{User = friend});
-            }
-
-            if (checkedListBoxWishes.Items.Count != 0)
-            {
-                buttonSendBirthdayWish.Enabled = enabled;
-                textBoxWish.Enabled  = enabled;
-            }
-        }
-
-  
-        
-        private void importButtonDisplayNumberOfImages()  // GUY!!!  we should use event or invoke...
-        {
-            buttonDownload.Text = string.Format("import {0} shared photos with {1}",
-                m_SharedPhotos.TotalSelectedSharedPictures, m_SharedPhotos.Friend.Name);
-        }
+        #endregion Reset Method
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -366,10 +335,7 @@ namespace DesktopFacebook
         {
 
         }
-
-
-
-       
+     
 
         #endregion Private Methods
 
