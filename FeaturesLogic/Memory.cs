@@ -4,7 +4,7 @@ using FacebookWrapper.ObjectModel;
 
 namespace FeaturesLogic
 {
-    public class Serializer
+    public class Memory 
     {
         #region Class Members
         private const string k_Path = "C:\\Users\\dorko\\Desktop";
@@ -17,7 +17,7 @@ namespace FeaturesLogic
         #endregion Class Members
 
         #region Constructor
-        public Serializer()
+        public Memory()
         {
             RememberUser               = false;
             LastAccessToken            = null;
@@ -25,30 +25,23 @@ namespace FeaturesLogic
         }
         #endregion Constructor
 
-        #region Public Static Methods
-        public static Serializer LoadFromFile()
-        {
-            Serializer obj = null;
-
-            using (Stream stream = new FileStream(k_Path, FileMode.Truncate))
-            {
-                XmlSerializer serializer = new XmlSerializer(typeof(Serializer));
-                obj = serializer.Deserialize(stream) as Serializer;
-            }
-
-            return obj;
-        }
-        #endregion Public static Methods
-
         #region Public Methods
+        public Memory LoadFromFile()
+        {
+            Loader loader = new Loader();
+            loader.RunThread();
+            return loader.InfoStream;
+            // loader.Close();
+        }
+
         public void SaveToFile()
         {
-            using (Stream stream = new FileStream(k_Path, FileMode.Truncate))
-            {
-                XmlSerializer serializer = new XmlSerializer(this.GetType());
-                serializer.Serialize(stream, this);
-            }
+            Saver saver = new Saver();
+            saver.RunThread();
+            // saver.Close();
         }
-        #endregion Public Methods
+
+        #endregion Private Methods
+
     }
 }

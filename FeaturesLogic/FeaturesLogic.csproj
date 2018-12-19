@@ -41,7 +41,10 @@
   <ItemGroup>
     <Compile Include="BirthdayDictionary.cs" />
     <Compile Include="BirthdayWish.cs" />
-    <Compile Include="Serializer.cs" />
+    <Compile Include="BaseThread.cs" />
+    <Compile Include="Loader.cs" />
+    <Compile Include="Saver.cs" />
+    <Compile Include="Memory.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SharedPhotos.cs" />
     <Compile Include="UserBirthProxy.cs" />

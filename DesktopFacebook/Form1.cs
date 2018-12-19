@@ -29,7 +29,7 @@ namespace DesktopFacebook
         private readonly string       r_LastName            = "Last Name:";
 
         private Session               m_Session;
-        private Serializer            m_Serializer;
+        private Memory            m_Memory;
         private SharedPhotos          m_SharedPhotos;
         //internal BirthdayWish         m_BirthdayWish;
         private SharedPhotosUI        m_SharedPhotosUI;
@@ -45,17 +45,17 @@ namespace DesktopFacebook
             InitializeComponent();
 
             /* There is a problems with the serializer loading */
-            //m_Serializer = Serializer.LoadFromFile();  
+            //m_Memory = Serializer.LoadFromFile();  
 
-            if (m_Serializer != null &&
-                m_Serializer.RememberUser &&
-                !string.IsNullOrEmpty(m_Serializer.LastAccessToken))
+            if (m_Memory != null &&
+                m_Memory.RememberUser &&
+                !string.IsNullOrEmpty(m_Memory.LastAccessToken))
             {
-                Connect(m_Serializer.LastAccessToken);
+                Connect(m_Memory.LastAccessToken);
 
-                m_Session.LoggedInUser = m_Serializer.LastUser;
-                m_BirthdayWishUI.BirthdayWish.BirthdayDictionary = m_Serializer.LastUserBirthdayDictionary;
-                //m_BirthdayWish.BirthdayDictionary = m_Serializer.LastUserBirthdayDictionary;
+                m_Session.LoggedInUser = m_Memory.LastUser;
+                m_BirthdayWishUI.BirthdayWish.BirthdayDictionary = m_Memory.LastUserBirthdayDictionary;
+                //m_BirthdayWish.BirthdayDictionary = m_Memory.LastUserBirthdayDictionary;
 
                 fetchUserInfo();
                 fetchFeaturesInfo();
@@ -72,15 +72,15 @@ namespace DesktopFacebook
             if (!buttonLogin.Visible)
             {
                 m_Session.EndSession();
-                m_Serializer.RememberUser = checkBoxRememberUser.Checked;
-                m_Serializer.LastUserBirthdayDictionary = m_BirthdayWishUI.BirthdayWish.BirthdayDictionary;
-                //m_Serializer.LastUserBirthdayDictionary = m_BirthdayWish.BirthdayDictionary;
+                m_Memory.RememberUser = checkBoxRememberUser.Checked;
+                m_Memory.LastUserBirthdayDictionary = m_BirthdayWishUI.BirthdayWish.BirthdayDictionary;
+                //m_Memory.LastUserBirthdayDictionary = m_BirthdayWish.BirthdayDictionary;
 
-                m_Serializer.LastAccessToken = m_Serializer.RememberUser ?
+                m_Memory.LastAccessToken = m_Memory.RememberUser ?
                     m_Session.LoginResult.AccessToken : null;
 
                 /* There is a problem to save 'Facebook data' to XML file */
-                //m_Serializer.SaveToFile();  
+                //m_Memory.SaveToFile();  
             }
         }
         #endregion Protected Override Methods
@@ -145,12 +145,12 @@ namespace DesktopFacebook
 
             if (m_Session.IsSessionSuccess)
             {
-                m_Serializer     = new Serializer();
+                m_Memory     = new Memory();
                 m_BirthdayWishUI = new BirthdayWishUI();
                 m_SharedPhotosUI = new SharedPhotosUI();           
                 m_FetchMaker     = new FetchMaker(m_BirthdayWishUI, m_SharedPhotosUI);
 
-                checkBoxRememberUser.Checked = m_Serializer.RememberUser;
+                checkBoxRememberUser.Checked = m_Memory.RememberUser;
                 fetchUserInfo();
                 fetchFeaturesInfo();
             }
