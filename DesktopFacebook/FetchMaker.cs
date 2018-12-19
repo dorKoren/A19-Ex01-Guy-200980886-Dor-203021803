@@ -14,23 +14,23 @@ namespace DesktopFacebook
             SharedPhotosUI = i_SharedPhotosUI;
         }
 
-        public void FetchInitBirthdayWishUI(Form i_Form)
+        public void FetchInitBirthdayWishUI(TabPage i_TabPage)
         {
-            BirthdayWishUI.FetchInit(i_Form);
+            BirthdayWishUI.FetchInit(i_TabPage);
         }
-        public void FetchInitSharedPhotosUI(Form i_Form)
+        public void FetchInitSharedPhotosUI(TabPage i_TabPage)
         {
-            SharedPhotosUI.FetchInit(i_Form);
-        }
-
-        public void FetchResetBirthdayWishUI(Form i_Form)
-        {
-            BirthdayWishUI.FetchReset(i_Form);
+            SharedPhotosUI.FetchInit(i_TabPage);
         }
 
-        public void FetchResetSharedPhotosUI(Form i_Form)
+        public void FetchResetBirthdayWishUI(TabPage i_TabPage)
         {
-            SharedPhotosUI.FetchReset(i_Form);
+            BirthdayWishUI.FetchReset(i_TabPage);
+        }
+
+        public void FetchResetSharedPhotosUI(TabPage i_TabPage)
+        {
+            SharedPhotosUI.FetchReset(i_TabPage);
         }
     }
 }

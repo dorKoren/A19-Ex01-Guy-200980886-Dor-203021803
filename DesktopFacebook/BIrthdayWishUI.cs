@@ -28,18 +28,18 @@ namespace DesktopFacebook
             return list;
         }
 
-        public void FetchInit(Form i_Form)
+        public void FetchInit(TabPage i_TabPageBirthday)
         {
-            foreach (Control control in i_Form.Controls)
+            foreach (Control control in i_TabPageBirthday.Controls)
             {
                 control.Visible = true;
             }
         }
 
-        public void FetchReset(Form i_Form)
+        public void FetchReset(TabPage i_TabPageBirthday)
         {
             
-            foreach (Control control in i_Form.Controls)
+            foreach (Control control in i_TabPageBirthday.Controls)
             {
                 if (control is CheckedListBox)
                 {

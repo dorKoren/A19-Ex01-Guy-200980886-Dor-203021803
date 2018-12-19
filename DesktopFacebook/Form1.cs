@@ -22,7 +22,6 @@ namespace DesktopFacebook
         private readonly string       r_LabelAccountName    = "Account Name";
         private readonly string       r_MainFormName        = "Desktop Facebook";
         private readonly string       r_CaptionLogOut       = "Logout";
-        private readonly string       r_PhotosNotFound      = "Photos Not Found!";
         private readonly string       r_MsgFriendNotFound   = "Friend Not Found!";
         private readonly string       r_CaptionFriendSearch = "Friend Search Error";
         private readonly string       r_FirstName           = "First Name:";
@@ -104,8 +103,8 @@ namespace DesktopFacebook
 
         private void fetchFeaturesInfo()
         {
-            m_FetchMaker.FetchInitBirthdayWishUI(this);
-            m_FetchMaker.FetchInitSharedPhotosUI(this);
+            m_FetchMaker.FetchInitBirthdayWishUI(tabPageBirthday);
+            m_FetchMaker.FetchInitSharedPhotosUI(tabPageSharedPhotos);
 
             m_BirthdayWishUI.BirthdayWishLogic.BirthdayDictionary.FillBirthdays(m_Session.LoggedInUser);
             m_BirthdayWishUI.UpdateCheckedListBoxWishes(checkedListBoxWishes, textBoxWish, buttonSendBirthdayWish);
@@ -188,8 +187,8 @@ namespace DesktopFacebook
             if (dialog == DialogResult.Yes)
             {
                 resetDesktop();
-                m_FetchMaker.FetchResetBirthdayWishUI(this);
-                m_FetchMaker.FetchResetSharedPhotosUI(this);
+                m_FetchMaker.FetchResetBirthdayWishUI(tabPageBirthday);
+                m_FetchMaker.FetchResetSharedPhotosUI(tabPageSharedPhotos);
             }
         }
 
@@ -216,6 +215,7 @@ namespace DesktopFacebook
             buttonLogin.Visible = isVisible;
             buttonLogout.Visible = !isVisible;
             checkBoxRememberUser.Visible = !isVisible;
+            pictureBoxUser.Image = initial_image_picture;
         }
 
 
@@ -281,6 +281,11 @@ namespace DesktopFacebook
         }
 
         private void sharedPhotosflowLayoutPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void totalSelectedSharedPicturesLabel4_Click(object sender, EventArgs e)
         {
 
         }

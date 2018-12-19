@@ -11,10 +11,10 @@ namespace DesktopFacebook
     internal class SharedPhotosUI : IFetch
     {
         #region Class Members
-        private readonly string      r_PhotosNotFound = "Photos Not Found!";
-        private const string         k_Filter = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg";
-        internal List<LazyPictureBox> SharedLazyPictureBox      { get;      }
-        internal SharedPhotosLogic    SharedPhotosLogic { get; set; }
+        private  readonly string       r_PhotosNotFound     = "Photos Not Found!";
+        private  const string          k_Filter             = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg";
+        internal List<LazyPictureBox>  SharedLazyPictureBox  { get; set; }
+        internal SharedPhotosLogic     SharedPhotosLogic     { get;      }
         #endregion Class Members
 
         #region Class members
@@ -148,19 +148,19 @@ namespace DesktopFacebook
             }
         }
 
-        public void FetchInit(Form i_Form)
+        public void FetchInit(TabPage i_TabPageSharedPhotos)
         {
-            foreach (Control control in i_Form.Controls)
+            foreach (Control control in i_TabPageSharedPhotos.Controls)
             {
                 control.Visible = true;
             }
 
         }
 
-        public void FetchReset(Form i_Form )
+        public void FetchReset(TabPage i_TabPageSharedPhotos)
         {
 
-            foreach (Control control in i_Form.Controls)
+            foreach (Control control in i_TabPageSharedPhotos.Controls)
             {
 
                 if (control is PictureBox)

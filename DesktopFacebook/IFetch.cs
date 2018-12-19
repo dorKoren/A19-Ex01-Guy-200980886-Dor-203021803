@@ -7,8 +7,8 @@ namespace DesktopFacebook
 {
     internal interface IFetch
     {
-        void FetchInit(Form i_Form);
+        void FetchInit(TabPage i_TabPage);
 
-        void FetchReset(Form i_Form);
+        void FetchReset(TabPage i_TabPage);
     }
 }
