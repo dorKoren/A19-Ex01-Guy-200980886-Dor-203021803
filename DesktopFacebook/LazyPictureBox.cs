@@ -17,10 +17,9 @@ namespace DesktopFacebook
             this.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Top = s_Top;
             this.Left = 3;
-            this.Click += lazyPicBox_Click;
-
+            
             s_Top = this.Bottom + 2;
-            WasSelected = false;
+            WasSelected = true;
         }
 
         public new void Load(string i_UrlToLoad)
@@ -36,40 +35,6 @@ namespace DesktopFacebook
             }
 
             base.OnPaint(pe);
-        }
-
-        private static void lazyPicBox_Click(object sender, EventArgs e)
-        {
-            LazyPictureBox pic = sender as LazyPictureBox;
-           
-            // Select current image
-            if (!pic.WasSelected)
-            {
-                selectPic(pic);
-            }
-            // Deselect current image
-            else
-            {
-                deSelectPic(pic);
-            }
-
-        }
-
-        private static void deSelectPic(LazyPictureBox i_Picture)
-        {
-            //pic.BackColor = Color.Transparent;
-            i_Picture.Show();
-            i_Picture.WasSelected = false;
-            //m_SharedPhotos.TotalSelectedSharedPictures--;  This belongs to the form, to handle number of selected pictures.
-
-        }
-
-        private static void selectPic(LazyPictureBox i_Picture)
-        {
-            //pic.BackColor = Color.Beige;
-            i_Picture.Hide();
-            i_Picture.WasSelected = true;
-            //m_SharedPhotos.TotalSelectedSharedPictures++;
         }
     }
 }

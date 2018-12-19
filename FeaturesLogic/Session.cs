@@ -5,9 +5,6 @@ namespace FeaturesLogic
 {
     public class Session
     {
-
-        // DOR : we should think if this class should be static.
-
         #region Class Members
         public User        LoggedInUser     { get; set; }
         public LoginResult LoginResult      { get; set; }

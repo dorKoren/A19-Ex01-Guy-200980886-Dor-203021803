@@ -40,10 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BirthdayDictionary.cs" />
-    <Compile Include="BirthdayWish.cs" />
+    <Compile Include="BirthdayWishLogic.cs" />
     <Compile Include="Serializer.cs" />
     <Compile Include="Session.cs" />
-    <Compile Include="SharedPhotos.cs" />
+    <Compile Include="SharedPhotosLogic.cs" />
     <Compile Include="UserBirthProxy.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FeaturesLogic
 {
-    public class BirthdayWish
+    public class BirthdayWishLogic
     {
         #region Class Members
         public BirthdayDictionary BirthdayDictionary { get; set; }
@@ -12,7 +12,7 @@ namespace FeaturesLogic
         #endregion Class Members
 
         #region Constructor
-        public BirthdayWish()
+        public BirthdayWishLogic()
         {
             BirthdayDictionary = BirthdayDictionary.Instance;
             CurrentDayOfYear   = DateTime.Now.DayOfYear - 1;

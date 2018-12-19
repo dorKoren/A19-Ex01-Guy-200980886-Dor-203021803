@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FeaturesLogic;
@@ -9,11 +8,11 @@ namespace DesktopFacebook
 {
     internal class BirthdayWishUI : IFetch
     {
-        internal BirthdayWish BirthdayWish { get; set; }
+        internal BirthdayWishLogic BirthdayWishLogic { get; set; }
 
         internal BirthdayWishUI()
         {
-            BirthdayWish = new BirthdayWish();         
+            BirthdayWishLogic = new BirthdayWishLogic();         
         }
 
         #region Internal Static Methods
@@ -29,15 +28,32 @@ namespace DesktopFacebook
             return list;
         }
 
-        public void Fetch(List<Control> i_Controls)
+        public void FetchInit(Form i_Form)
         {
-
-            foreach (Control control in i_Controls)
+            foreach (Control control in i_Form.Controls)
             {
                 control.Visible = true;
             }
         }
 
+        public void FetchReset(Form i_Form)
+        {
+            
+            foreach (Control control in i_Form.Controls)
+            {
+                if (control is CheckedListBox)
+                {
+                    (control as CheckedListBox).Items.Clear();
+                }
+                else
+                {
+                    control.Visible = false;
+                }
+            }
+
+            BirthdayWishLogic = null;
+        }
+        
 
         internal void UpdateCheckedListBoxWishes(
             CheckedListBox i_CheckedListBox, TextBox i_TextBox, Button i_Button)
@@ -45,7 +61,7 @@ namespace DesktopFacebook
             int currentDay = /*m_BirthdayWish.CurrentDayOfYear;*/ 191;      // DOR delete!
             bool enabled = true;
 
-            BirthdayNode curNode = BirthdayWish.BirthdayDictionary.BirthdayFriends[currentDay];
+            BirthdayNode curNode = BirthdayWishLogic.BirthdayDictionary.BirthdayFriends[currentDay];
 
             foreach (User friend in curNode.BirthdayFriends)
             {
@@ -54,7 +70,7 @@ namespace DesktopFacebook
 
             if (i_CheckedListBox.Items.Count != 0)
             {
-                i_Button.Enabled = enabled;
+                i_Button.Enabled  = enabled;
                 i_TextBox.Enabled = enabled;
             }
         }
@@ -63,7 +79,7 @@ namespace DesktopFacebook
         {
             List<string> friends = GetFriendsListNamesFromCheckListBox(i_CheckedListBoxWishes);
 
-            string congrats = BirthdayWish.GenerateCongratulations(friends, i_TextBoxWish.Text);
+            string congrats = BirthdayWishLogic.GenerateCongratulations(friends, i_TextBoxWish.Text);
 
             i_User.PostStatus(congrats);
         }

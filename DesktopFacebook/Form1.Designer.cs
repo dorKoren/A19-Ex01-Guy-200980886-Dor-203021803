@@ -50,15 +50,15 @@ namespace DesktopFacebook
             this.checkBoxRememberUser = new System.Windows.Forms.CheckBox();
             this.pictureBoxUser = new System.Windows.Forms.PictureBox();
             this.buttonLogout = new System.Windows.Forms.Button();
-            this.sharedPhotosBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.totalSelectedSharedPicturesLabel4 = new System.Windows.Forms.Label();
+            this.sharedPhotosLogicBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.totalSelectedSharedPicturesTextBox = new System.Windows.Forms.TextBox();
             this.friendPictureBox = new System.Windows.Forms.PictureBox();
             totalSelectedSharedPicturesLabel = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUser)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sharedPhotosBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sharedPhotosLogicBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.friendPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,7 +70,7 @@ namespace DesktopFacebook
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(205, 42);
             this.buttonLogin.TabIndex = 0;
-            this.buttonLogin.Text = "Login";
+            this.buttonLogin.Text = " Login";
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
@@ -92,8 +92,9 @@ namespace DesktopFacebook
             this.tabControl.Location = new System.Drawing.Point(258, 45);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(679, 401);
+            this.tabControl.Size = new System.Drawing.Size(679, 379);
             this.tabControl.TabIndex = 3;
+            this.tabControl.Visible = false;
             // 
             // tabPage1
             // 
@@ -157,7 +158,7 @@ namespace DesktopFacebook
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
             this.tabPage2.Controls.Add(this.friendPictureBox);
             this.tabPage2.Controls.Add(totalSelectedSharedPicturesLabel);
-            this.tabPage2.Controls.Add(this.totalSelectedSharedPicturesLabel4);
+            this.tabPage2.Controls.Add(this.totalSelectedSharedPicturesTextBox);
             this.tabPage2.Controls.Add(this.totalSelectedSharedPicturesLabel3);
             this.tabPage2.Controls.Add(this.sharedPhotosFlowLayoutPanel);
             this.tabPage2.Controls.Add(this.totalSelectedSharedPicturesLabel1);
@@ -168,7 +169,7 @@ namespace DesktopFacebook
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(671, 372);
+            this.tabPage2.Size = new System.Drawing.Size(671, 350);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Import Shared Friend Photos";
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
@@ -208,7 +209,6 @@ namespace DesktopFacebook
             this.buttonSearch.TabIndex = 5;
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
-            this.buttonSearch.Visible = false;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // textBoxLastName
@@ -219,7 +219,6 @@ namespace DesktopFacebook
             this.textBoxLastName.Size = new System.Drawing.Size(137, 22);
             this.textBoxLastName.TabIndex = 4;
             this.textBoxLastName.Text = "Last Name:";
-            this.textBoxLastName.Visible = false;
             this.textBoxLastName.Click += new System.EventHandler(this.textBoxLastName_Click);
             // 
             // buttonDownload
@@ -231,7 +230,6 @@ namespace DesktopFacebook
             this.buttonDownload.TabIndex = 2;
             this.buttonDownload.Text = "Download";
             this.buttonDownload.UseVisualStyleBackColor = true;
-            this.buttonDownload.Visible = false;
             this.buttonDownload.Click += new System.EventHandler(this.DownLoad_Click);
             // 
             // textBoxFirstName
@@ -242,7 +240,6 @@ namespace DesktopFacebook
             this.textBoxFirstName.Size = new System.Drawing.Size(132, 22);
             this.textBoxFirstName.TabIndex = 0;
             this.textBoxFirstName.Text = "First Name:";
-            this.textBoxFirstName.Visible = false;
             this.textBoxFirstName.Click += new System.EventHandler(this.textBoxFirstName_Click);
             this.textBoxFirstName.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -285,37 +282,37 @@ namespace DesktopFacebook
             this.buttonLogout.Visible = false;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
-            // sharedPhotosBindingSource
+            // sharedPhotosLogicBindingSource
             // 
-            this.sharedPhotosBindingSource.DataSource = typeof(FeaturesLogic.SharedPhotos);
+            this.sharedPhotosLogicBindingSource.DataSource = typeof(FeaturesLogic.SharedPhotosLogic);
             // 
             // totalSelectedSharedPicturesLabel
             // 
             totalSelectedSharedPicturesLabel.AutoSize = true;
-            totalSelectedSharedPicturesLabel.Location = new System.Drawing.Point(16, 255);
+            totalSelectedSharedPicturesLabel.Location = new System.Drawing.Point(22, 255);
             totalSelectedSharedPicturesLabel.Name = "totalSelectedSharedPicturesLabel";
             totalSelectedSharedPicturesLabel.Size = new System.Drawing.Size(208, 17);
-            totalSelectedSharedPicturesLabel.TabIndex = 9;
+            totalSelectedSharedPicturesLabel.TabIndex = 12;
             totalSelectedSharedPicturesLabel.Text = "Total Selected Shared Pictures:";
             // 
-            // totalSelectedSharedPicturesLabel4
+            // totalSelectedSharedPicturesTextBox
             // 
-            this.totalSelectedSharedPicturesLabel4.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.sharedPhotosBindingSource, "TotalSelectedSharedPictures", true));
-            this.totalSelectedSharedPicturesLabel4.Location = new System.Drawing.Point(236, 255);
-            this.totalSelectedSharedPicturesLabel4.Name = "totalSelectedSharedPicturesLabel4";
-            this.totalSelectedSharedPicturesLabel4.Size = new System.Drawing.Size(38, 23);
-            this.totalSelectedSharedPicturesLabel4.TabIndex = 10;
-            this.totalSelectedSharedPicturesLabel4.Text = "0";
+            this.totalSelectedSharedPicturesTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.sharedPhotosLogicBindingSource, "TotalSelectedSharedPictures", true));
+            this.totalSelectedSharedPicturesTextBox.Location = new System.Drawing.Point(236, 255);
+            this.totalSelectedSharedPicturesTextBox.Name = "totalSelectedSharedPicturesTextBox";
+            this.totalSelectedSharedPicturesTextBox.Size = new System.Drawing.Size(26, 22);
+            this.totalSelectedSharedPicturesTextBox.TabIndex = 13;
+            this.totalSelectedSharedPicturesTextBox.Text = "0";
             // 
             // friendPictureBox
             // 
-            this.friendPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.sharedPhotosBindingSource, "Friend.ImageNormal", true));
+            this.friendPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.sharedPhotosLogicBindingSource, "Friend", true));
             this.friendPictureBox.Image = global::DesktopFacebook.Properties.Resources.initial_friend_image_picture;
-            this.friendPictureBox.Location = new System.Drawing.Point(15, 50);
+            this.friendPictureBox.Location = new System.Drawing.Point(10, 49);
             this.friendPictureBox.Name = "friendPictureBox";
-            this.friendPictureBox.Size = new System.Drawing.Size(293, 179);
+            this.friendPictureBox.Size = new System.Drawing.Size(289, 197);
             this.friendPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.friendPictureBox.TabIndex = 12;
+            this.friendPictureBox.TabIndex = 14;
             this.friendPictureBox.TabStop = false;
             // 
             // mainForm
@@ -339,7 +336,7 @@ namespace DesktopFacebook
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUser)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sharedPhotosBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sharedPhotosLogicBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.friendPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -367,8 +364,8 @@ namespace DesktopFacebook
         private FlowLayoutPanel sharedPhotosFlowLayoutPanel;
         private Label totalSelectedSharedPicturesLabel3;
         private PictureBox friendPictureBox;
-        private BindingSource sharedPhotosBindingSource;
-        private Label totalSelectedSharedPicturesLabel4;
+        private BindingSource sharedPhotosLogicBindingSource;
+        private TextBox totalSelectedSharedPicturesTextBox;
     }
 }
 

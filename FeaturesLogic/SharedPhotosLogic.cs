@@ -4,7 +4,7 @@ using FacebookWrapper.ObjectModel;
 
 namespace FeaturesLogic
 {
-    public class SharedPhotos
+    public class SharedPhotosLogic
     {
         #region Class Members
         private readonly bool r_WasFound = true;
@@ -18,7 +18,7 @@ namespace FeaturesLogic
         #endregion Class Members
 
         #region constructor
-        public SharedPhotos()
+        public SharedPhotosLogic()
         {
             Friend = null;
             FriendWasFound = !r_WasFound;
@@ -105,6 +105,7 @@ namespace FeaturesLogic
 
             return isTag;
         }
+    
         #endregion Private Methods
     }
 }
