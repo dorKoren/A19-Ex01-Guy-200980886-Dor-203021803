@@ -10,7 +10,12 @@ namespace FeaturesLogic
 {
     internal class Saver : BaseThread
     {
-        private const string k_Path = "C:\\Users\\dorko\\Desktop";
+        private string k_Path; // = "C:\\Users\\dorko\\Desktop";
+
+        public Saver(string i_Path)
+        {
+            k_Path = i_Path;
+        }
 
         public override void RunThread()
         {

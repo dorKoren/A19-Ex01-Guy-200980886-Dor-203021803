@@ -45,7 +45,7 @@ namespace DesktopFacebook
             InitializeComponent();
 
             /* There is a problems with the serializer loading */
-            //m_Memory = Serializer.LoadFromFile();  
+            m_Memory = Memory.LoadFromFile();  
 
             if (m_Memory != null &&
                 m_Memory.RememberUser &&

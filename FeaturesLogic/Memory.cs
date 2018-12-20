@@ -7,7 +7,7 @@ namespace FeaturesLogic
     public class Memory 
     {
         #region Class Members
-        private const string k_Path = "C:\\Users\\dorko\\Desktop";
+        private static string k_Path; // "C:\\Users\\dorko\\Desktop";
 
         public User               LastUser                   { get; set; }
         public BirthdayDictionary LastUserBirthdayDictionary { get; set; }
@@ -19,6 +19,11 @@ namespace FeaturesLogic
         #region Constructor
         public Memory()
         {
+            // Init path only once, and not everytime the memory is loaded
+            if (k_Path.Length == 0 || k_Path == null)
+            {
+                k_Path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+            }
             RememberUser               = false;
             LastAccessToken            = null;
             LastUserBirthdayDictionary = null;
@@ -26,17 +31,31 @@ namespace FeaturesLogic
         #endregion Constructor
 
         #region Public Methods
-        public Memory LoadFromFile()
+
+        /// <summary>
+        /// This method returns the last memory saved, or a new memory if this is first call.
+        /// </summary>
+        /// <returns></returns>
+        public static Memory LoadFromFile()
         {
-            Loader loader = new Loader();
-            loader.RunThread();
-            return loader.InfoStream;
-            // loader.Close();
+            Memory memory;
+            if (k_Path != null && k_Path.Length > 0)
+            {
+                Loader loader = new Loader(k_Path);
+                loader.RunThread();
+                memory = loader.InfoStream;
+                // loader.Close();
+            }
+            else
+            {
+                memory = new Memory();
+            }
+            return memory;
         }
 
         public void SaveToFile()
         {
-            Saver saver = new Saver();
+            Saver saver = new Saver(k_Path);
             saver.RunThread();
             // saver.Close();
         }
