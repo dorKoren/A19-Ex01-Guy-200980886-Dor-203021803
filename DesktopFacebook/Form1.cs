@@ -120,7 +120,6 @@ namespace DesktopFacebook
 
             if (m_Session.IsSessionSuccess)
             {
-                m_Memory     = new Memory();
                 m_BirthdayWishUI = new BirthdayWishUI();
                 m_SharedPhotosUI = new SharedPhotosUI();           
                 m_FetchMaker     = new FetchMaker(m_BirthdayWishUI, m_SharedPhotosUI);
