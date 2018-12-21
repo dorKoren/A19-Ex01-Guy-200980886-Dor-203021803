@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
@@ -8,13 +9,13 @@ using FeaturesLogic;
 
 namespace DesktopFacebook
 {
-    internal class SharedPhotosUI : IFetch
+    public class SharedPhotosUI : IFetch
     {
         #region Class Members
-        private  readonly string       r_PhotosNotFound     = "Photos Not Found!";
-        private  const string          k_Filter             = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg";
-        internal List<LazyPictureBox>  SharedLazyPictureBox  { get; set; }
-        internal SharedPhotosLogic     SharedPhotosLogic     { get;      }
+        private  readonly string         r_PhotosNotFound     = "Photos Not Found!";
+        private  const string            k_Filter             = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg";
+        public   List<LazyPictureBox>    SharedLazyPictureBox   { get; }
+        internal SharedPhotosLogic       SharedPhotosLogic      { get; }
         #endregion Class Members
 
         #region Class members
@@ -41,9 +42,7 @@ namespace DesktopFacebook
             }
             else
             {
-                List<Photo> sharedPhotos = SharedPhotosLogic.SharedPhotosList;          
-
-                convertPhotosToLazyPicBox(sharedPhotos);
+                convertPhotosToLazyPicBox(SharedPhotosLogic.SharedPhotosList);
 
                 i_Button.Enabled = true;
 
@@ -58,48 +57,9 @@ namespace DesktopFacebook
         {
             foreach (Photo photo in i_Photos)
             {
-                LazyPictureBox lazyPicBox = new LazyPictureBox();
-
-                lazyPicBox.Click += lazyPicBox_Click;
-                lazyPicBox.Load(photo.PictureNormalURL);
-                SharedLazyPictureBox.Add(lazyPicBox);
+                SharedLazyPictureBox.Add(LazyPictureBox.ConvertPhotoToLazyPicBox(photo));
             }
         }
-
-        private void lazyPicBox_Click(object sender, EventArgs e)
-        {
-            LazyPictureBox pic = sender as LazyPictureBox;
-
-            if (pic != null)
-            {
-                // Select current image
-                if (!pic.WasSelected)
-                {
-                    selectPic(pic);
-                }
-                // Deselect current image
-                else
-                {
-                    deSelectPic(pic);
-                }
-            }
-        }
-
-
-        private void deSelectPic(LazyPictureBox i_Picture)
-        {
-            i_Picture.BackColor = Color.Red;
-            i_Picture.WasSelected = false;
-            SharedPhotosLogic.TotalSelectedSharedPictures--;
-        }
-
-        private void selectPic(LazyPictureBox i_Picture)
-        {
-            i_Picture.BackColor = Color.Transparent;
-            i_Picture.WasSelected = true;
-            SharedPhotosLogic.TotalSelectedSharedPictures++;
-        }
-
 
         internal static void DownLoadPhotos(List<LazyPictureBox> i_SharedPicBox)   
         {
@@ -112,13 +72,11 @@ namespace DesktopFacebook
             }
         }
 
-
         #endregion internal Static Methods
 
         #region  private static methods   
         private static void downLoadPhoto(LazyPictureBox i_LazyPicBox)
         {
-
             SaveFileDialog file = new SaveFileDialog
             {
                 Filter = k_Filter,

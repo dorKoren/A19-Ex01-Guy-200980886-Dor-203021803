@@ -15,7 +15,6 @@ namespace DesktopFacebook
             BirthdayWishLogic = new BirthdayWishLogic();         
         }
 
-        #region Internal Static Methods
         internal static List<string> GetFriendsListNamesFromCheckListBox(CheckedListBox i_CheckedListBox)
         {
             List<string> list = new List<string>();
@@ -54,7 +53,6 @@ namespace DesktopFacebook
             BirthdayWishLogic = null;
         }
         
-
         internal void UpdateCheckedListBoxWishes(
             CheckedListBox i_CheckedListBox, TextBox i_TextBox, Button i_Button)
         {
@@ -83,7 +81,5 @@ namespace DesktopFacebook
 
             i_User.PostStatus(congrats);
         }
-
-        #endregion Internal Static Methods
     }
 }

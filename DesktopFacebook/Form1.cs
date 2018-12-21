@@ -2,14 +2,9 @@
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FeaturesLogic;
-using static FeaturesLogic.BirthdayDictionary;
 using static FacebookWrapper.FacebookService;
 using static DesktopFacebook.Properties.Resources;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Security.Policy;
-using static  DesktopFacebook.BirthdayWishUI;
+
 using static DesktopFacebook.SharedPhotosUI;
 
 namespace DesktopFacebook
@@ -162,7 +157,8 @@ namespace DesktopFacebook
 
                 m_SharedPhotosUI.LoadSharedPhotosToFlowLayoutPanel(sharedPhotosFlowLayoutPanel, buttonDownload);
 
-                sharedPhotosLogicBindingSource.DataSource = m_SharedPhotosUI.SharedPhotosLogic;
+                sharedPhotosLogicBindingSource.DataSource    = m_SharedPhotosUI.SharedPhotosLogic;
+                //sharedLazyPictureBoxBindingSource.DataSource = m_SharedPhotosUI.SharedLazyPictureBox;
 
             }
             else
@@ -280,12 +276,12 @@ namespace DesktopFacebook
 
         }
 
-        private void sharedPhotosflowLayoutPanel_Paint(object sender, PaintEventArgs e)
+        private void totalSelectedSharedPicturesLabel4_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void totalSelectedSharedPicturesLabel4_Click(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

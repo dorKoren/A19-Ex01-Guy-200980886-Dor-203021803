@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FacebookWrapper.ObjectModel;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -17,7 +18,8 @@ namespace DesktopFacebook
             this.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Top = s_Top;
             this.Left = 3;
-            
+
+                       
             s_Top = this.Bottom + 2;
             WasSelected = true;
         }
@@ -25,6 +27,18 @@ namespace DesktopFacebook
         public new void Load(string i_UrlToLoad)
         {
             URL = i_UrlToLoad;
+        }
+
+
+        public static LazyPictureBox ConvertPhotoToLazyPicBox(Photo i_Photo)
+        {
+            LazyPictureBox lazyPicBox = new LazyPictureBox();
+
+            lazyPicBox.Load(i_Photo.PictureNormalURL);
+
+            lazyPicBox.ImageLocation = i_Photo.PictureNormalURL;
+
+            return lazyPicBox;
         }
 
         protected override void OnPaint(PaintEventArgs pe)
@@ -35,6 +49,39 @@ namespace DesktopFacebook
             }
 
             base.OnPaint(pe);
+        }
+
+        protected override void OnClick(EventArgs e)
+        {
+            // Select current image
+            if (!this.WasSelected)
+            {
+                selectPic(this);
+            }
+            // Deselect current image
+            else
+            {
+                deSelectPic(this);
+            }
+
+            base.OnClick(e);
+        }
+
+
+        private void deSelectPic(LazyPictureBox i_Picture)
+        {
+            i_Picture.Height -= 20;
+            i_Picture.Width  -= 20;
+            i_Picture.WasSelected = false;
+          //  SharedPhotosLogic.TotalSelectedSharedPictures--;    // BALMAS !!!!
+        }
+
+        private void selectPic(LazyPictureBox i_Picture)
+        {
+            i_Picture.Height += 20;
+            i_Picture.Width  += 20;
+            i_Picture.WasSelected = true;
+           //  SharedPhotosLogic.TotalSelectedSharedPictures++;   // BALMAS !!!!
         }
     }
 }
