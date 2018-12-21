@@ -29,7 +29,7 @@ namespace DesktopFacebook
         private readonly string       r_LastName            = "Last Name:";
 
         private Session               m_Session;
-        private Memory            m_Memory;
+        private Memory                m_Memory;
         private SharedPhotos          m_SharedPhotos;
         //internal BirthdayWish         m_BirthdayWish;
         private SharedPhotosUI        m_SharedPhotosUI;
@@ -44,7 +44,6 @@ namespace DesktopFacebook
         {
             InitializeComponent();
 
-            /* There is a problems with the serializer loading */
             m_Memory = Memory.LoadFromFile();  
 
             if (m_Memory != null &&
@@ -145,7 +144,6 @@ namespace DesktopFacebook
 
             if (m_Session.IsSessionSuccess)
             {
-                m_Memory     = new Memory();
                 m_BirthdayWishUI = new BirthdayWishUI();
                 m_SharedPhotosUI = new SharedPhotosUI();           
                 m_FetchMaker     = new FetchMaker(m_BirthdayWishUI, m_SharedPhotosUI);

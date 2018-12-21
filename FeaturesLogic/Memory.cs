@@ -17,10 +17,10 @@ namespace FeaturesLogic
         #endregion Class Members
 
         #region Constructor
-        public Memory()
+        private Memory()
         {
             // Init path only once, and not everytime the memory is loaded
-            if (k_Path.Length == 0 || k_Path == null)
+            if (k_Path == null || k_Path.Length == 0)
             {
                 k_Path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
             }
