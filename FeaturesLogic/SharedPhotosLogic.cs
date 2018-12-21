@@ -8,12 +8,12 @@ namespace FeaturesLogic
     {
         #region Class Members
         private readonly bool r_WasFound = true;
-        private readonly int  r_MaxNumOfImages = 10;
+        private readonly int r_MaxNumOfImages = 10;
 
-        public User        Friend                      { get; set; }
-        public bool        FriendWasFound              { get; set; }
-        public List<Photo> SharedPhotosList            { get; set; } 
-        public int         TotalSelectedSharedPictures { get; set; }
+        public User Friend { get; set; }
+        public bool FriendWasFound { get; set; }
+        public List<Photo> SharedPhotosList { get; set; }
+        public int TotalSelectedSharedPictures { get; set; }
 
         #endregion Class Members
 
@@ -27,7 +27,7 @@ namespace FeaturesLogic
         #endregion constructor
 
         #region Public Methods
-        public void ImportSharedPhotos(User i_LoggedInUser, User i_Friend)  
+        public void ImportSharedPhotos(User i_LoggedInUser, User i_Friend)
         {
             SharedPhotosList = new List<Photo>();
 
@@ -71,7 +71,7 @@ namespace FeaturesLogic
             foreach (Photo photo in i_Album.Photos)
             {
                 if (this.isSharedPhoto(i_LoggedInUser, i_Friend, photo))
-                {                   
+                {
                     photos.Add(photo);
                 }
             }
@@ -91,21 +91,21 @@ namespace FeaturesLogic
 
             return true;  // DOR !!!
 
-            bool isTag = false;
+            //bool isTag = false;
 
-            foreach (PhotoTag tag in i_Photo.Tags)
-            {
-                // We assume that we have the right Permissions
-                if (tag.User.Equals(i_User))
-                {
-                    isTag = !isTag;
-                    break;
-                }
-            }
+            //foreach (PhotoTag tag in i_Photo.Tags)
+            //{
+            //    // We assume that we have the right Permissions
+            //    if (tag.User.Equals(i_User))
+            //    {
+            //        isTag = !isTag;
+            //        break;
+            //    }
+            //}
 
-            return isTag;
+            //return isTag;
         }
-    
+
         #endregion Private Methods
     }
 }

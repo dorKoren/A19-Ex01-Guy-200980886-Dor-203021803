@@ -75,7 +75,7 @@ namespace DesktopFacebook
             // 
             this.buttonLogin.BackColor = System.Drawing.SystemColors.Control;
             this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.buttonLogin.Location = new System.Drawing.Point(26, 299);
+            this.buttonLogin.Location = new System.Drawing.Point(25, 323);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(205, 42);
             this.buttonLogin.TabIndex = 0;
@@ -193,10 +193,6 @@ namespace DesktopFacebook
             this.friendPictureBox.TabIndex = 21;
             this.friendPictureBox.TabStop = false;
             // 
-            // sharedPhotosLogicBindingSource
-            // 
-            this.sharedPhotosLogicBindingSource.DataSource = typeof(FeaturesLogic.SharedPhotosLogic);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -301,7 +297,7 @@ namespace DesktopFacebook
             // 
             // buttonLogout
             // 
-            this.buttonLogout.Location = new System.Drawing.Point(26, 356);
+            this.buttonLogout.Location = new System.Drawing.Point(26, 386);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.buttonLogout.Size = new System.Drawing.Size(204, 42);

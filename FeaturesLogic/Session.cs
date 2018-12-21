@@ -6,9 +6,9 @@ namespace FeaturesLogic
     public class Session
     {
         #region Class Members
-        public User        LoggedInUser     { get; set; }
-        public LoginResult LoginResult      { get; set; }
-        public bool        IsSessionSuccess { get; set; }
+        public User LoggedInUser { get; set; }
+        public LoginResult LoginResult { get; set; }
+        public bool IsSessionSuccess { get; set; }
         #endregion Class Members
 
         #region Constructor
