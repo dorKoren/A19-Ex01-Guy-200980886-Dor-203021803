@@ -59,6 +59,10 @@ namespace DesktopFacebook
                 fetchUserInfo();
                 fetchFeaturesInfo();
             }
+            else
+            {
+                m_Memory = Memory.CreateNewMemory();
+            }
         }
 
         #endregion Constructor

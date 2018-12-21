@@ -38,7 +38,7 @@ namespace FeaturesLogic
         /// <returns></returns>
         public static Memory LoadFromFile()
         {
-            Memory memory;
+            Memory memory = null;
             if (k_Path != null && k_Path.Length > 0)
             {
                 Loader loader = new Loader(k_Path);
@@ -46,11 +46,16 @@ namespace FeaturesLogic
                 memory = loader.InfoStream;
                 // loader.Close();
             }
-            else
-            {
-                memory = new Memory();
-            }
             return memory;
+        }
+
+        /// <summary>
+        /// This method returns the last memory saved, or a new memory if this is first call.
+        /// </summary>
+        /// <returns></returns>
+        public static Memory CreateNewMemory()
+        {
+            return new Memory();
         }
 
         public void SaveToFile()
