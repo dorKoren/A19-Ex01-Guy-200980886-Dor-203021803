@@ -40,8 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BirthdayDictionary.cs" />
-    <Compile Include="BirthdayWishLogic.cs" />
     <Compile Include="BaseThread.cs" />
+    <Compile Include="BirthdayWishLogic.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Saver.cs" />
     <Compile Include="Memory.cs" />

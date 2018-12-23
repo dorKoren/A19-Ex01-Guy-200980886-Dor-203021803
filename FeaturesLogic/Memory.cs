@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Xml.Serialization;
-using FacebookWrapper.ObjectModel;
+﻿using FacebookWrapper.ObjectModel;
 
 namespace FeaturesLogic
 {

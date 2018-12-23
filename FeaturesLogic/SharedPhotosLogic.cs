@@ -14,8 +14,8 @@ namespace FeaturesLogic
         public bool FriendWasFound { get; set; }
         public List<Photo> SharedPhotosList { get; set; }
         public int TotalSelectedSharedPictures { get; set; }
-
         #endregion Class Members
+
 
         #region constructor
         public SharedPhotosLogic()
@@ -23,14 +23,15 @@ namespace FeaturesLogic
             Friend = null;
             FriendWasFound = !r_WasFound;
             TotalSelectedSharedPictures = 0;
+            SharedPhotosList = new List<Photo>();
         }
         #endregion constructor
 
         #region Public Methods
         public void ImportSharedPhotos(User i_LoggedInUser, User i_Friend)
         {
-            SharedPhotosList = new List<Photo>();
 
+            SharedPhotosList = new List<Photo>();
 
             foreach (Album album in i_Friend.Albums)
             {
@@ -49,7 +50,6 @@ namespace FeaturesLogic
         public void FindFriend(string i_FirstName, string i_LastName, User i_LoggedInUser)
         {
             TotalSelectedSharedPictures = 0;
-
             foreach (User user in i_LoggedInUser.Friends)
             {
                 if (i_FirstName.Equals(user.FirstName, StringComparison.OrdinalIgnoreCase) &&
@@ -60,6 +60,8 @@ namespace FeaturesLogic
                     break;
                 }
             }
+
+            TotalSelectedSharedPictures = SharedPhotosList.Count;
         }
         #endregion Public Methods
 
@@ -75,9 +77,6 @@ namespace FeaturesLogic
                     photos.Add(photo);
                 }
             }
-
-            TotalSelectedSharedPictures = photos.Count;
-
             return photos;
         }
 
@@ -105,7 +104,6 @@ namespace FeaturesLogic
 
             //return isTag;
         }
-
         #endregion Private Methods
     }
 }

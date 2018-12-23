@@ -8,14 +8,14 @@ namespace FeaturesLogic
     {
         #region Class Members
         public BirthdayDictionary BirthdayDictionary { get; set; }
-        public int                CurrentDayOfYear   { get;      }
+        public int CurrentDayOfYear { get; }
         #endregion Class Members
 
         #region Constructor
         public BirthdayWishLogic()
         {
             BirthdayDictionary = BirthdayDictionary.Instance;
-            CurrentDayOfYear   = DateTime.Now.DayOfYear - 1;
+            CurrentDayOfYear = DateTime.Now.DayOfYear - 1;
         }
         #endregion Constructor
 

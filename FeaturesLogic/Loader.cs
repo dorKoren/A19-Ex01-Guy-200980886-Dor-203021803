@@ -1,30 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Xml.Serialization;
 
 namespace FeaturesLogic
 {
     internal class Loader : BaseThread
     {
+        #region class members
         private string k_Path; // "C:\\Users\\dorko\\Desktop";
         internal Memory InfoStream { get; private set; }
+        #endregion class members
 
+        #region constructor
         public Loader(string i_Path)
         {
             k_Path = i_Path;
         }
+        #endregion constructor
 
+        #region public methhods
         public override void RunThread()
         {
             InfoStream = loadFromFile();
         }
+        #endregion public methhods
 
         #region Private Methods
-
         private Memory loadFromFile()
         {
             Memory obj = null;
@@ -37,7 +37,6 @@ namespace FeaturesLogic
 
             return obj;
         }
-
         #endregion Private Methods
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
@@ -11,26 +8,33 @@ namespace DesktopFacebook
 {
     public class SharedPhotosUI : IFetch
     {
-        #region Class Members
         private  readonly string         r_PhotosNotFound     = "Photos Not Found!";
         private  const string            k_Filter             = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg";
-        public   List<LazyPictureBox>    SharedLazyPictureBox   { get; }
         internal SharedPhotosLogic       SharedPhotosLogic      { get; }
-        #endregion Class Members
 
-        #region Class members
-
-
-        #region constructor
+       
         internal SharedPhotosUI()
         {
             SharedPhotosLogic    = new SharedPhotosLogic();
-            SharedLazyPictureBox = new List<LazyPictureBox>();
         }
-        #endregion constructor
 
 
-        internal void LoadSharedPhotosToFlowLayoutPanel(FlowLayoutPanel i_Panel, Button i_Button)
+        internal List<LazyPictureBox> ConvertPhotosToLazyPictureBoxes(List<Photo> i_Photos)
+        {
+            List<LazyPictureBox> list = new List<LazyPictureBox>();
+
+            foreach (Photo photo in i_Photos)
+            {
+                LazyPictureBox pic = LazyPictureBox.ConvertPhotoToLazyPicBox(photo);
+
+                list.Add(pic);
+            }
+
+            return list;
+        }
+
+
+        internal void LoadSharedPhotosToFlowLayoutPanel(FlowLayoutPanel i_Panel, List<LazyPictureBox> i_Pictures)
         {
             if (SharedPhotosLogic.SharedPhotosList.Count <= 0)
             {
@@ -41,27 +45,40 @@ namespace DesktopFacebook
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
-            {
-                convertPhotosToLazyPicBox(SharedPhotosLogic.SharedPhotosList);
-
-                i_Button.Enabled = true;
-
-                foreach (LazyPictureBox pic in SharedLazyPictureBox)
+            {             
+                foreach (LazyPictureBox pic in i_Pictures)
                 {
                     i_Panel.Controls.Add(pic);
                 }
             }
         }
+        
 
-        private void convertPhotosToLazyPicBox(List<Photo> i_Photos)
+        public void FetchInit(TabPage i_TabPageSharedPhotos)
         {
-            foreach (Photo photo in i_Photos)
+            foreach (Control control in i_TabPageSharedPhotos.Controls)
             {
-                SharedLazyPictureBox.Add(LazyPictureBox.ConvertPhotoToLazyPicBox(photo));
+                control.Visible = true;
+            }
+
+        }
+
+        public void FetchReset(TabPage i_TabPageSharedPhotos)
+        {
+
+            foreach (Control control in i_TabPageSharedPhotos.Controls)
+            {
+
+                if (control is PictureBox)
+                {
+                    (control as PictureBox).Image = Properties.Resources.initial_image_picture;
+                }
+
+                control.Visible = false;
             }
         }
 
-        internal static void DownLoadPhotos(List<LazyPictureBox> i_SharedPicBox)   
+        internal static void DownLoadPhotos(List<LazyPictureBox> i_SharedPicBox)
         {
             foreach (LazyPictureBox lazyPicBox in i_SharedPicBox)
             {
@@ -71,10 +88,7 @@ namespace DesktopFacebook
                 }
             }
         }
-
-        #endregion internal Static Methods
-
-        #region  private static methods   
+ 
         private static void downLoadPhoto(LazyPictureBox i_LazyPicBox)
         {
             SaveFileDialog file = new SaveFileDialog
@@ -105,31 +119,5 @@ namespace DesktopFacebook
                 }
             }
         }
-
-        public void FetchInit(TabPage i_TabPageSharedPhotos)
-        {
-            foreach (Control control in i_TabPageSharedPhotos.Controls)
-            {
-                control.Visible = true;
-            }
-
-        }
-
-        public void FetchReset(TabPage i_TabPageSharedPhotos)
-        {
-
-            foreach (Control control in i_TabPageSharedPhotos.Controls)
-            {
-
-                if (control is PictureBox)
-                {
-                    (control as PictureBox).Image = Properties.Resources.initial_image_picture;
-                }
-
-                control.Visible = false;
-            }
-        }
-
-        #endregion  Private Static Methods
     }
 }

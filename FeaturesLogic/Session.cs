@@ -6,9 +6,9 @@ namespace FeaturesLogic
     public class Session
     {
         #region Class Members
-        public User LoggedInUser { get; set; }
-        public LoginResult LoginResult { get; set; }
-        public bool IsSessionSuccess { get; set; }
+        public User          LoggedInUser     { get; set; }
+        public LoginResult   LoginResult      { get; set; }
+        public bool          IsSessionSuccess { get; set; }
         #endregion Class Members
 
         #region Constructor
@@ -30,7 +30,6 @@ namespace FeaturesLogic
         public void StartSession()
         {
             LoginResult = FacebookService.Login(
-                //"1450160541956417",
                 "2121776861417547",
                 //"friends_birthday",
                 "user_friends",

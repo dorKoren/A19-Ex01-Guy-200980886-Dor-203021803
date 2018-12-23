@@ -1,35 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading;
 
 namespace FeaturesLogic
 {
     abstract public class BaseThread
     {
-        private Thread infoStream;
+        #region class members
+        private Thread m_InfoStream;
+        #endregion class members
 
+        #region constructor
         protected BaseThread()
         {
-            infoStream = new Thread(new ThreadStart(this.RunThread));
+            m_InfoStream = new Thread(new ThreadStart(this.RunThread));
         }
+        #endregion constructor
 
         #region Properties
+        public void Start() => m_InfoStream.Start();
 
-        public void Start() => infoStream.Start();
+        public void Join()  =>  m_InfoStream.Join();
 
-        public void Join() => infoStream.Join();
-
-        public bool IsAlive => infoStream.IsAlive;
-
+        public bool IsAlive => m_InfoStream.IsAlive;
         #endregion Properties
 
         #region Abstract Methods
-
         public abstract void RunThread();
-
         #endregion Abstract Methods
     }
 }
