@@ -49,7 +49,7 @@ namespace FeaturesLogic
         }
 
         /// <summary>
-        /// This method returns the last memory saved, or a new memory if this is first call.
+        /// This method creates a new Memory object.
         /// </summary>
         /// <returns></returns>
         public static Memory CreateNewMemory()

@@ -7,13 +7,17 @@ using System.Threading.Tasks;
 
 namespace FeaturesLogic
 {
-    abstract public class BaseThread
+    public abstract class BaseThread
     {
-        private Thread infoStream;
+        #region Class Members
+
+        private Thread m_ExecutingThread;
+
+        #endregion Class Members
 
         protected BaseThread()
         {
-            infoStream = new Thread(new ThreadStart(this.RunThread));
+            m_ExecutingThread = new Thread(new ThreadStart(this.RunThread));
         }
 
         #region Properties
@@ -28,7 +32,7 @@ namespace FeaturesLogic
 
         #region Abstract Methods
 
-        public abstract void RunThread();
+        public abstract void Run();
 
         #endregion Abstract Methods
     }

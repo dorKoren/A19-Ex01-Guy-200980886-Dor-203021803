@@ -16,9 +16,10 @@ namespace FeaturesLogic
         internal MemoryLoader(string i_Path)
         {
             k_Path = i_Path;
+            Run();
         }
 
-        public override void RunThread()
+        public override void Run()
         {
             InfoStream = loadFromFile();
         }

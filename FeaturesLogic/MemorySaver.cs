@@ -17,9 +17,10 @@ namespace FeaturesLogic
         {
             k_Path = i_Path;
             m_Memory = i_Memory;
+            Run();
         }
 
-        public override void RunThread()
+        public override void Run()
         {
             saveToFile();
         }
