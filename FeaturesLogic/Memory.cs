@@ -2,15 +2,15 @@
 
 namespace FeaturesLogic
 {
-    public class Memory 
+    public class Memory
     {
         #region Class Members
         private static string k_Path; // "C:\\Users\\dorko\\Desktop";
 
-        public User               LastUser                   { get; set; }
+        public User LastUser { get; set; }
         public BirthdayDictionary LastUserBirthdayDictionary { get; set; }
-        public bool               RememberUser               { get; set; }
-        public string             LastAccessToken            { get; set; }
+        public bool RememberUser { get; set; }
+        public string LastAccessToken { get; set; }
 
         #endregion Class Members
 
@@ -22,8 +22,8 @@ namespace FeaturesLogic
             {
                 k_Path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
             }
-            RememberUser               = false;
-            LastAccessToken            = null;
+            RememberUser = false;
+            LastAccessToken = null;
             LastUserBirthdayDictionary = null;
         }
         #endregion Constructor

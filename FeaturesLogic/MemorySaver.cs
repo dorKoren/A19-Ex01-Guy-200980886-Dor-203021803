@@ -17,11 +17,14 @@ namespace FeaturesLogic
         }
         #endregion constructor
 
+        #region Public Methods
+
         public override void Run()
         {
             saveToFile();
         }
-        #endregion public methods
+        
+        #endregion Public Methods
 
         #region Private Methods
 

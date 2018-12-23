@@ -16,11 +16,13 @@ namespace FeaturesLogic
         }
         #endregion constructor
 
+        #region Public Methods
+
         public override void Run()
         {
             InfoStream = loadFromFile();
         }
-        #endregion public methhods
+        #endregion Public Methods
 
         #region Private Methods
         private Memory loadFromFile()

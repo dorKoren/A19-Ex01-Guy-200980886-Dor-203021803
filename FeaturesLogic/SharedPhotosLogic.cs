@@ -16,7 +16,6 @@ namespace FeaturesLogic
         public int TotalSelectedSharedPictures { get; set; }
         #endregion Class Members
 
-
         #region constructor
         public SharedPhotosLogic()
         {

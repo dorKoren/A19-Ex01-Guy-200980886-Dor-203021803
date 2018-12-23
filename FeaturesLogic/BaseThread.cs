@@ -13,16 +13,16 @@ namespace FeaturesLogic
         #region constructor
         protected BaseThread()
         {
-            m_ExecutingThread = new Thread(new ThreadStart(this.RunThread));
+            m_ExecutingThread = new Thread(new ThreadStart(this.Run));
         }
         #endregion constructor
 
         #region Properties
-        public void Start() => m_InfoStream.Start();
+        public void Start() => m_ExecutingThread.Start();
 
-        public void Join()  =>  m_InfoStream.Join();
+        public void Join() => m_ExecutingThread.Join();
 
-        public bool IsAlive => m_InfoStream.IsAlive;
+        public bool IsAlive => m_ExecutingThread.IsAlive;
         #endregion Properties
 
         #region Abstract Methods
