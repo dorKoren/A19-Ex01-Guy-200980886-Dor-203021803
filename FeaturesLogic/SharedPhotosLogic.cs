@@ -8,7 +8,7 @@ namespace FeaturesLogic
     {
         #region Class Members
         private readonly bool r_WasFound = true;
-        private readonly int r_MaxNumOfImages = 10;
+        private readonly int r_MaxNumOfImages = 3;
 
         public User Friend { get; set; }
         public bool FriendWasFound { get; set; }

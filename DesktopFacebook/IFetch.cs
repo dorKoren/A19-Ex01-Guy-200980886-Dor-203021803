@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-
-using System.Windows.Forms;
-using FacebookWrapper.ObjectModel;
+﻿using System.Windows.Forms;
 
 namespace DesktopFacebook
 {

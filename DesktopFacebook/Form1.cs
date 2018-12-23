@@ -82,10 +82,6 @@ namespace DesktopFacebook
         #endregion Protected Override Methods
 
         #region Private Methods
-
-
-        #region Fetch Methods
-
         private void fetchUserInfo()
         {
             bool   isVisible    = true;
@@ -111,9 +107,7 @@ namespace DesktopFacebook
             m_BirthdayWishUI.UpdateCheckedListBoxWishes(checkedListBoxWishes, textBoxWish, buttonSendBirthdayWish);
         }
 
-        #endregion Fetch Methods
 
-        #region Event Handler Click Methods
         private void buttonLogin_Click(object sender, EventArgs e)  
 
         {
@@ -179,7 +173,6 @@ namespace DesktopFacebook
                 m_SharedPhotosUI.LoadSharedPhotosToFlowLayoutPanel(sharedPhotosFlowLayoutPanel, SharedPicBox);
 
                 sharedPhotosLogicBindingSource.DataSource    = m_SharedPhotosUI.SharedPhotosLogic;
-               // sharedLazyPictureBoxBindingSource.DataSource = m_SharedPhotosUI.SharedLazyPictureBox;
 
             }
             else
@@ -212,7 +205,7 @@ namespace DesktopFacebook
                     m_SharedPhotosUI.SharedPhotosLogic.TotalSelectedSharedPictures -= 1;
                 }
 
-                totalSelectedSharedPicturesLabel.Text =
+                totalSelectedSharedPicturesLabel1.Text =
                     m_SharedPhotosUI.SharedPhotosLogic.TotalSelectedSharedPictures.ToString();
             }
         }
@@ -241,9 +234,7 @@ namespace DesktopFacebook
         {
             textBoxLastName.Text = "";
         }
-        #endregion Event Handler Click Methods
 
-        #region Reset Methods
         private void resetDesktop()
         {
             bool isVisible = true;
@@ -257,87 +248,6 @@ namespace DesktopFacebook
             checkBoxRememberUser.Visible = !isVisible;
             pictureBoxUser.Image = initial_image_picture;
         }
-
-
-        #endregion Reset Method
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkedListBoxWishes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxRememberUser_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBoxUser_Click(object sender, EventArgs e)
-        {
-
-        }
-     
-
         #endregion Private Methods
-
-
-        private void tabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void totalSelectedSharedPicturesLabel3_Click(object sender, EventArgs e)
-        {
-
-        }
-        
-        private void sharedPhotosListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-                
-        }
-
-        private void friendPictureBox_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void totalSelectedSharedPicturesLabel4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void sharedPhotosFlowLayoutPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void totalSelectedSharedPicturesLabel2_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
