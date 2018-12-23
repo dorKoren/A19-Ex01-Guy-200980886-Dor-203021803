@@ -41,10 +41,9 @@ namespace FeaturesLogic
             Memory memory = null;
             if (k_Path != null && k_Path.Length > 0)
             {
-                Loader loader = new Loader(k_Path);
-                loader.RunThread();
+                MemoryLoader loader = new MemoryLoader(k_Path);
+                // loader.RunThread();
                 memory = loader.InfoStream;
-                // loader.Close();
             }
             return memory;
         }
@@ -60,9 +59,8 @@ namespace FeaturesLogic
 
         public void SaveToFile()
         {
-            Saver saver = new Saver(k_Path);
-            saver.RunThread();
-            // saver.Close();
+            MemorySaver saver = new MemorySaver(k_Path, this);
+            // saver.RunThread();
         }
 
         #endregion Private Methods

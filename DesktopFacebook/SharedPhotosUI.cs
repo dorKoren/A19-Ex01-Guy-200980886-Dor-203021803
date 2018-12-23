@@ -53,6 +53,31 @@ namespace DesktopFacebook
             }
         }
 
+
+        public void FetchInit(TabPage i_TabPageSharedPhotos)
+        {
+            foreach (Control control in i_TabPageSharedPhotos.Controls)
+            {
+                control.Visible = true;
+            }
+
+        }
+
+        public void FetchReset(TabPage i_TabPageSharedPhotos)
+        {
+
+            foreach (Control control in i_TabPageSharedPhotos.Controls)
+            {
+
+                if (control is PictureBox)
+                {
+                    (control as PictureBox).Image = Properties.Resources.initial_image_picture;
+                }
+
+                control.Visible = false;
+            }
+        }
+
         private void convertPhotosToLazyPicBox(List<Photo> i_Photos)
         {
             foreach (Photo photo in i_Photos)
@@ -106,29 +131,6 @@ namespace DesktopFacebook
             }
         }
 
-        public void FetchInit(TabPage i_TabPageSharedPhotos)
-        {
-            foreach (Control control in i_TabPageSharedPhotos.Controls)
-            {
-                control.Visible = true;
-            }
-
-        }
-
-        public void FetchReset(TabPage i_TabPageSharedPhotos)
-        {
-
-            foreach (Control control in i_TabPageSharedPhotos.Controls)
-            {
-
-                if (control is PictureBox)
-                {
-                    (control as PictureBox).Image = Properties.Resources.initial_image_picture;
-                }
-
-                control.Visible = false;
-            }
-        }
 
         #endregion  Private Static Methods
     }

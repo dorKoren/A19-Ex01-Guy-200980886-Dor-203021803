@@ -42,8 +42,8 @@
     <Compile Include="BirthdayDictionary.cs" />
     <Compile Include="BirthdayWishLogic.cs" />
     <Compile Include="BaseThread.cs" />
-    <Compile Include="Loader.cs" />
-    <Compile Include="Saver.cs" />
+    <Compile Include="MemoryLoader.cs" />
+    <Compile Include="MemorySaver.cs" />
     <Compile Include="Memory.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SharedPhotosLogic.cs" />

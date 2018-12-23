@@ -8,29 +8,34 @@ using System.Xml.Serialization;
 
 namespace FeaturesLogic
 {
-    internal class Saver : BaseThread
+    internal class MemoryLoader : BaseThread
     {
-        private string k_Path; // = "C:\\Users\\dorko\\Desktop";
+        private string k_Path; // "C:\\Users\\dorko\\Desktop";
+        internal Memory InfoStream { get; private set; } 
 
-        public Saver(string i_Path)
+        internal MemoryLoader(string i_Path)
         {
             k_Path = i_Path;
         }
 
         public override void RunThread()
         {
-            saveToFile();
+            InfoStream = loadFromFile();
         }
 
         #region Private Methods
 
-        private void saveToFile()
+        private Memory loadFromFile()
         {
+            Memory obj = null;
+
             using (Stream stream = new FileStream(k_Path, FileMode.Truncate))
             {
-                XmlSerializer serializer = new XmlSerializer(this.GetType());
-                serializer.Serialize(stream, this);
+                XmlSerializer serializer = new XmlSerializer(typeof(Memory));
+                obj = serializer.Deserialize(stream) as Memory;
             }
+
+            return obj;
         }
 
         #endregion Private Methods

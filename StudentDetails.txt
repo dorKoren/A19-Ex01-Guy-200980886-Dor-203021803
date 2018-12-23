@@ -1,0 +1,14 @@
+==========================Exercise Checking Report==========================
+Exercise No...........: 2
+First Student Details.: 200980886 - Guy Balmas
+Second Student Details: 203021803 - Dor Koren
+Delivery Date.........: 23 - December - 2018
+Delivered In Delay....: No
+Delay Reason..........:  
+Comments..............: 
+Implemented 2 features:
+1. Wish happy birthday to your friends - generates a happy birthday wish for selected friends.
+2. Shared photos import - search for a friend and import all of your shared photos together.
+As to asynchronous programing - we implemented Saver and Loader classes, 
+								so that each instance would run in a new thread. 
+=======================End Exercise Checking Report=========================
