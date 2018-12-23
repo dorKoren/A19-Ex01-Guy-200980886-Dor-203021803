@@ -3,21 +3,21 @@ using System.Xml.Serialization;
 
 namespace FeaturesLogic
 {
-    internal class Saver : BaseThread
+    internal class MemorySaver : BaseThread
     {
         #region class members
         private string k_Path; // = "C:\\Users\\dorko\\Desktop";
-        #endregion clas members
+        private Memory m_Memory = null;
 
-        #region constructor
-        public Saver(string i_Path)
+        public MemorySaver(string i_Path, Memory i_Memory)
         {
             k_Path = i_Path;
+            m_Memory = i_Memory;
+            Run();
         }
         #endregion constructor
 
-        #region public methods
-        public override void RunThread()
+        public override void Run()
         {
             saveToFile();
         }
@@ -29,8 +29,8 @@ namespace FeaturesLogic
         {
             using (Stream stream = new FileStream(k_Path, FileMode.Truncate))
             {
-                XmlSerializer serializer = new XmlSerializer(this.GetType());
-                serializer.Serialize(stream, this);
+                XmlSerializer serializer = new XmlSerializer(m_Memory.GetType());
+                serializer.Serialize(stream, m_Memory);
             }
         }
 

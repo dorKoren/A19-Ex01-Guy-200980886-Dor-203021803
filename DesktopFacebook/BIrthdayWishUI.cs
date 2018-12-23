@@ -56,7 +56,7 @@ namespace DesktopFacebook
         internal void UpdateCheckedListBoxWishes(
             CheckedListBox i_CheckedListBox, TextBox i_TextBox, Button i_Button)
         {
-            int currentDay = /*m_BirthdayWish.CurrentDayOfYear;*/ 191;      // DOR delete!
+            int currentDay = BirthdayWishLogic.CurrentDayOfYear;      
             bool enabled = true;
 
             BirthdayNode curNode = BirthdayWishLogic.BirthdayDictionary.BirthdayFriends[currentDay];

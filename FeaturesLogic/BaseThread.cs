@@ -2,16 +2,18 @@
 
 namespace FeaturesLogic
 {
-    abstract public class BaseThread
+    public abstract class BaseThread
     {
-        #region class members
-        private Thread m_InfoStream;
-        #endregion class members
+        #region Class Members
+
+        private Thread m_ExecutingThread;
+
+        #endregion Class Members
 
         #region constructor
         protected BaseThread()
         {
-            m_InfoStream = new Thread(new ThreadStart(this.RunThread));
+            m_ExecutingThread = new Thread(new ThreadStart(this.RunThread));
         }
         #endregion constructor
 
@@ -24,7 +26,9 @@ namespace FeaturesLogic
         #endregion Properties
 
         #region Abstract Methods
-        public abstract void RunThread();
+
+        public abstract void Run();
+
         #endregion Abstract Methods
     }
 }

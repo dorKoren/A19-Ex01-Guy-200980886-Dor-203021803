@@ -75,8 +75,8 @@ namespace DesktopFacebook
                 m_Memory.LastAccessToken = m_Memory.RememberUser ?
                     m_Session.LoginResult.AccessToken : null;
 
-                /* There is a problem to save 'Facebook data' to XML file */
-                //m_Memory.SaveToFile();  
+                /* There is a problem to save 'Memory' to XML file */
+                m_Memory.SaveToFile();  
             }
         }
         #endregion Protected Override Methods

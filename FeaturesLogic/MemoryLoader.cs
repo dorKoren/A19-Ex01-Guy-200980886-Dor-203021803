@@ -3,22 +3,20 @@ using System.Xml.Serialization;
 
 namespace FeaturesLogic
 {
-    internal class Loader : BaseThread
+    internal class MemoryLoader : BaseThread
     {
         #region class members
         private string k_Path; // "C:\\Users\\dorko\\Desktop";
-        internal Memory InfoStream { get; private set; }
-        #endregion class members
+        internal Memory InfoStream { get; private set; } 
 
-        #region constructor
-        public Loader(string i_Path)
+        internal MemoryLoader(string i_Path)
         {
             k_Path = i_Path;
+            Run();
         }
         #endregion constructor
 
-        #region public methhods
-        public override void RunThread()
+        public override void Run()
         {
             InfoStream = loadFromFile();
         }
