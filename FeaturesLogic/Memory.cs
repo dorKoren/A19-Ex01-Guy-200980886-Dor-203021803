@@ -33,7 +33,7 @@ namespace FeaturesLogic
         #region Public Methods
 
         /// <summary>
-        /// This method returns the last memory saved, or a new memory if this is first call.
+        /// This method returns the last memory saved, if any.
         /// </summary>
         /// <returns></returns>
         public static Memory LoadFromFile()
