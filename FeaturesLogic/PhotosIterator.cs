@@ -47,6 +47,11 @@ namespace FeaturesLogic
             }        
         }
 
+        public bool isEmpty()
+        {
+            return (m_Count <= 0);
+        }
+
         public void Dispose()
         {
             // TODO: Impliment
@@ -54,7 +59,15 @@ namespace FeaturesLogic
 
         public bool MoveNext()
         {
-            m_CurrentIndex++;
+            bool wasMoved = false;
+
+            if(m_CurrentIndex < m_Count - 1)
+            {
+                wasMoved = !wasMoved;
+                m_CurrentIndex++;
+            }
+            return wasMoved;
+            
         }
 
         public void Reset()

@@ -22,7 +22,7 @@ namespace FeaturesLogic
             Friend = null;
             FriendWasFound = !r_WasFound;
             TotalSelectedSharedPictures = 0;
-            SharedPhotosList = new List<Photo>();
+            m_SharedPhotosList = new List<Photo>();
         }
         #endregion constructor
 
@@ -30,20 +30,20 @@ namespace FeaturesLogic
         public void ImportSharedPhotos(User i_LoggedInUser, User i_Friend)
         {
 
-            SharedPhotosList = new List<Photo>();
+            m_SharedPhotosList = new List<Photo>();
 
             foreach (Album album in i_Friend.Albums)
             {
-                SharedPhotosList.AddRange(getSharedPhotos(i_LoggedInUser, i_Friend, album));
+                m_SharedPhotosList.AddRange(getSharedPhotos(i_LoggedInUser, i_Friend, album));
 
                 // Pre-Set max number of images to load
-                if (SharedPhotosList.Count > r_MaxNumOfImages)
+                if (m_SharedPhotosList.Count > r_MaxNumOfImages)
                 {
                     break;
                 }
             }
 
-            TotalSelectedSharedPictures = SharedPhotosList.Count;
+            TotalSelectedSharedPictures = m_SharedPhotosList.Count;
         }
 
         public void FindFriend(string i_FirstName, string i_LastName, User i_LoggedInUser)
@@ -60,10 +60,10 @@ namespace FeaturesLogic
                 }
             }
 
-            TotalSelectedSharedPictures = SharedPhotosList.Count;
+            TotalSelectedSharedPictures = m_SharedPhotosList.Count;
         }
 
-        public PhotosIterator GetPhotosIterator()
+        public IEnumerator<Photo> GetPhotosIterator()
         {
             return new SharedPhotosAlbum(m_SharedPhotosList).GetEnumerator();
         }

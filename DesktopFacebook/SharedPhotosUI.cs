@@ -11,7 +11,7 @@ namespace DesktopFacebook
         private  readonly string         r_PhotosNotFound     = "Photos Not Found!";
         private  const string            k_Filter             = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg";
         internal SharedPhotosLogic       SharedPhotosLogic      { get; }
-
+        internal IEnumerator<Photo>      m_PhotosIterator     = null; 
        
         internal SharedPhotosUI()
         {
@@ -19,14 +19,14 @@ namespace DesktopFacebook
         }
 
 
-        internal List<LazyPictureBox> ConvertPhotosToLazyPictureBoxes(List<Photo> i_Photos)
+        internal List<LazyPictureBox> ConvertPhotosToLazyPictureBoxes()
         {
             List<LazyPictureBox> list = new List<LazyPictureBox>();
+            m_PhotosIterator = SharedPhotosLogic.GetPhotosIterator();
 
-            foreach (Photo photo in i_Photos)
+            while(m_PhotosIterator.MoveNext())
             {
-                LazyPictureBox pic = LazyPictureBox.ConvertPhotoToLazyPicBox(photo);
-
+                LazyPictureBox pic = LazyPictureBox.ConvertPhotoToLazyPicBox(m_PhotosIterator.Current);
                 list.Add(pic);
             }
 
@@ -36,7 +36,9 @@ namespace DesktopFacebook
 
         internal void LoadSharedPhotosToFlowLayoutPanel(FlowLayoutPanel i_Panel, List<LazyPictureBox> i_Pictures)
         {
-            if (SharedPhotosLogic.SharedPhotosList.Count <= 0)
+            PhotosIterator itr = m_PhotosIterator as FeaturesLogic.PhotosIterator;
+
+            if (m_PhotosIterator != null && itr.isEmpty())
             {
                 string message = string.Format(@"No photos of You and {0} were found",
                     SharedPhotosLogic.Friend.Name);

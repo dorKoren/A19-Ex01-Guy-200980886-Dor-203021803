@@ -157,9 +157,7 @@ namespace DesktopFacebook
 
                 sharedPhotosLogic.ImportSharedPhotos(loggedInUser, friend);
 
-                List<Photo> photosList = m_SharedPhotosUI.SharedPhotosLogic.SharedPhotosList;
-
-                SharedPicBox = m_SharedPhotosUI.ConvertPhotosToLazyPictureBoxes(photosList);
+                SharedPicBox = m_SharedPhotosUI.ConvertPhotosToLazyPictureBoxes();
 
 
                 foreach (LazyPictureBox pic in SharedPicBox)
