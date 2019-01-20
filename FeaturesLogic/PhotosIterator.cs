@@ -36,21 +36,30 @@ namespace FeaturesLogic
             }
         }
 
-        object IEnumerator.Current => throw new NotImplementedException();
+        object IEnumerator.Current {
+            get
+            {
+                if (m_Count > 0)
+                {
+                    return m_PhotosAlbum.m_ShardPhotos[m_CurrentIndex];
+                }
+                return null;
+            }        
+        }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            // TODO: Impliment
         }
 
         public bool MoveNext()
         {
-            throw new NotImplementedException();
+            m_CurrentIndex++;
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            m_CurrentIndex = 0;
         }
     }
 }

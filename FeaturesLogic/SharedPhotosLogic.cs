@@ -12,7 +12,7 @@ namespace FeaturesLogic
 
         public User           Friend                       { get; set; }
         public bool           FriendWasFound               { get; set; }
-        public List<Photo>    SharedPhotosList             { get; set; }
+        private List<Photo>   m_SharedPhotosList             { get; set; }
         public int            TotalSelectedSharedPictures  { get; set; }
         #endregion Class Members
 
@@ -61,6 +61,11 @@ namespace FeaturesLogic
             }
 
             TotalSelectedSharedPictures = SharedPhotosList.Count;
+        }
+
+        public PhotosIterator GetPhotosIterator()
+        {
+            return new SharedPhotosAlbum(m_SharedPhotosList).GetEnumerator();
         }
         #endregion Public Methods
 
