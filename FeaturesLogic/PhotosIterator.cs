@@ -10,7 +10,6 @@ namespace FeaturesLogic
 {
     public class PhotosIterator : IEnumerator<Photo>
     {
-
         private SharedPhotosAlbum m_PhotosAlbum;
         private int m_CurrentIndex = -1;
         private int m_Count = -1;
@@ -20,7 +19,7 @@ namespace FeaturesLogic
         public PhotosIterator(SharedPhotosAlbum i_Album)
         {
             m_PhotosAlbum = i_Album;
-            m_Count = m_PhotosAlbum.Count();
+            m_Count = m_PhotosAlbum.m_ShardPhotos.Count;
         }
 
         #endregion Constructor
