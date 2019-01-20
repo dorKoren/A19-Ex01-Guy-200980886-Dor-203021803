@@ -49,8 +49,7 @@ namespace DesktopFacebook
                     control.Visible = false;
                 }
             }
-
-            BirthdayWishLogic = null;
+            // BirthdayWishLogic = null;
         }
         
         internal void UpdateCheckedListBoxWishes(

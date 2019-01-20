@@ -42,10 +42,12 @@
     <Compile Include="BaseThread.cs" />
     <Compile Include="BirthdayDictionary.cs" />
     <Compile Include="BirthdayWishLogic.cs" />
+    <Compile Include="ICommand.cs" />
     <Compile Include="Memory.cs" />
     <Compile Include="MemoryLoader.cs" />
     <Compile Include="MemorySaver.cs" />
     <Compile Include="PhotosIterator.cs" />
+    <Compile Include="ResetLogicsCommand.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SharedPhotosAlbum.cs" />
     <Compile Include="SharedPhotosLogic.cs" />

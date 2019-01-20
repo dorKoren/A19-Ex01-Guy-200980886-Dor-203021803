@@ -220,6 +220,7 @@ namespace DesktopFacebook
                 resetDesktop();
                 m_FetchMaker.FetchResetBirthdayWishUI(tabPageBirthday);
                 m_FetchMaker.FetchResetSharedPhotosUI(tabPageSharedPhotos);
+                m_FetchMaker.Reset();       // Resets the Birthday Logic and the Photos Logic
             }
         }
 
