@@ -45,7 +45,9 @@
     <Compile Include="Memory.cs" />
     <Compile Include="MemoryLoader.cs" />
     <Compile Include="MemorySaver.cs" />
+    <Compile Include="PhotosIterator.cs" />
     <Compile Include="Session.cs" />
+    <Compile Include="SharedPhotosAlbum.cs" />
     <Compile Include="SharedPhotosLogic.cs" />
     <Compile Include="UserBirthProxy.cs" />
   </ItemGroup>

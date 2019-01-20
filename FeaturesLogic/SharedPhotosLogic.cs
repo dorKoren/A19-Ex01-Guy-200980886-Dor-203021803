@@ -7,13 +7,13 @@ namespace FeaturesLogic
     public class SharedPhotosLogic
     {
         #region Class Members
-        private readonly bool r_WasFound = true;
-        private readonly int r_MaxNumOfImages = 3;
+        private readonly bool r_WasFound       = true;
+        private readonly int  r_MaxNumOfImages = 3;
 
-        public User Friend { get; set; }
-        public bool FriendWasFound { get; set; }
-        public List<Photo> SharedPhotosList { get; set; }
-        public int TotalSelectedSharedPictures { get; set; }
+        public User           Friend                       { get; set; }
+        public bool           FriendWasFound               { get; set; }
+        public List<Photo>    SharedPhotosList             { get; set; }
+        public int            TotalSelectedSharedPictures  { get; set; }
         #endregion Class Members
 
         #region constructor
