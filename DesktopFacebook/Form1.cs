@@ -28,7 +28,7 @@ namespace DesktopFacebook
         private BirthdayWishUI        m_BirthdayWishUI;
         private FetchMaker            m_FetchMaker;
 
-        public List<LazyPictureBox>  SharedPicBox { get; set; }   
+        public  List<LazyPictureBox>  SharedLazyPicturesBox { get; set; }   
 
         
         #endregion Class Members
@@ -138,7 +138,7 @@ namespace DesktopFacebook
         private void DownLoad_Click(object sender, EventArgs e)
         {
             //DownLoadPhotos(m_SharedPhotosUI.SharedLazyPictureBox);
-            DownLoadPhotos(SharedPicBox);
+            DownLoadPhotos(SharedLazyPicturesBox);
         }
 
      
@@ -159,20 +159,19 @@ namespace DesktopFacebook
 
                 List<Photo> photosList = m_SharedPhotosUI.SharedPhotosLogic.SharedPhotosList;
 
-                SharedPicBox = m_SharedPhotosUI.ConvertPhotosToLazyPictureBoxes(photosList);
+                SharedLazyPicturesBox = m_SharedPhotosUI.ConvertPhotosToLazyPictureBoxes(photosList);
 
 
-                foreach (LazyPictureBox pic in SharedPicBox)
+                foreach (LazyPictureBox pic in SharedLazyPicturesBox)
                 {
                     pic.LazyPicBoxClicked += lazyPictureBox_Clicked;
-
                 }
 
                 buttonDownload.Enabled = true;
 
-                m_SharedPhotosUI.LoadSharedPhotosToFlowLayoutPanel(sharedPhotosFlowLayoutPanel, SharedPicBox);
+                m_SharedPhotosUI.LoadSharedPhotosToFlowLayoutPanel(sharedPhotosFlowLayoutPanel, SharedLazyPicturesBox);
 
-                sharedPhotosLogicBindingSource.DataSource    = m_SharedPhotosUI.SharedPhotosLogic;
+                sharedPhotosLogicBindingSource.DataSource = m_SharedPhotosUI.SharedPhotosLogic;
 
             }
             else
@@ -188,15 +187,13 @@ namespace DesktopFacebook
             }
         }
 
-
-
         internal void lazyPictureBox_Clicked(object sender, EventArgs e)
         {
             if (sender != null)
             {
-                LazyPictureBox pic = sender as LazyPictureBox;
+                LazyPictureBox picture = sender as LazyPictureBox;
             
-                if (pic.WasSelected)
+                if (picture.WasSelected)
                 {
                     m_SharedPhotosUI.SharedPhotosLogic.TotalSelectedSharedPictures += 1;
                 }
@@ -209,7 +206,6 @@ namespace DesktopFacebook
                     m_SharedPhotosUI.SharedPhotosLogic.TotalSelectedSharedPictures.ToString();
             }
         }
-
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
@@ -249,5 +245,10 @@ namespace DesktopFacebook
             pictureBoxUser.Image = initial_image_picture;
         }
         #endregion Private Methods
+
+        private void sharedPhotosFlowLayoutPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

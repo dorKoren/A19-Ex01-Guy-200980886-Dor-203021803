@@ -9,7 +9,7 @@ namespace DesktopFacebook
     public class SharedPhotosUI : IFetch
     {
         private  readonly string         r_PhotosNotFound     = "Photos Not Found!";
-        private  const string            k_Filter             = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg";
+        private  const    string         k_Filter             = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg";
         internal SharedPhotosLogic       SharedPhotosLogic      { get; }
 
        
@@ -17,7 +17,6 @@ namespace DesktopFacebook
         {
             SharedPhotosLogic    = new SharedPhotosLogic();
         }
-
 
         internal List<LazyPictureBox> ConvertPhotosToLazyPictureBoxes(List<Photo> i_Photos)
         {
@@ -32,7 +31,6 @@ namespace DesktopFacebook
 
             return list;
         }
-
 
         internal void LoadSharedPhotosToFlowLayoutPanel(FlowLayoutPanel i_Panel, List<LazyPictureBox> i_Pictures)
         {
@@ -53,7 +51,6 @@ namespace DesktopFacebook
             }
         }
         
-
         public void FetchInit(TabPage i_TabPageSharedPhotos)
         {
             foreach (Control control in i_TabPageSharedPhotos.Controls)

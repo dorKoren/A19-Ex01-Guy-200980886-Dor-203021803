@@ -31,10 +31,9 @@ namespace DesktopFacebook
             URL = i_UrlToLoad;
         }
 
-
         public static LazyPictureBox ConvertPhotoToLazyPicBox(Photo i_Photo)
         {
-            LazyPictureBox lazyPicBox = new LazyPictureBox(); //DOR!!!
+            LazyPictureBox lazyPicBox = new LazyPictureBox(); 
 
             lazyPicBox.Load(i_Photo.PictureNormalURL);
             lazyPicBox.ImageLocation = i_Photo.PictureNormalURL;
@@ -65,19 +64,24 @@ namespace DesktopFacebook
                 deSelectPic(this);
             }
 
-            LazyPicBoxClicked?.Invoke(this, e);  //DOR!
+            notifyClickedObservers(e);
 
             base.OnClick(e);
         }
 
-        internal void deSelectPic(LazyPictureBox i_Picture)
+        private void notifyClickedObservers(EventArgs e)
+        {
+            LazyPicBoxClicked?.Invoke(this, e);
+        }
+
+        private void deSelectPic(LazyPictureBox i_Picture)
         {
             i_Picture.Height -= 20;
             i_Picture.Width  -= 20;
             i_Picture.WasSelected = false;
         }
 
-        internal void selectPic(LazyPictureBox i_Picture)
+        private void selectPic(LazyPictureBox i_Picture)
         {
             i_Picture.Height += 20;
             i_Picture.Width  += 20;
