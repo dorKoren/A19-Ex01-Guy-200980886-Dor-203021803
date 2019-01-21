@@ -10,11 +10,11 @@ namespace FeaturesLogic
 {
     public class SharedPhotosAlbum : IEnumerable<Photo>
     {
-        internal readonly List<Photo> m_ShardPhotos;
+        internal readonly List<Photo> r_ShardPhotos;
 
         public SharedPhotosAlbum(List<Photo> i_Photos)
         {
-            m_ShardPhotos = i_Photos;
+            r_ShardPhotos = i_Photos;
         }
 
         public IEnumerator<Photo> GetEnumerator()

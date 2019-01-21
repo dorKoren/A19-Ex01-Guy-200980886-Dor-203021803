@@ -11,7 +11,7 @@ namespace DesktopFacebook
         private  readonly string         r_PhotosNotFound     = "Photos Not Found!";
         private  const string            k_Filter             = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg";
         internal SharedPhotosLogic       SharedPhotosLogic      { get; }
-        internal IEnumerator<Photo>      m_PhotosIterator     = null; 
+        internal PhotosIterator      m_PhotosIterator     = null; 
        
         internal SharedPhotosUI()
         {
@@ -22,9 +22,10 @@ namespace DesktopFacebook
         internal List<LazyPictureBox> ConvertPhotosToLazyPictureBoxes()
         {
             List<LazyPictureBox> list = new List<LazyPictureBox>();
-            m_PhotosIterator = SharedPhotosLogic.GetPhotosIterator();
+            IEnumerator<Photo> itr = SharedPhotosLogic.GetPhotosIterator();
+            m_PhotosIterator = itr as PhotosIterator;
 
-            while(m_PhotosIterator.MoveNext())
+            while (m_PhotosIterator.MoveNext())
             {
                 LazyPictureBox pic = LazyPictureBox.ConvertPhotoToLazyPicBox(m_PhotosIterator.Current);
                 list.Add(pic);

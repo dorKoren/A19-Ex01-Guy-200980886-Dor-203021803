@@ -19,7 +19,7 @@ namespace FeaturesLogic
         public PhotosIterator(SharedPhotosAlbum i_Album)
         {
             m_PhotosAlbum = i_Album;
-            m_Count = m_PhotosAlbum.m_ShardPhotos.Count;
+            m_Count = m_PhotosAlbum.r_ShardPhotos.Count;
         }
 
         #endregion Constructor
@@ -29,7 +29,7 @@ namespace FeaturesLogic
             {
                 if (m_Count > 0)
                 {
-                    return m_PhotosAlbum.m_ShardPhotos[m_CurrentIndex];
+                    return m_PhotosAlbum.r_ShardPhotos[m_CurrentIndex];
                 }
                 return null;
             }
@@ -40,7 +40,7 @@ namespace FeaturesLogic
             {
                 if (m_Count > 0)
                 {
-                    return m_PhotosAlbum.m_ShardPhotos[m_CurrentIndex];
+                    return m_PhotosAlbum.r_ShardPhotos[m_CurrentIndex];
                 }
                 return null;
             }        
