@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-using FacebookWrapper.ObjectModel;
 using FeaturesLogic;
 
 namespace DesktopFacebook

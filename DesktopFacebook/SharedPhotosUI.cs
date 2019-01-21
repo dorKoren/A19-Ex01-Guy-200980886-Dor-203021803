@@ -9,7 +9,7 @@ namespace DesktopFacebook
     public class SharedPhotosUI : IFetch
     {
         private  readonly string         r_PhotosNotFound     = "Photos Not Found!";
-        private  const string            k_Filter             = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg";
+        private  const    string         k_Filter             = "Bmp(*.BMP;)|*.BMP;| Jpg(*Jpg)|*.jpg";
         internal SharedPhotosLogic       SharedPhotosLogic      { get; }
         internal PhotosIterator      m_PhotosIterator     = null; 
        
@@ -34,7 +34,6 @@ namespace DesktopFacebook
             return list;
         }
 
-
         internal void LoadSharedPhotosToFlowLayoutPanel(FlowLayoutPanel i_Panel, List<LazyPictureBox> i_Pictures)
         {
             PhotosIterator itr = m_PhotosIterator as FeaturesLogic.PhotosIterator;
@@ -56,7 +55,6 @@ namespace DesktopFacebook
             }
         }
         
-
         public void FetchInit(TabPage i_TabPageSharedPhotos)
         {
             foreach (Control control in i_TabPageSharedPhotos.Controls)
