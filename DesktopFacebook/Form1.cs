@@ -157,12 +157,10 @@ namespace DesktopFacebook
 
                 sharedPhotosLogic.ImportSharedPhotos(loggedInUser, friend);
 
-                List<Photo> photosList = m_SharedPhotosUI.SharedPhotosLogic.SharedPhotosList;
-
-                SharedLazyPicturesBox = m_SharedPhotosUI.ConvertPhotosToLazyPictureBoxes(photosList);
+                SharedPicBox = m_SharedPhotosUI.ConvertPhotosToLazyPictureBoxes();
 
 
-                foreach (LazyPictureBox pic in SharedLazyPicturesBox)
+                foreach (LazyPictureBox pic in SharedPicBox)
                 {
                     pic.LazyPicBoxClicked += lazyPictureBox_Clicked;
                 }
@@ -218,6 +216,7 @@ namespace DesktopFacebook
                 resetDesktop();
                 m_FetchMaker.FetchResetBirthdayWishUI(tabPageBirthday);
                 m_FetchMaker.FetchResetSharedPhotosUI(tabPageSharedPhotos);
+                m_FetchMaker.ResetLogics();       // Resets the Birthday Logic and the Photos Logic
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
+using FeaturesLogic;
 
 namespace DesktopFacebook
 {
@@ -8,10 +9,13 @@ namespace DesktopFacebook
         internal BirthdayWishUI BirthdayWishUI { get; }
         internal SharedPhotosUI SharedPhotosUI { get; }
 
-    internal FetchMaker(BirthdayWishUI i_BirthdayWishUI, SharedPhotosUI i_SharedPhotosUI)
+        internal ICommand ResetLogicsCommand;
+
+        internal FetchMaker(BirthdayWishUI i_BirthdayWishUI, SharedPhotosUI i_SharedPhotosUI)
         {
             BirthdayWishUI = i_BirthdayWishUI;
             SharedPhotosUI = i_SharedPhotosUI;
+            ResetLogicsCommand = new ResetLogicsCommand(BirthdayWishUI.BirthdayWishLogic , i_SharedPhotosUI.SharedPhotosLogic);
         }
 
         public void FetchInitBirthdayWishUI(TabPage i_TabPage)
@@ -32,5 +36,11 @@ namespace DesktopFacebook
         {
             SharedPhotosUI.FetchReset(i_TabPage);
         }
+
+        public void ResetLogics()
+        {
+            ResetLogicsCommand.Execute();
+        }
+
     }
 }
