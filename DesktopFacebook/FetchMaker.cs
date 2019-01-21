@@ -9,13 +9,13 @@ namespace DesktopFacebook
         internal BirthdayWishUI BirthdayWishUI { get; }
         internal SharedPhotosUI SharedPhotosUI { get; }
 
-        internal ICommand ResetLogics;
+        internal ICommand ResetLogicsCommand;
 
         internal FetchMaker(BirthdayWishUI i_BirthdayWishUI, SharedPhotosUI i_SharedPhotosUI)
         {
             BirthdayWishUI = i_BirthdayWishUI;
             SharedPhotosUI = i_SharedPhotosUI;
-            ResetLogics = new ResetLogicsCommand(BirthdayWishUI.BirthdayWishLogic , i_SharedPhotosUI.SharedPhotosLogic);
+            ResetLogicsCommand = new ResetLogicsCommand(BirthdayWishUI.BirthdayWishLogic , i_SharedPhotosUI.SharedPhotosLogic);
         }
 
         public void FetchInitBirthdayWishUI(TabPage i_TabPage)
@@ -37,9 +37,9 @@ namespace DesktopFacebook
             SharedPhotosUI.FetchReset(i_TabPage);
         }
 
-        public void Reset()
+        public void ResetLogics()
         {
-            ResetLogics.Execute();
+            ResetLogicsCommand.Execute();
         }
 
     }

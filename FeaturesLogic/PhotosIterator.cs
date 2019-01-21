@@ -75,14 +75,3 @@ namespace FeaturesLogic
         }
     }
 }
-/*
- private Country m_Collection;
-                private int m_CurrentIdx = -1;
-                private int m_Count = -1;
-
-                public BigCityNamesIterator(Country i_Collection)
-                {
-                    m_Collection = i_Collection;
-                    m_Count = m_Collection.m_Cities.Count;
-                }
- */
